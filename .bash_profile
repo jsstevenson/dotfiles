@@ -27,3 +27,6 @@ alias cd='combined_cd_ls'
 getpath() {
 	ls "`pwd`/$1"
 }
+
+# shortcut for local vim image (hopefully doesn't break anything)
+alias nvim='~/nvim.appimage'
