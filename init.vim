@@ -62,5 +62,5 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 22
 
-" CSE374 c editing
-" autocmd Filetype make setlocal expandtab shiftwidth=4 softtabstop=4
+" cse351vm specific things
+:tnoremap <Esc> <C-\><C-n>
