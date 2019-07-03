@@ -65,12 +65,11 @@ let g:netrw_winsize = 22
 " cse351vm specific things
 :tnoremap <Esc> <C-\><C-n>
 
-""" Making airline work
+""" Making airline work. see https://github.com/vim-airline/vim-airline/wiki/Dummies-Guide-to-the-status-bar-symbols-(Powerline-fonts)-on-Fedora,-Ubuntu-and-Windows
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
