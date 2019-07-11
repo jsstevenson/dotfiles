@@ -51,6 +51,9 @@ let g:ale_linters = {
                         \ 'python': ['flake8'],
                         \}
 let g:airline#extensions#ale#enabled = 1        " Enable ALE in Airline
+" https://github.com/w0rp/ale#5ix-how-can-i-navigate-between-errors-quickly
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " vim-slime (remember to prefix target pane with window #)
 let g:slime_target = "tmux"     " target tmux for REPL with vim-slime
