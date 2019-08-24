@@ -65,7 +65,8 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 22
 
-" cse351vm specific things
+""" cse351vm specific things
+
 :tnoremap <Esc> <C-\><C-n>
 
 """ Making airline work. see https://github.com/vim-airline/vim-airline/wiki/Dummies-Guide-to-the-status-bar-symbols-(Powerline-fonts)-on-Fedora,-Ubuntu-and-Windows
