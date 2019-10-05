@@ -1,3 +1,4 @@
+### Python
 # Setting PATH for Python 3.6
 # Fixing previous install which used PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
@@ -5,10 +6,12 @@ export PATH=$PATH:~/bin #add local scripts folder
 export PATH=$PATH:'~/../../Applications/Racket v7.1/bin' # add racket
 export PATH=$PATH:/Users/jamesstevenson/.gem/ruby/2.3.0/bin
 
-# git completion
+### Git
+# completion
 source ~/.git-completion.bash
 
-# grab git branch for prompt
+### Prompt
+# grab git branch
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -17,6 +20,7 @@ parse_git_branch() {
 export PS1="\W: \u @ \h\[\033\]\[[0;34m\]\$(parse_git_branch)\[\033[00m\] \$ "
 export PS2="> "
 
+### Defaults/aliases
 # Set default editor to NeoVIM
 export EDITOR=/usr/local/bin/nvim
 
@@ -46,8 +50,5 @@ getpath() {
 
 # tmuxinator https://github.com/tmuxinator/tmuxinator
 source ~/.bin/tmuxinator.bash
-
-# cse374 ssh
-alias uwssh='ssh jssteven@klaatu.cs.washington.edu'
 
 export PATH="$HOME/.cargo/bin:$PATH"
