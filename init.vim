@@ -9,6 +9,7 @@ Plug 'vim-airline/vim-airline-themes'   " https://github.com/vim-airline/vim-air
 
 " IDE-y things
 Plug 'w0rp/ale'                 " https://github.com/w0rp/ale
+Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http 
 
 " Racket
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
