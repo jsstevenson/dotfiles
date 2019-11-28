@@ -8,8 +8,10 @@ Plug 'vim-airline/vim-airline-themes'   " https://github.com/vim-airline/vim-air
 "Plug 'tpope/vim-obsession'      " Save sessions//not currently using
 
 " IDE-y things
-Plug 'w0rp/ale'                 " https://github.com/w0rp/ale
+Plug 'dense-analysis/ale'       "https://github.com/w0rp/ale
 Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http 
+Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
+Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
 
 " Racket
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
@@ -23,7 +25,10 @@ syntax enable                   " Enable syntax. https://stackoverflow.com/quest
 set number relativenumber	" Show line numbers
 set showmatch			" Show matching brackets
 set cc=80			" 80 character column border
+set cursorline                  " Draw horizontal line on cursor
+set lazyredraw                  " Lazy redraw; for better performance
 set background=dark             " Set for dark colorschemes
+let g:neosolarized_contrast = "high"    " set high contrast (default = normal)
 colorscheme NeoSolarized        " https://github.com/icymind/NeoSolarized
 let g:airline_theme='solarized' " https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/solarized.vim
 let g:airline_powerline_fonts = 1
@@ -36,7 +41,6 @@ set hlsearch			" Highlight search results
 set scrolloff=2                 " Scroll window down
 set shell=bash                  " Fix the shell to bash
 filetype plugin indent on       " Filetype behavior - should be on by default but (shrug emoji)
-syntax on                       "
 
 " Encoding
 set expandtab                   " spaces instead of tabs
@@ -50,6 +54,7 @@ set softtabstop=4
 " ALE
 let g:ale_linters = {
                         \ 'python': ['flake8'],
+                        \ 'javascript': ['eslint'],
                         \}
 let g:airline#extensions#ale#enabled = 1        " Enable ALE in Airline
 " https://github.com/w0rp/ale#5ix-how-can-i-navigate-between-errors-quickly
@@ -65,3 +70,6 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 22
+
+" config editing
+nnoremap <leader>sv :source $MYVIMRC<CR>
