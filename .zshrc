@@ -28,4 +28,6 @@ alias f='open -a Finder ./'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
 # combined cd and ls
-alias cd='cd'
+function cd {
+    builtin cd "$@" && ls
+}
