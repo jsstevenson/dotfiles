@@ -12,6 +12,7 @@ Plug 'dense-analysis/ale'       "https://github.com/w0rp/ale
 Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http 
 Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
+Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
 
 " Racket
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
@@ -32,6 +33,7 @@ let g:neosolarized_contrast = "high"    " set high contrast (default = normal)
 colorscheme NeoSolarized        " https://github.com/icymind/NeoSolarized
 let g:airline_theme='solarized' " https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/solarized.vim
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
 
 " Productivity
 set visualbell                  " errors flash screen instead of bell
