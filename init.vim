@@ -8,11 +8,16 @@ Plug 'vim-airline/vim-airline-themes'   " https://github.com/vim-airline/vim-air
 "Plug 'tpope/vim-obsession'      " Save sessions//not currently using
 
 " IDE-y things
-Plug 'dense-analysis/ale'       "https://github.com/w0rp/ale
-Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http 
+"Plug 'dense-analysis/ale'       "https://github.com/w0rp/ale
+Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http
 Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
 Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
+
+" coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
+
+
 
 " Racket
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
@@ -54,14 +59,14 @@ set shiftwidth=4
 set softtabstop=4
 
 " ALE
-let g:ale_linters = {
-                        \ 'python': ['flake8'],
-                        \ 'javascript': ['eslint'],
-                        \}
-let g:airline#extensions#ale#enabled = 1        " Enable ALE in Airline
-" https://github.com/w0rp/ale#5ix-how-can-i-navigate-between-errors-quickly
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" let g:ale_linters = {
+"                         \ 'python': ['flake8'],
+"                         \ 'javascript': ['eslint'],
+"                         \}
+" let g:airline#extensions#ale#enabled = 1        " Enable ALE in Airline
+" " https://github.com/w0rp/ale#5ix-how-can-i-navigate-between-errors-quickly
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " vim-slime (remember to prefix target pane with window #)
 let g:slime_target = "tmux"     " target tmux for REPL with vim-slime
