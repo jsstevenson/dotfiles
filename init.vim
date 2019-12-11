@@ -8,7 +8,6 @@ Plug 'vim-airline/vim-airline-themes'   " https://github.com/vim-airline/vim-air
 "Plug 'tpope/vim-obsession'      " Save sessions//not currently using
 
 " IDE-y things
-"Plug 'dense-analysis/ale'       "https://github.com/w0rp/ale
 Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http
 Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
@@ -64,16 +63,6 @@ set wildmode=longest,list	" Bash-like tab complete
 "set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-
-"""" ALE
-" let g:ale_linters = {
-"                         \ 'python': ['flake8'],
-"                         \ 'javascript': ['eslint'],
-"                         \}
-" let g:airline#extensions#ale#enabled = 1        " Enable ALE in Airline
-" " https://github.com/w0rp/ale#5ix-how-can-i-navigate-between-errors-quickly
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 """ coc.nvim
 " tab/shift-tab to navigate autocomplete
