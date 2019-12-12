@@ -71,8 +71,8 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 " navigate diagnostics
-nmap <silent> <c-j> <Plug>(coc-diagnostic-prev)
-nmap <silent> <c-k> <Plug>(coc-diagnostic-next)
+nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
+nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
