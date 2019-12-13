@@ -78,6 +78,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" Linting message highlight colors
+hi! CocWarningSign guifg=#b58900
+hi! CocErrorSign guifg=#cb4b16
 
 """" vim-slime (remember to prefix target pane with window #)
 let g:slime_target = "tmux"     " target tmux for REPL with vim-slime
