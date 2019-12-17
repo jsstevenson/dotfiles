@@ -20,6 +20,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/co
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
 Plug 'jpalardy/vim-slime'       " vim-slime
 Plug 'wlangstroth/vim-racket'   " vim-racket
+
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()                 " Initialize plugin system
 
 """ Visual
@@ -33,7 +37,7 @@ let g:airline_theme='solarized' " https://github.com/vim-airline/vim-airline-the
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
 
-"Layout
+" Layout
 set number relativenumber	" Show line numbers
 set showmatch			" Show matching brackets
 set cc=80			" 80 character column border
@@ -62,8 +66,6 @@ set softtabstop=4
 " tab/shift-tab to navigate autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" format on enter (TODO not working?)
-" inoremap <silent><expr> <c-space> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " recommended by readme
 set updatetime=300
 " don't give |ins-completion-menu| messages.
