@@ -16,6 +16,9 @@ PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
 
 export PS2="> "
 
+#### Git
+# branch autocomplete TODO
+
 ### Defaults/aliases
 # Set default editor to NeoVIM
 export EDITOR=/usr/local/bin/nvim
@@ -31,3 +34,12 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 function cd {
     builtin cd "$@" && ls
 }
+
+# fix weird public wifi hotspot stuff
+
+alias clean_net_config='sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist;
+sudo rm /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist;
+sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist;
+sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
+echo "now restarting....";
+sudo shutdown -r now'
