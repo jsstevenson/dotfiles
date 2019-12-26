@@ -1,0 +1,8 @@
+[user]
+	name = James Stevenson
+	email = james.sharpsteen@gmail.com
+[github]
+	user = jsstevenson
+[core]
+	editor = nvim
+	excludesfile = /Users/jamesstevenson/.gitignore_global
