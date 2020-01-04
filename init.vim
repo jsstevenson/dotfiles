@@ -84,9 +84,14 @@ nmap <silent> gr <Plug>(coc-references)
 hi! CocWarningSign guifg=#b58900
 hi! CocErrorSign guifg=#cb4b16
 
-"""" vim-slime (remember to prefix target pane with window #)
+""" vim-slime
+" remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
 let g:slime_target = "tmux"     " target tmux for REPL with vim-slime
 let g:slime_python_ipython = 1  " ipython cpaste fix
+
+""" markdown
+" set specific wrapping for better readability/note-taking
+autocmd FileType markdown setlocal tw=80
 
 """ misc
 " config editing
