@@ -6,6 +6,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
 
+# Miniconda
+export PATH="$PATH:$HOME/opt/miniconda3/bin"
+
 ### Prompt
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
