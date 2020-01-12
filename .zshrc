@@ -9,6 +9,7 @@ export PATH="/usr/local/sbin:$PATH"
 # Miniconda
 export PATH="$PATH:$HOME/opt/miniconda3/bin"
 
+
 ### Prompt
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -46,3 +47,21 @@ sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist;
 sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
 echo "now restarting....";
 sudo shutdown -r now'
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jamesstevenson/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jamesstevenson/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jamesstevenson/opt/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jamesstevenson/opt/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+conda deactivate
+# <<< conda initialize <<<
+
