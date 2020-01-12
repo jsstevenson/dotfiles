@@ -308,7 +308,7 @@
     }
   },
   "Window Type" : 0,
-  "Blur Radius" : 3.6238915767766495,
+  "Blur Radius" : 20.707064958756344,
   "Cursor Boost" : 0,
   "Background Image Location" : "",
   "Blur" : true,
@@ -349,7 +349,7 @@
     "Blue Component" : 0.58823529411764708,
     "Green Component" : 0.58039215686274515
   },
-  "Transparency" : 0.018113499365482236,
+  "Transparency" : 0.052199000634517836,
   "Guid" : "51F39AE5-6CE8-40AC-9F0A-0AC42D131D0E",
   "Ansi 1 Color" : {
     "Red Component" : 0.86274509803921573,
