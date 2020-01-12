@@ -83,6 +83,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Linting message highlight colors
 hi! CocWarningSign guifg=#b58900
 hi! CocErrorSign guifg=#cb4b16
+" comment highlighting on coc config https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 """ vim-slime
 " remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
