@@ -95,6 +95,13 @@ let g:slime_python_ipython = 1  " ipython cpaste fix
 " set specific wrapping for better readability/note-taking
 autocmd FileType markdown setlocal tw=80
 
+""" CSE 6250
+" Hive syntax
+au BufNewFile,BufRead *.hql set filetype=hive expandtab
+au BufNewFile,BufRead *.q set filetype=hive expandtab
+" Pig syntax
+au BufRead,BufNewFile *.pig set filetype=pig syntax=pig " https://github.com/motus/pig.vim/blob/master/ftdetect/pig.vim
+
 """ misc
 " config editing
 nnoremap <leader>sv :source $MYVIMRC<CR>
