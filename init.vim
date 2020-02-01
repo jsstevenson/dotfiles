@@ -25,8 +25,8 @@ Plug 'wlangstroth/vim-racket'   " vim-racket
 Plug 'rust-lang/rust.vim'
 
 " CSE6250
-Plug 'motus/pig.vim'
-Plug 'jparise/hive.vim'
+Plug 'motus/pig.vim'            " https://github.com/motus/pig.vim
+Plug 'jparise/hive.vim'         " fork - original repo no longer maintained. https://github.com/jparise/hive.vim
 
 call plug#end()                 " Initialize plugin system
 
