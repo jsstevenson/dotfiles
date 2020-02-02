@@ -48,3 +48,19 @@ sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
 echo "now restarting....";
 sudo shutdown -r now'
 
+# swap light/dark colors
+if [ -z ${DARKMODE+x} ]; then
+    export DARKMODE=1;
+fi
+
+switchprof() {
+    if [[ "$DARKMODE" -eq 1 ]]; then
+        export DARKMODE=0;
+        echo -e "\033]50;SetProfile=solarized-light\a";
+    else
+        export DARKMODE=1;
+        echo -e "\033]50;SetProfile=solarized-dark\a";
+    fi;
+}
+
+
