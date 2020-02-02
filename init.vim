@@ -34,7 +34,6 @@ call plug#end()                 " Initialize plugin system
 " Colors/theme
 set termguicolors               " For solarized theme https://github.com/icymind/NeoSolarized
 syntax enable                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
-set background=dark             " Set for dark colorschemes
 let g:neosolarized_contrast = "high"    " set high contrast (default = normal)
 colorscheme NeoSolarized        " https://github.com/icymind/NeoSolarized
 let g:airline_theme='solarized' " https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/solarized.vim
@@ -47,6 +46,16 @@ set showmatch			" Show matching brackets
 set cc=80			" 80 character column border
 set cursorline                  " Draw horizontal line on cursor
 set lazyredraw                  " Lazy redraw; for better performance
+
+" Light/dark swap
+if $DARKMODE == 1
+    set background=dark
+elseif $DARKMODE == 0
+    set background=light
+else
+    echo "Alert - color swap broken?"
+    set background=dark
+endif
 
 """ Productivity
 set visualbell                  " errors flash screen instead of bell
@@ -99,6 +108,8 @@ let g:slime_python_ipython = 1  " ipython cpaste fix
 " set specific wrapping for better readability/note-taking
 autocmd FileType markdown setlocal tw=80
 
+
 """ misc
 " config editing
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
