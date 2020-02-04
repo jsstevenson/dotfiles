@@ -49,9 +49,9 @@ echo "now restarting....";
 sudo shutdown -r now'
 
 # swap light/dark colors
-# if [ -z ${DARKMODE+x} ]; then
-#     export DARKMODE=1;
-# fi
+if [ -z ${DARKMODE+x} ]; then
+    export DARKMODE=1;
+fi
 
 switchprof() {
     if [[ "$DARKMODE" -eq 1 ]]; then
