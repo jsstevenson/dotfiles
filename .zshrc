@@ -7,7 +7,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 # Miniconda
-export PATH="$HOME/miniconda3/bin/:$PATH" 
+export PATH="$HOME/miniconda3/bin/:$PATH"
 
 
 ### Prompt
@@ -49,9 +49,9 @@ echo "now restarting....";
 sudo shutdown -r now'
 
 # swap light/dark colors
-if [ -z ${DARKMODE+x} ]; then
-    export DARKMODE=1;
-fi
+# if [ -z ${DARKMODE+x} ]; then
+#     export DARKMODE=1;
+# fi
 
 switchprof() {
     if [[ "$DARKMODE" -eq 1 ]]; then
@@ -63,4 +63,10 @@ switchprof() {
     fi;
 }
 
-
+if [ -n "$TMUX" ]; then
+  function refresh {
+    export $(tmux show-environment | grep "^DARKMODE")
+  }
+else
+  function refresh { }
+fi
