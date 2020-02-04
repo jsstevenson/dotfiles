@@ -5,13 +5,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'iCyMind/NeoSolarized'     " https://github.com/icymind/NeoSolarized
 Plug 'vim-airline/vim-airline'  " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes'   " https://github.com/vim-airline/vim-airline-themes
-"Plug 'tpope/vim-obsession'      " Save sessions//not currently using
 
 " IDE-y things
-Plug 'nicwest/vim-http'         " https://github.com/nicwest/vim-http
+Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
 Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
 Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
+Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 
 " coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
