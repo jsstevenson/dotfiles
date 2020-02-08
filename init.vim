@@ -12,6 +12,7 @@ Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
 Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
 Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
+Plug 'jiangmiao/auto-pairs'     " auto complete matching parens
 
 " coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
@@ -43,6 +44,7 @@ let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when n
 " Layout
 set number relativenumber	" Show line numbers
 set showmatch			" Show matching brackets
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 set cc=80			" 80 character column border
 set cursorline                  " Draw horizontal line on cursor
 set lazyredraw                  " Lazy redraw; for better performance
