@@ -65,7 +65,7 @@ set clipboard=unnamedplus       " use system clipboard
 set ignorecase			" Case-insensitive matching
 set hlsearch			" Highlight search results
 set scrolloff=2                 " Scroll window down
-set shell=bash                  " Fix the shell to bash
+set shell=/bin/zsh              " Fix the shell to zsh
 filetype plugin indent on       " Filetype behavior - should be on by default but (shrug emoji)
 
 """ Encoding
