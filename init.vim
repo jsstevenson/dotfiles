@@ -13,8 +13,7 @@ Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-i
 Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
 Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 Plug 'jiangmiao/auto-pairs'     " auto complete matching parens
-
-" coc.nvim
+Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 
 " Racket
