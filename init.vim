@@ -15,7 +15,7 @@ Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 Plug 'jiangmiao/auto-pairs'     " auto complete matching parens
 Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
-Plug 'godlygeek/tabular'        " for lining up tables and whatnot
+Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
 Plug 'tpope/vim-commentary'     " easier commenting
 
 " Racket
