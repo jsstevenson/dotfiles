@@ -12,11 +12,11 @@ Plug 'wellle/targets.vim'       " https://github.com/wellle/targets.vim
 Plug 'michaeljsmith/vim-indent-object'  " https://github.com/michaeljsmith/vim-indent-object
 Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " https://github.com/tpope/vim-fugitive, downgraded to 2.3 for compatibility with airline until there's a fix
 Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
-Plug 'jiangmiao/auto-pairs'     " auto complete matching parens
 Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
 Plug 'tpope/vim-commentary'     " easier commenting
+Plug 'tpope/vim-endwise'        " auto end hanging syntax
 
 " Racket
 Plug 'tpope/vim-surround'       " https://github.com/tpope/vim-surround
@@ -30,6 +30,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'motus/pig.vim'            " https://github.com/motus/pig.vim
 Plug 'jparise/hive.vim'         " fork - original repo no longer maintained. https://github.com/jparise/hive.vim
 
+" Misc
+Plug 'lervag/vimtex'            " for LaTeX
 call plug#end()                 " Initialize plugin system
 
 """ Visual
@@ -111,8 +113,6 @@ let g:slime_python_ipython = 1  " ipython cpaste fix
 " set specific wrapping for better readability/note-taking
 autocmd FileType markdown setlocal tw=80
 
-
 """ misc
 " config editing
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
