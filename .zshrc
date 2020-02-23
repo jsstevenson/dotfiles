@@ -1,16 +1,15 @@
-### PATH stuff
+################################################################################
+# Path
+################################################################################
 
-# Rust tools
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
+export PATH="/usr/local/sbin:$PATH"                         # Homebrew
+export PATH="$HOME/miniconda3/bin/:$PATH"                   # Miniconda
 
-# Homebrew
-export PATH="/usr/local/sbin:$PATH"
+################################################################################
+# Prompt
+################################################################################
 
-# Miniconda
-export PATH="$HOME/miniconda3/bin/:$PATH"
-
-
-### Prompt
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -20,11 +19,16 @@ PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
 
 export PS2="> "
 
-#### Git
+################################################################################
+# Git
+################################################################################
+
 # branch autocomplete TODO
 
-### Defaults/aliases
-# Set default editor to NeoVIM
+################################################################################
+# Defaults/aliases
+################################################################################
+
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
 
@@ -40,7 +44,6 @@ function cd {
 }
 
 # fix weird public wifi hotspot stuff
-
 alias clean_net_config='sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist;
 sudo rm /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist;
 sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist;
