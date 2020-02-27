@@ -51,11 +51,16 @@ sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
 echo "now restarting....";
 sudo shutdown -r now'
 
-# swap light/dark colors
+################################################################################
+# Appearance
+################################################################################
+
+# default value
 if [ -z ${DARKMODE+x} ]; then
     export DARKMODE=1;
 fi
 
+# swap light/dark colors
 switchprof() {
     if [[ "$DARKMODE" -eq 1 ]]; then
         export DARKMODE=0;
