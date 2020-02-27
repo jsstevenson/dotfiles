@@ -136,6 +136,12 @@ let g:slime_python_ipython = 1              " ipython cpaste fix
 autocmd FileType markdown setlocal tw=80    " set specific wrapping for better readability/note-taking
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tex
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
