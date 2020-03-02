@@ -92,12 +92,18 @@ set softtabstop=4
 " Brace completion/indenting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+inoremap { {}<Left>
+inoremap {} {}
 inoremap {<CR> {<CR>}<Esc><Up>o
 inoremap {;<CR> {<CR>};<Esc><Up>o
 inoremap {,<CR> {<CR>},<Esc><Up>o
+inoremap ( ()<Left>
+inoremap () ()
 inoremap (<CR> (<CR>)<Esc><Up>o
 inoremap (;<CR> (<CR>);<Esc><Up>o
 inoremap (,<CR> (<CR>),<Esc><Up>o
+inoremap [ []<Left>
+inoremap [] []
 inoremap [<CR> [<CR>]<Esc><Up>o
 inoremap [;<CR> [<CR>];<Esc><Up>o
 inoremap [,<CR> [<CR>],<Esc><Up>o
