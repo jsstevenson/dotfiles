@@ -89,6 +89,20 @@ set shiftwidth=4
 set softtabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Brace completion/indenting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+inoremap {<CR> {<CR>}<Esc><Up>o
+inoremap {;<CR> {<CR>};<Esc><Up>o
+inoremap {,<CR> {<CR>},<Esc><Up>o
+inoremap (<CR> (<CR>)<Esc><Up>o
+inoremap (;<CR> (<CR>);<Esc><Up>o
+inoremap (,<CR> (<CR>),<Esc><Up>o
+inoremap [<CR> [<CR>]<Esc><Up>o
+inoremap [;<CR> [<CR>];<Esc><Up>o
+inoremap [,<CR> [<CR>],<Esc><Up>o
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim things
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tab/shift-tab to navigate autocomplete
@@ -152,19 +166,6 @@ autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" testing
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-inoremap {<CR> {<CR>}<Esc>ko
-inoremap {;<CR> {<CR>};<Esc>ko
-inoremap {,<CR> {<CR>},<Esc>ko
-inoremap (<CR> (<CR>)<Esc>ko
-inoremap (;<CR> (<CR>);<Esc>ko
-inoremap (,<CR> (<CR>),<Esc>ko
-inoremap [<CR> [<CR>]<Esc>ko
-inoremap [;<CR> [<CR>];<Esc>ko
-inoremap [,<CR> [<CR>],<Esc>ko
 
 
 
