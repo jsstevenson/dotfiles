@@ -14,12 +14,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " downgraded to 2.3 for compatibility with airline until there's a fix
+" Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " downgraded to 2.3 for compatibility with airline until there's a fix. Currently disabled bc interacting weird w/ neovim
 Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
-Plug 'tpope/vim-commentary'     " easier commenting
+"Plug 'tpope/vim-commentary'     " easier commenting
 Plug 'tpope/vim-endwise'        " auto end hanging syntax
 Plug 'tpope/vim-surround'
 Plug 'jpalardy/vim-slime'
@@ -142,7 +142,29 @@ autocmd FileType markdown setlocal tw=80    " set specific wrapping for better r
 autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim fugitive
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" commands
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" testing
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+inoremap {<CR> {<CR>}<Esc>ko
+inoremap {;<CR> {<CR>};<Esc>ko
+inoremap {,<CR> {<CR>},<Esc>ko
+inoremap (<CR> (<CR>)<Esc>ko
+inoremap (;<CR> (<CR>);<Esc>ko
+inoremap (,<CR> (<CR>),<Esc>ko
+inoremap [<CR> [<CR>]<Esc>ko
+inoremap [;<CR> [<CR>];<Esc>ko
+inoremap [,<CR> [<CR>],<Esc>ko
+
+
+
