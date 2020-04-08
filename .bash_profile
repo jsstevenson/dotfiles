@@ -1,6 +1,7 @@
 ### Python
 # Setting PATH for Python 3.6
 # Fixing previous install which used PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}
+# Would need to omit for any non-personal machines
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export PATH=$PATH:~/bin #add local scripts folder
 export PATH=$PATH:'~/../../Applications/Racket v7.1/bin' # add racket
@@ -67,6 +68,7 @@ else
     fi
 fi
 unset __conda_setup
+
 # <<< conda init <<<
 
 # added by Miniconda3 4.3.27 installer
