@@ -141,6 +141,17 @@ hi! CocErrorSign guifg=#cb4b16
 " comment highlighting on coc config https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+" show doc in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-slime
 " remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
@@ -167,11 +178,16 @@ autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 " commands
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" terminal mode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd TermOpen * startinsert                  " 
+tnoremap <Esc> <C-\><C-n>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" easy load init.vim
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
-
-
 
