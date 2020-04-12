@@ -7,8 +7,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Theme & layout
 Plug 'iCyMind/NeoSolarized'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
 " IDE-y things
 Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
@@ -19,7 +21,7 @@ Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
-"Plug 'tpope/vim-commentary'     " easier commenting
+Plug 'tpope/vim-commentary'     " easier commenting
 Plug 'tpope/vim-endwise'        " auto end hanging syntax
 Plug 'tpope/vim-surround'
 Plug 'jpalardy/vim-slime'
@@ -43,9 +45,21 @@ set termguicolors                               " For solarized theme
 syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 colorscheme NeoSolarized
-let g:airline_theme='solarized'
-let g:airline_powerline_fonts = 1               " Enable font for Powerline 
-let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
+set noshowmode                                  " mode already shows in statusline
+
+" Airline
+" let g:airline_theme='solarized'
+" let g:airline_powerline_fonts = 1               " Enable font for Powerline
+" let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
+
+" Lightline
+let g:lightline = {
+    \ 'colorscheme': 'solarized',
+    \ 'tabline': {'left': [['buffers']]},
+    \ 'component_expand': {'buffers': 'lightline#bufferline#buffers'},
+    \ 'component_type': {'buffers': 'tabsel'}
+    \ }
+set showtabline=2                               " force show tabline for buffers
 
 " Layout
 set number relativenumber	                " Show line numbers
@@ -181,7 +195,7 @@ autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 " terminal mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd TermOpen * startinsert                  " 
+autocmd TermOpen * startinsert              " start terminal in insert
 tnoremap <Esc> <C-\><C-n>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
