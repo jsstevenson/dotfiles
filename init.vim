@@ -7,8 +7,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Theme & layout
 Plug 'iCyMind/NeoSolarized'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
@@ -16,7 +14,6 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-" Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }      " downgraded to 2.3 for compatibility with airline until there's a fix. Currently disabled bc interacting weird w/ neovim
 Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
 Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -40,17 +37,20 @@ call plug#end()                 " Initialize plugin system
 " Layout
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Layout
+set number relativenumber	                " Show line numbers
+set showmatch			                " Show matching brackets
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+set cc=80			                " 80 character column border
+set cursorline                                  " Draw horizontal line on cursor
+set lazyredraw                                  " Lazy redraw; for better performance
+
 " Colors/theme
 set termguicolors                               " For solarized theme
 syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 colorscheme NeoSolarized
 set noshowmode                                  " mode already shows in statusline
-
-" Airline
-" let g:airline_theme='solarized'
-" let g:airline_powerline_fonts = 1               " Enable font for Powerline
-" let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
 
 " Lightline
 function! CocCurrentFunction()
@@ -72,14 +72,6 @@ let g:lightline = {
     \ 'component_type': {'buffers': 'tabsel'}
     \ }
 set showtabline=2                               " force show tabline for buffers
-
-" Layout
-set number relativenumber	                " Show line numbers
-set showmatch			                " Show matching brackets
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-set cc=80			                " 80 character column border
-set cursorline                                  " Draw horizontal line on cursor
-set lazyredraw                                  " Lazy redraw; for better performance
 
 " Swap light/dark mode based on shell environment variable
 if $DARKMODE == 1
