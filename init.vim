@@ -53,8 +53,20 @@ set noshowmode                                  " mode already shows in statusli
 " let g:airline#extensions#tabline#enabled = 1    " List buffers in tabline when no other tabs are open
 
 " Lightline
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
 let g:lightline = {
     \ 'colorscheme': 'solarized',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'cocstatus', 'currentfunction', 'readonly', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction'
+    \ },
     \ 'tabline': {'left': [['buffers']]},
     \ 'component_expand': {'buffers': 'lightline#bufferline#buffers'},
     \ 'component_type': {'buffers': 'tabsel'}
