@@ -9,18 +9,21 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
+Plug 'voldikss/vim-floaterm'
+Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
 
-" IDE-y things
-Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
+" Text object & formatting
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
-Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
 Plug 'tpope/vim-commentary'     " easier commenting
 Plug 'tpope/vim-endwise'        " auto end hanging syntax
 Plug 'tpope/vim-surround'
+
+" Other tools
+Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
+Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jpalardy/vim-slime'
 
 " Language-specific
