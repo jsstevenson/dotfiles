@@ -108,11 +108,13 @@ set fenc=utf-8
 set wildmode=longest,list	                " Bash-like tab complete
 set shiftwidth=4
 set softtabstop=4
+autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Brace completion/indenting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" TODO significant work in progress status here
 inoremap { {}<Left>
 inoremap {} {}
 inoremap {<CR> {<CR>}<Esc><Up>o
@@ -203,7 +205,7 @@ autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd TermOpen * startinsert              " start terminal in insert
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>                   " more intuitive mode change
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
