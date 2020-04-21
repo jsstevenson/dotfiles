@@ -78,3 +78,10 @@ if [ -n "$TMUX" ]; then
 else
   function refresh { }
 fi
+
+################################################################################
+# Specific tools
+################################################################################
+
+# fzf
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
