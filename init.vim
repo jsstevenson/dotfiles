@@ -132,7 +132,7 @@ inoremap [;<CR> [<CR>];<Esc><Up>o
 inoremap [,<CR> [<CR>],<Esc><Up>o
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" coc.nvim things
+" coc.nvim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tab/shift-tab to navigate autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -184,28 +184,19 @@ let g:slime_target = "tmux"                 " target tmux for REPL with vim-slim
 let g:slime_python_ipython = 1              " ipython cpaste fix
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd FileType markdown setlocal tw=80    " set specific wrapping for better readability/note-taking
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tex
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim fugitive
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" commands
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" terminal mode
+" terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd TermOpen * startinsert              " start terminal in insert
 tnoremap <Esc> <C-\><C-n>                   " more intuitive mode change
+
+" Floaterm
+" some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
+let g:floaterm_width=0.8
+let g:floaterm_height=0.85
+nnoremap <C-S> :FloatermToggle<cr>
+tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
+nnoremap <C-H> :FloatermNew fzf<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
@@ -214,3 +205,12 @@ tnoremap <Esc> <C-\><C-n>                   " more intuitive mode change
 " easy load init.vim
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" filetype-specific
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" markdown
+autocmd FileType markdown setlocal tw=80    " set specific wrapping for better readability/note-taking
+
+" tex
+autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
