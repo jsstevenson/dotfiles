@@ -79,7 +79,7 @@ let g:lightline = {
 set showtabline=2                               " force show tabline for buffers
 
 " Swap light/dark mode based on shell environment variable
-function SetColorScheme()
+function! SetColorScheme()
     if $DARKMODE == 1
         set background=dark
     elseif $DARKMODE == 0
