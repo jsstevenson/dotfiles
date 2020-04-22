@@ -10,31 +10,29 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'voldikss/vim-floaterm'
-Plug 'mechatroner/rainbow_csv'  " easier csv highlighting
+Plug 'mechatroner/rainbow_csv'                  " easier csv highlighting
 
 " Text object & formatting
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'godlygeek/tabular'        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
-Plug 'tpope/vim-commentary'     " easier commenting
-Plug 'tpope/vim-endwise'        " auto end hanging syntax
+Plug 'godlygeek/tabular'                        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
+Plug 'tpope/vim-commentary'                     " easier commenting
+Plug 'tpope/vim-endwise'                        " auto end hanging syntax
 Plug 'tpope/vim-surround'
 
 " Other tools
-Plug 'nicwest/vim-http'         " Make HTTP requests from within nvim
-Plug 'tpope/vim-obsession'      " for saving nvim sessions with tmux-resurrect
+Plug 'nicwest/vim-http'                         " Make HTTP requests from within nvim
+Plug 'tpope/vim-obsession'                      " for saving nvim sessions with tmux-resurrect
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jpalardy/vim-slime'
+Plug 'itchyny/vim-gitbranch'                    " until I feel better about vim-fugitive
 
 " Language-specific
 Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
 Plug 'lervag/vimtex'
-Plug 'motus/pig.vim'            " for CSE6200
-Plug 'jparise/hive.vim'         " for CSE6200
 
-" Misc
-call plug#end()                 " Initialize plugin system
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Layout
@@ -63,12 +61,16 @@ endfunction
 let g:lightline = {
     \ 'colorscheme': 'solarized',
     \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'cocstatus', 'currentfunction', 'readonly', 'modified' ] ]
+    \   'left': [   [ 'mode', 'paste' ],
+    \               [ 'gitbranch' ],
+    \               [ 'cocstatus', 'currentfunction', 'readonly', 'modified' ] ],
+    \   'right': [  [ 'lineinfo' ],
+    \               [ 'fileformat', 'fileencoding', 'filetype' ]]
     \ },
     \ 'component_function': {
     \   'cocstatus': 'coc#status',
-    \   'currentfunction': 'CocCurrentFunction'
+    \   'currentfunction': 'CocCurrentFunction',
+    \   'gitbranch': 'gitbranch#name'
     \ },
     \ 'tabline': {'left': [['buffers']]},
     \ 'component_expand': {'buffers': 'lightline#bufferline#buffers'},
@@ -77,14 +79,17 @@ let g:lightline = {
 set showtabline=2                               " force show tabline for buffers
 
 " Swap light/dark mode based on shell environment variable
-if $DARKMODE == 1
-    set background=dark
-elseif $DARKMODE == 0
-    set background=light
-else
-    echo "Alert - color swap broken?"
-    set background=dark
-endif
+function SetColorScheme()
+    if $DARKMODE == 1
+        set background=dark
+    elseif $DARKMODE == 0
+        set background=light
+    else
+        echo "Alert - color swap broken?"
+        set background=dark
+    endif
+endfunction
+call SetColorScheme()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
@@ -180,15 +185,15 @@ endfunction
 " remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:slime_target = "tmux"                 " target tmux for REPL with vim-slime
-let g:slime_python_ipython = 1              " ipython cpaste fix
+let g:slime_target = "tmux"                     " target tmux for REPL with vim-slime
+let g:slime_python_ipython = 1                  " ipython cpaste fix
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd TermOpen * startinsert              " start terminal in insert
-tnoremap <Esc> <C-\><C-n>                   " more intuitive mode change
+autocmd TermOpen * startinsert                  " start terminal in insert
+tnoremap <Esc> <C-\><C-n>
 
 " Floaterm
 " some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
@@ -205,12 +210,16 @@ nnoremap <C-H> :FloatermNew fzf<cr>
 " easy load init.vim
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
+" trying out buffer movement shortcuts
+nnoremap <leader>n :bp<CR>
+nnoremap <leader>m :bn<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype-specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " markdown
-autocmd FileType markdown setlocal tw=80    " set specific wrapping for better readability/note-taking
+autocmd FileType markdown setlocal tw=80        " set specific wrapping for better readability/note-taking
 
 " tex
 autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
