@@ -57,23 +57,27 @@ sudo shutdown -r now'
 
 # default value
 if [ -z ${DARKMODE+x} ]; then
+    export BAT_THEME="Solarized (dark)"
     export DARKMODE=1;
 fi
 
 # swap light/dark colors
 switchprof() {
     if [[ "$DARKMODE" -eq 1 ]]; then
-        export DARKMODE=0;
         echo -e "\033]50;SetProfile=solarized-light\a";
+        export DARKMODE=0;
+        export BAT_THEME="Solarized (light)"
     else
-        export DARKMODE=1;
         echo -e "\033]50;SetProfile=solarized-dark\a";
+        export DARKMODE=1;
+        export BAT_THEME="Solarized (dark)"
     fi;
 }
 
 if [ -n "$TMUX" ]; then
   function refresh {
     export $(tmux show-environment | grep "^DARKMODE")
+    export $(tmux show-environment | grep "^BAT_THEME")
   }
 else
   function refresh { }
