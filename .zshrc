@@ -66,21 +66,35 @@ switchprof() {
     if [[ "$DARKMODE" -eq 1 ]]; then
         echo -e "\033]50;SetProfile=solarized-light\a";
         export DARKMODE=0;
-        export BAT_THEME="Solarized (light)"
+        export BAT_THEME="Solarized (light)";
     else
         echo -e "\033]50;SetProfile=solarized-dark\a";
         export DARKMODE=1;
-        export BAT_THEME="Solarized (dark)"
+        export BAT_THEME="Solarized (dark)";
     fi;
 }
 
 if [ -n "$TMUX" ]; then
-  function refresh {
-    export $(tmux show-environment | grep "^DARKMODE")
-    export $(tmux show-environment | grep "^BAT_THEME")
-  }
+    function refresh {
+        darkmode_setting=$(tmux show-environment | grep "^DARKMODE");
+        battheme_setting=$(tmux show-environment | grep "^BAT_THEME");
+        if [[ -n "$darkmode_setting" ]]; then
+            export "$darkmode_setting"
+        else
+            echo "Tmux couldn't get darkmode setting";
+        fi
+
+        if [[ -n "$battheme_setting" ]]; then
+            export "$battheme_setting";
+        else
+            echo "Tmux couldn't get bat theme setting";
+        fi
+
+        # export $(tmux show-environment | grep "^DARKMODE");
+        # export $(tmux show-environment | grep "^BAT_THEME");
+    }
 else
-  function refresh { }
+    function refresh { }
 fi
 
 ################################################################################
