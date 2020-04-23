@@ -19,6 +19,7 @@ Plug 'godlygeek/tabular'                        " for lining up tables and whatn
 Plug 'tpope/vim-commentary'                     " easier commenting
 Plug 'tpope/vim-endwise'                        " auto end hanging syntax
 Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
 " Other tools
 Plug 'nicwest/vim-http'                         " Make HTTP requests from within nvim
@@ -114,27 +115,6 @@ set wildmode=longest,list	                " Bash-like tab complete
 set shiftwidth=4
 set softtabstop=4
 autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Brace completion/indenting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" TODO significant work in progress status here
-inoremap { {}<Left>
-inoremap {} {}
-inoremap {<CR> {<CR>}<Esc><Up>o
-inoremap {;<CR> {<CR>};<Esc><Up>o
-inoremap {,<CR> {<CR>},<Esc><Up>o
-inoremap ( ()<Left>
-inoremap () ()
-inoremap (<CR> (<CR>)<Esc><Up>o
-inoremap (;<CR> (<CR>);<Esc><Up>o
-inoremap (,<CR> (<CR>),<Esc><Up>o
-inoremap [ []<Left>
-inoremap [] []
-inoremap [<CR> [<CR>]<Esc><Up>o
-inoremap [;<CR> [<CR>];<Esc><Up>o
-inoremap [,<CR> [<CR>],<Esc><Up>o
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim
