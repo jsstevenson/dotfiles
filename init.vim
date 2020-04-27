@@ -81,13 +81,25 @@ set showtabline=2                               " force show tabline for buffers
 
 " Swap light/dark mode based on shell environment variable
 function! SetColorScheme()
-    if $DARKMODE == 1
-        set background=dark
-    elseif $DARKMODE == 0
-        set background=light
+    if $TMUX != ""
+        let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
+        let darkmode_val = strcharpart(darkmode_setting, 9, 9)
+        if darkmode_val == 1
+            set background=dark
+        elseif darkmode_val == 0
+            set background=light
+        else
+            echom "Error - couldn't get darkmode val from tmux"
+        endif
     else
-        echo "Alert - color swap broken?"
-        set background=dark
+        if $DARKMODE == 1
+            set background=dark
+        elseif $DARKMODE == 0
+            set background=light
+        else
+            echo "Alert - color swap broken?"
+            set background=dark
+        endif
     endif
 endfunction
 call SetColorScheme()
@@ -179,9 +191,12 @@ tnoremap <Esc> <C-\><C-n>
 " some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
 let g:floaterm_width=0.8
 let g:floaterm_height=0.85
+
+" TODO: function for toggle in normal mode that calls floaterm update to
+" adjust size
 nnoremap <C-S> :FloatermToggle<cr>
-tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
 nnoremap <C-H> :FloatermNew fzf<cr>
+tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
