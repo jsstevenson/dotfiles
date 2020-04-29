@@ -172,6 +172,10 @@ function! s:show_documentation()
   endif
 endfunction
 
+" disable on md
+autocmd BufNew,BufEnter *.md execute "silent! CocDisable"
+autocmd BufLeave *.md execute "silent! CocEnable"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-slime
 " remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
@@ -192,8 +196,6 @@ tnoremap <Esc> <C-\><C-n>
 let g:floaterm_width=0.8
 let g:floaterm_height=0.85
 
-" TODO: function for toggle in normal mode that calls floaterm update to
-" adjust size
 nnoremap <C-S> :FloatermToggle<cr>
 nnoremap <C-H> :FloatermNew fzf<cr>
 tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
