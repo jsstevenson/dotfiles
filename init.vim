@@ -172,9 +172,10 @@ function! s:show_documentation()
   endif
 endfunction
 
-" disable on md
-autocmd BufNew,BufEnter *.md execute "silent! CocDisable"
-autocmd BufLeave *.md execute "silent! CocEnable"
+" filetype blacklist
+let blacklist = ['*.md']
+autocmd BufNew,BufEnter blacklist execute "silent! CocDisable"
+autocmd BufLeave blacklist execute "silent! CocEnable"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-slime
