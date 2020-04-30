@@ -4,7 +4,6 @@
 
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
-export PATH="$HOME/miniconda3/bin/:$PATH"                   # Miniconda
 
 ################################################################################
 # Prompt
@@ -89,9 +88,6 @@ if [ -n "$TMUX" ]; then
         else
             echo "Tmux couldn't get bat theme setting";
         fi
-
-        # export $(tmux show-environment | grep "^DARKMODE");
-        # export $(tmux show-environment | grep "^BAT_THEME");
     }
 else
     function refresh { }
@@ -102,4 +98,4 @@ fi
 ################################################################################
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
