@@ -50,9 +50,32 @@ set lazyredraw                                  " Lazy redraw; for better perfor
 " Colors/theme
 set termguicolors                               " For solarized theme
 syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
+set noshowmode                                  " mode already shows in statusline
+function! SetBackground()                       " Set bg to light or dark depending on parent env values
+    if $TMUX != ""                              " if in tmux
+        let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
+        let darkmode_val = strcharpart(darkmode_setting, 9, 9)
+        if darkmode_val == 1
+            set background=dark
+        elseif darkmode_val == 0
+            set background=light
+        else
+            echom "Error - couldn't get darkmode val from tmux"
+        endif
+    else                                        " presumably running straight from shell
+        if $DARKMODE == 1
+            set background=dark
+        elseif $DARKMODE == 0
+            set background=light
+        else
+            echo "Alert - color swap broken?"
+            set background=dark
+        endif
+    endif
+endfunction
+call SetBackground()
 let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 colorscheme NeoSolarized
-set noshowmode                                  " mode already shows in statusline
 
 " Lightline
 function! CocCurrentFunction()
@@ -80,29 +103,6 @@ let g:lightline = {
 set showtabline=2                               " force show tabline for buffers
 
 " Swap light/dark mode based on shell environment variable
-function! SetColorScheme()
-    if $TMUX != ""
-        let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
-        let darkmode_val = strcharpart(darkmode_setting, 9, 9)
-        if darkmode_val == 1
-            set background=dark
-        elseif darkmode_val == 0
-            set background=light
-        else
-            echom "Error - couldn't get darkmode val from tmux"
-        endif
-    else
-        if $DARKMODE == 1
-            set background=dark
-        elseif $DARKMODE == 0
-            set background=light
-        else
-            echo "Alert - color swap broken?"
-            set background=dark
-        endif
-    endif
-endfunction
-call SetColorScheme()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
@@ -172,7 +172,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-" filetype blacklist
+" filetype blacklist. rewrite this as a function call to iterate thru the list
 let blacklist = ['*.md']
 autocmd BufNew,BufEnter blacklist execute "silent! CocDisable"
 autocmd BufLeave blacklist execute "silent! CocEnable"
