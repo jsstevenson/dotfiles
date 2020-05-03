@@ -61,15 +61,39 @@ if [ -z ${DARKMODE+x} ]; then
 fi
 
 # swap light/dark colors
-switchprof() {
+switchbg() {
     if [[ "$DARKMODE" -eq 1 ]]; then
-        echo -e "\033]50;SetProfile=solarized-light\a";
+        if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
+            echo -e "\033]50;SetProfile=solarized-light\a";
+        else
+            # if in alacritty
+            sed -i '.tmp' 's/colors: \*dark/colors: \*light/' ~/code/dotfiles/alacritty.yml
+            if [[ -f ~/code/dotfiles/alacritty.yml.tmp ]]; then
+                rm ~/code/dotfiles/alacritty.yml.tmp
+                cp ~/code/dotfiles/alacritty.yml ~/.config/alacritty/
+            else
+                1>&2 echo "Unable to switch alacritty settings"
+            fi
+        fi
         export DARKMODE=0;
         export BAT_THEME="Solarized (light)";
-    else
-        echo -e "\033]50;SetProfile=solarized-dark\a";
+    elif [[ "$DARKMODE" -eq 0 ]]; then
+        if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
+            echo -e "\033]50;SetProfile=solarized-dark\a";
+        else
+            # if in alacritty
+            sed -i '.tmp' 's/colors: \*light/colors: \*dark/g' ~/code/dotfiles/alacritty.yml
+            if [[ -f ~/code/dotfiles/alacritty.yml.tmp ]]; then
+                rm ~/code/dotfiles/alacritty.yml.tmp
+                cp ~/code/dotfiles/alacritty.yml ~/.config/alacritty/
+            else
+                1>&2 echo "Unable to switch alacritty settings"
+            fi
+        fi
         export DARKMODE=1;
         export BAT_THEME="Solarized (dark)";
+    else
+        1>&2 echo "Unexpected DARKMODE value: $DARKMODE"
     fi;
 }
 
