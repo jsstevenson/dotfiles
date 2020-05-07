@@ -47,10 +47,12 @@ set cc=80			                " 80 character column border
 set cursorline                                  " Draw horizontal line on cursor
 set lazyredraw                                  " Lazy redraw; for better performance
 
-" Colors/theme
+" Colors
 set termguicolors                               " For solarized theme
 syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
-set noshowmode                                  " mode already shows in statusline
+set noshowmode                                  " (since mode already shows in statusline)
+
+" Set up correct background, colorscheme
 function! SetBackground()                       " Set bg to light or dark depending on parent env values
     if $TMUX != ""                              " if in tmux
         let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
@@ -74,8 +76,8 @@ function! SetBackground()                       " Set bg to light or dark depend
     endif
 endfunction
 call SetBackground()
-let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 colorscheme NeoSolarized
+let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 
 " Lightline
 function! CocCurrentFunction()
