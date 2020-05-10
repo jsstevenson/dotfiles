@@ -42,6 +42,9 @@ function cd {
     builtin cd "$@" && ls
 }
 
+# colorize and append size measures
+alias ls='ls -hG'
+
 # fix weird public wifi hotspot stuff
 alias clean_net_config='sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist;
 sudo rm /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist;
@@ -123,3 +126,10 @@ fi
 
 # fzf
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+# Biostar Handbook things
+export LC_ALL=C
+export PERL_LWP_SSL_VERIFY_HOSTNAME=0
+export PATH=~/bin:$PATH
