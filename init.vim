@@ -36,7 +36,7 @@ Plug 'lervag/vimtex'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Layout
+" Appearance
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Layout
@@ -103,8 +103,6 @@ let g:lightline = {
     \ 'component_type': {'buffers': 'tabsel'}
     \ }
 set showtabline=2                               " force show tabline for buffers
-
-" Swap light/dark mode based on shell environment variable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
@@ -219,7 +217,7 @@ nnoremap <leader>m :bn<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " markdown
-autocmd FileType markdown setlocal tw=80        " set specific wrapping for better readability/note-taking
+" autocmd FileType markdown setlocal tw=80        " set specific wrapping for better readability/note-taking
 
 " tex
 autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
