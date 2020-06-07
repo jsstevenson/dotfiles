@@ -29,6 +29,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'itchyny/vim-gitbranch'                    " until I feel better about vim-fugitive
 
 " Language-specific
+Plug 'vim-python/python-syntax'
 Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
 Plug 'lervag/vimtex'
@@ -221,3 +222,6 @@ nnoremap <leader>m :bn<CR>
 
 " tex
 autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
+
+" rust
+let g:rustfmt_autosave = 1
