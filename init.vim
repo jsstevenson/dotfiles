@@ -105,6 +105,11 @@ let g:lightline = {
     \ }
 set showtabline=2                               " force show tabline for buffers
 
+" Update lightline color when bg color changes
+autocmd OptionSet background
+      \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
+      \ | call lightline#colorscheme() | call lightline#update()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,4 +229,4 @@ nnoremap <leader>m :bn<CR>
 autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
 
 " rust
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
