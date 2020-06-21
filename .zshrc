@@ -34,6 +34,9 @@ export VISUAL=/usr/local/bin/nvim
 # open current director in Finder
 alias f='open -a Finder ./'
 
+# force utf-8 in tmux
+alias tmux='tmux -u'
+
 # homebrew catch-all alias
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
