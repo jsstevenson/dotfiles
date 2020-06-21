@@ -9,6 +9,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
+Plug 'crusoexia/vim-monokai'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'                  " easier csv highlighting
 
@@ -46,10 +48,9 @@ set showmatch			                " Show matching brackets
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 set cc=80			                " 80 character column border
 set cursorline                                  " Draw horizontal line on cursor
-set lazyredraw                                  " Lazy redraw; for better performance
+" set lazyredraw                                  " Lazy redraw; for better performance
 
 " Colors
-set termguicolors                               " For solarized theme
 syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 set noshowmode                                  " (since mode already shows in statusline)
 
@@ -76,9 +77,6 @@ function! SetBackground()                       " Set bg to light or dark depend
         endif
     endif
 endfunction
-call SetBackground()
-colorscheme NeoSolarized
-let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
 
 " Lightline
 function! CocCurrentFunction()
@@ -86,7 +84,6 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-    \ 'colorscheme': 'solarized',
     \ 'active': {
     \   'left': [   [ 'mode', 'paste' ],
     \               [ 'gitbranch' ],
@@ -105,10 +102,26 @@ let g:lightline = {
     \ }
 set showtabline=2                               " force show tabline for buffers
 
-" Update lightline color when bg color changes
-autocmd OptionSet background
-      \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
-      \ | call lightline#colorscheme() | call lightline#update()
+" terminal emulator-specific
+if $TERM_PROGRAM == "iTerm.app"
+    set termguicolors                               " For solarized theme
+    call SetBackground()
+    colorscheme NeoSolarized
+    let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
+    let g:lightline.colorscheme = "solarized"
+    " Update lightline color when bg color changes
+    autocmd OptionSet background
+          \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
+          \ | call lightline#colorscheme() | call lightline#update()
+elseif $TERM_PROGRAM == "Apple_Terminal"
+    colorscheme PaperColor
+    set background=light
+    let g:lightline.colorscheme = "PaperColor"
+    " Update lightline color when bg color changes
+    autocmd OptionSet background
+          \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
+          \ | call lightline#colorscheme() | call lightline#update()
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
