@@ -110,17 +110,23 @@ if $TERM_PROGRAM == "iTerm.app"
     let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
     let g:lightline.colorscheme = "solarized"
     " Update lightline color when bg color changes
-    autocmd OptionSet background
-          \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
-          \ | call lightline#colorscheme() | call lightline#update()
+    augroup setbg
+        autocmd!
+        autocmd OptionSet background
+              \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
+              \ | call lightline#colorscheme() | call lightline#update()
+    augroup END
 elseif $TERM_PROGRAM == "Apple_Terminal"
     colorscheme PaperColor
     set background=light
     let g:lightline.colorscheme = "PaperColor"
     " Update lightline color when bg color changes
-    autocmd OptionSet background
-          \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
-          \ | call lightline#colorscheme() | call lightline#update()
+    augroup setbg
+        autocmd!
+        autocmd OptionSet background
+              \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
+              \ | call lightline#colorscheme() | call lightline#update()
+    augroup END
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -145,7 +151,10 @@ set fenc=utf-8
 set wildmode=longest,list	                " Bash-like tab complete
 set shiftwidth=4
 set softtabstop=4
-autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
+augroup clean_trailing_spaces
+    autocmd!
+    autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim
@@ -178,7 +187,10 @@ hi! CocWarningSign guifg=#b58900
 hi! CocErrorSign guifg=#cb4b16
 
 " comment highlighting on coc config https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
-autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup coc_config_cmt_hl
+    autocmd!
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup END
 
 " show doc in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -193,8 +205,11 @@ endfunction
 
 " filetype blacklist. rewrite this as a function call to iterate thru the list
 let blacklist = ['*.md']
-autocmd BufNew,BufEnter blacklist execute "silent! CocDisable"
-autocmd BufLeave blacklist execute "silent! CocEnable"
+augroup ft_backlist
+    autocmd!
+    autocmd BufNew,BufEnter blacklist execute "silent! CocDisable"
+    autocmd BufLeave blacklist execute "silent! CocEnable"
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-slime
@@ -208,7 +223,9 @@ let g:slime_python_ipython = 1                  " ipython cpaste fix
 " terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd TermOpen * startinsert                  " start terminal in insert
+augroup floaterm_open
+    autocmd TermOpen * startinsert                  " start terminal in insert
+augroup END
 tnoremap <Esc> <C-\><C-n>
 
 " Floaterm
@@ -239,7 +256,17 @@ nnoremap <leader>m :bn<CR>
 " autocmd FileType markdown setlocal tw=80        " set specific wrapping for better readability/note-taking
 
 " tex
-autocmd FileType tex nmap <leader>b :CocCommand latex.Build<CR>
+augroup tex_compile
+    autocmd!
+    autocmd FileType tex nnoremap <leader>b :CocCommand latex.Build<CR>
+augroup END
 
 " rust
 " let g:rustfmt_autosave = 1
+augroup rust_compile
+    autocmd!
+    autocmd FileType rust nnoremap <leader>r :FloatermToggle<CR>cargo run<CR>
+    autocmd FileType rust nnoremap <leader>b :FloatermToggle<CR>cargo build<CR>
+    autocmd FileType rust nnoremap <leader>c :FloatermToggle<CR>cargo check<CR>
+    autocmd FileType rust nnoremap <leader>t :FloatermToggle<CR>cargo test<CR>
+augroup END
