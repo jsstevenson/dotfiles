@@ -242,7 +242,8 @@ tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
 " misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" easy load init.vim
+" easy edit init.vim
+nnoremap <leader>ev :edit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " trying out buffer movement shortcuts
@@ -252,9 +253,6 @@ nnoremap <leader>f :bn<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype-specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" markdown
-" autocmd FileType markdown setlocal tw=80        " set specific wrapping for better readability/note-taking
 
 " tex
 augroup tex_compile
