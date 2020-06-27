@@ -223,8 +223,9 @@ let g:slime_python_ipython = 1                  " ipython cpaste fix
 " terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" start terminal in insert
 augroup floaterm_open
-    autocmd TermOpen * startinsert                  " start terminal in insert
+    autocmd TermOpen * startinsert
 augroup END
 tnoremap <Esc> <C-\><C-n>
 
@@ -245,8 +246,8 @@ tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " trying out buffer movement shortcuts
-nnoremap <leader>n :bp<CR>
-nnoremap <leader>m :bn<CR>
+nnoremap <leader>d :bp<CR>
+nnoremap <leader>f :bn<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype-specific
