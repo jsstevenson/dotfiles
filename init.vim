@@ -262,10 +262,11 @@ augroup END
 
 " rust
 " let g:rustfmt_autosave = 1
-augroup rust_compile
+augroup rust_tools
     autocmd!
     autocmd FileType rust nnoremap <leader>r :FloatermToggle<CR>cargo run<CR>
     autocmd FileType rust nnoremap <leader>b :FloatermToggle<CR>cargo build<CR>
     autocmd FileType rust nnoremap <leader>c :FloatermToggle<CR>cargo check<CR>
     autocmd FileType rust nnoremap <leader>t :FloatermToggle<CR>cargo test<CR>
+    autocmd Filetype rust nnoremap <leader>z :RustFmt<CR>
 augroup END
