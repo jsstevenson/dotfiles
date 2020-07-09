@@ -259,6 +259,7 @@ nnoremap <leader>f :bn<CR>
 augroup tex_compile
     autocmd!
     autocmd FileType tex nnoremap <leader>b :CocCommand latex.Build<CR>
+    au FileType tex let b:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"', '"""':'"""'}
 augroup END
 
 " rust
