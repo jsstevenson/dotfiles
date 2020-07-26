@@ -142,6 +142,10 @@ set shell=/bin/zsh                              " Fix the shell to zsh
 filetype plugin indent on                       " Filetype behavior - should be on by default but (shrug emoji)
 set inccommand=nosplit                          " live substitute
 
+" https://vim.fandom.com/wiki/Map_semicolon_to_colon
+map ; :
+noremap ;; ;
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,6 +160,48 @@ augroup clean_trailing_spaces
     autocmd!
     autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
 augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-slime
+" remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:slime_target = "tmux"                     " target tmux for REPL with vim-slime
+let g:slime_python_ipython = 1                  " ipython cpaste fix
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" start terminal in insert
+augroup floaterm_open
+    autocmd TermOpen * startinsert
+augroup END
+tnoremap <Esc> <C-\><C-n>
+
+" Floaterm
+" some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
+let g:floaterm_width=0.8
+let g:floaterm_height=0.85
+
+nnoremap <C-S> :FloatermToggle<cr>
+nnoremap <C-H> :FloatermNew fzf<cr>
+tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" easy edit init.vim
+nnoremap <leader>ev :edit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" trying out buffer movement shortcuts
+nnoremap <leader>d :bp<CR>
+nnoremap <leader>f :bn<CR>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim
@@ -213,45 +259,6 @@ augroup ft_backlist
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-slime
-" remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:slime_target = "tmux"                     " target tmux for REPL with vim-slime
-let g:slime_python_ipython = 1                  " ipython cpaste fix
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" terminal
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" start terminal in insert
-augroup floaterm_open
-    autocmd TermOpen * startinsert
-augroup END
-tnoremap <Esc> <C-\><C-n>
-
-" Floaterm
-" some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
-let g:floaterm_width=0.8
-let g:floaterm_height=0.85
-
-nnoremap <C-S> :FloatermToggle<cr>
-nnoremap <C-H> :FloatermNew fzf<cr>
-tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" easy edit init.vim
-nnoremap <leader>ev :edit $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-
-" trying out buffer movement shortcuts
-nnoremap <leader>d :bp<CR>
-nnoremap <leader>f :bn<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype-specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -260,6 +267,7 @@ augroup tex_compile
     autocmd!
     autocmd FileType tex nnoremap <leader>b :CocCommand latex.Build<CR>
     au FileType tex let b:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"', '"""':'"""'}
+    let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 augroup END
 
 " rust
