@@ -146,7 +146,10 @@ set inccommand=nosplit                          " live substitute
 map ; :
 noremap ;; ;
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map esc to clear
+map <esc> :noh<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -263,6 +266,7 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " tex
+let g:tex_flavor = 'latex'
 augroup tex_compile
     autocmd!
     autocmd FileType tex nnoremap <leader>b :CocCommand latex.Build<CR>
@@ -280,3 +284,8 @@ augroup rust_tools
     autocmd FileType rust nnoremap <leader>t :FloatermToggle<CR>cargo test<CR>
     autocmd Filetype rust nnoremap <leader>z :RustFmt<CR>
 augroup END
+
+" html
+let g:html_indent_inctags = "html,body,head,tbody,div"
+let g:html_indent_script1 = "inc"
+
