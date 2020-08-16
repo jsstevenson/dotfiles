@@ -13,6 +13,7 @@ Plug 'crusoexia/vim-monokai'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'                  " easier csv highlighting
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " Text object & formatting
 Plug 'wellle/targets.vim'
@@ -109,7 +110,7 @@ if $TERM_PROGRAM == "iTerm.app"
     colorscheme NeoSolarized
     let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
     let g:lightline.colorscheme = "solarized"
-    " Update lightline color when bg color changes
+    " Update lightline color when bg color changes:
     augroup setbg
         autocmd!
         autocmd OptionSet background
@@ -128,6 +129,15 @@ elseif $TERM_PROGRAM == "Apple_Terminal"
               \ | call lightline#colorscheme() | call lightline#update()
     augroup END
 endif
+
+" hexokinase
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
+let g:Hexokinase_ftOptInPatterns = {
+            \   'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
+            \   'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
+            \   'javascript': 'full_hex,rgb,rgba,hsl,hsla'
+            \ }
+let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'vim']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity
@@ -289,3 +299,8 @@ augroup END
 let g:html_indent_inctags = "html,body,head,tbody,div"
 let g:html_indent_script1 = "inc"
 
+" js
+augroup js
+    autocmd!
+    autocmd Filetype js,json nnoremap <leader>p :CocCommand prettier.formatFile<CR>
+augroup END
