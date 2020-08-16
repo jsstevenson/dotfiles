@@ -1,4 +1,5 @@
 {
+    "coc.preferences.formatOnSaveFiletypes": ["css"],
     "python.pythonPath":"python",
     "python.jediEnabled": false,
     "languageserver": {
