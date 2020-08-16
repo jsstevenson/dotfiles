@@ -40,13 +40,16 @@ alias tmux='tmux -u'
 # homebrew catch-all alias
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
-# combined cd and ls
+# combined cd and show directory (exa)
 function cd {
-    builtin cd "$@" && ls
+    builtin cd "$@" && exa
 }
 
 # colorize and append size measures
-alias ls='ls -hG'
+alias exa='exa -l'
+
+# open journal
+alias journal='nvim /Users/jss/code/journal.md'
 
 # fix weird public wifi hotspot stuff
 alias clean_net_config='sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist;
