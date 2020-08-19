@@ -46,10 +46,10 @@ function cd {
 }
 
 # colorize and append size measures
-alias exa='exa -l'
+alias ll='exa -l'
 
 # default tree args
-alias tree='tree -AC'
+alias trc='tree -AC'
 
 # open journal
 alias journal='nvim /Users/jss/code/journal.md'
