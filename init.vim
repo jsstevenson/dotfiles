@@ -73,7 +73,7 @@ function! SetBackground()                       " Set bg to light or dark depend
         elseif $DARKMODE == 0
             set background=light
         else
-            echo "Alert - color swap broken?"
+            echom "Alert - color swap broken?"
             set background=dark
         endif
     endif
@@ -104,7 +104,7 @@ let g:lightline = {
 set showtabline=2                               " force show tabline for buffers
 
 " terminal emulator-specific
-if $TERM_PROGRAM == "iTerm.app"
+if ($TERM_PROGRAM == "iTerm.app") || ($TERM_PROGRAM == "alacritty")
     set termguicolors                               " For solarized theme
     call SetBackground()
     colorscheme NeoSolarized
@@ -286,6 +286,10 @@ augroup END
 
 " rust
 " let g:rustfmt_autosave = 1
+" change behavior based on whether tmux pane is zoomed?
+" tmux list-panes -F '#F' | grep -q Z
+" ^^ something to that effect --> autocmd to run in floaterm???
+" not sure how to update on zoom in/out though
 augroup rust_tools
     autocmd!
     autocmd FileType rust nnoremap <leader>r :FloatermToggle<CR>cargo run<CR>
