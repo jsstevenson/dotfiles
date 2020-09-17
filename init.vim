@@ -54,7 +54,8 @@ set cursorline
 syntax enable
 set noshowmode
 
-" set up correct background, colorscheme
+" set background colorscheme and update for light or dark mode
+" does *not* update lightline colors
 function! SetBackground()
     if $TMUX != ""
         let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
@@ -68,12 +69,12 @@ function! SetBackground()
         endif
     else
         " if running from straight shell (no tmux)
-        if $DARKKMODE == 1
+        if $DARKMODE == 1
             set background=dark
         elseif $DARKMODE == 0
             set background=light
         else
-            echom "Alert - color swap broken?"
+            echom "Error: couldn't get darkmode val from shell"
             set background=dark
         endif
     endif
@@ -104,31 +105,34 @@ let g:lightline = {
 " force show tabline for buffers
 set showtabline=2
 
-if ($TERM_PROGRAM == "iTerm.app") || ($TERM_PROGRAM == "alacritty")
-    set termguicolors                               " For solarized theme
-    call SetBackground()
-    colorscheme NeoSolarized
-    let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
-    let g:lightline.colorscheme = "solarized"
-    " Update lightline color when bg color changes:
-    augroup setbg
-        autocmd!
-        autocmd OptionSet background
-              \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
-              \ | call lightline#colorscheme() | call lightline#update()
-    augroup END
-elseif $TERM_PROGRAM == "Apple_Terminal"
-    colorscheme PaperColor
-    set background=light
-    let g:lightline.colorscheme = "PaperColor"
-    " Update lightline color when bg color changes
-    augroup setbg
-        autocmd!
-        autocmd OptionSet background
-              \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
-              \ | call lightline#colorscheme() | call lightline#update()
-    augroup END
-endif
+function! SetTheme()
+    if ($TERM_PROGRAM == "iTerm.app") || ($TERM_PROGRAM == "alacritty")
+        set termguicolors                               " For solarized theme
+        call SetBackground()
+        colorscheme NeoSolarized
+        let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
+        let g:lightline.colorscheme = "solarized"
+        " Update lightline color when bg color changes:
+        augroup setbg
+            autocmd!
+            autocmd OptionSet background
+                  \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
+                  \ | call lightline#colorscheme() | call lightline#update()
+        augroup END
+    elseif $TERM_PROGRAM == "Apple_Terminal"
+        colorscheme PaperColor
+        set background=light
+        let g:lightline.colorscheme = "PaperColor"
+        " Update lightline color when bg color changes
+        augroup setbg
+            autocmd!
+            autocmd OptionSet background
+                  \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
+                  \ | call lightline#colorscheme() | call lightline#update()
+        augroup END
+    endif
+endfunction
+call SetTheme()
 
 " hexokinase
 let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'

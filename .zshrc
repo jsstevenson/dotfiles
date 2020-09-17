@@ -71,6 +71,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     if [ -z ${DARKMODE+x} ]; then
         export BAT_THEME="Solarized (dark)"
         export DARKMODE=1;
+        gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
     fi
 
     # swap light/dark colors
@@ -78,30 +79,16 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
         if [[ "$DARKMODE" -eq 1 ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-light\a";
-            else
-                # if in alacritty
-                sed -i '.tmp' 's/colors: \*dark/colors: \*light/' ~/code/dotfiles/alacritty.yml
-                if [[ -f ~/code/dotfiles/alacritty.yml.tmp ]]; then
-                    rm ~/code/dotfiles/alacritty.yml.tmp
-                    cp ~/code/dotfiles/alacritty.yml ~/.config/alacritty/
-                else
-                    1>&2 echo "Unable to switch alacritty settings"
-                fi
+            elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+                gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss/code/dotfiles/alacritty.yml
             fi
             export DARKMODE=0;
             export BAT_THEME="Solarized (light)";
         elif [[ "$DARKMODE" -eq 0 ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-dark\a";
-            else
-                # if in alacritty
-                sed -i '.tmp' 's/colors: \*light/colors: \*dark/g' ~/code/dotfiles/alacritty.yml
-                if [[ -f ~/code/dotfiles/alacritty.yml.tmp ]]; then
-                    rm ~/code/dotfiles/alacritty.yml.tmp
-                    cp ~/code/dotfiles/alacritty.yml ~/.config/alacritty/
-                else
-                    1>&2 echo "Unable to switch alacritty settings"
-                fi
+            elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+                gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
             fi
             export DARKMODE=1;
             export BAT_THEME="Solarized (dark)";
@@ -110,6 +97,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
         fi;
     }
 
+    # tmux hook should render this unnecessary, but just in case:
     if [ -n "$TMUX" ]; then
         function refresh {
             darkmode_setting=$(tmux show-environment | grep "^DARKMODE");
@@ -131,7 +119,6 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     fi
 elif [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
     export BAT_THEME="GitHub"
-
 fi
 
 ################################################################################
