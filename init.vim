@@ -12,24 +12,26 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'crusoexia/vim-monokai'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'voldikss/vim-floaterm'
-Plug 'mechatroner/rainbow_csv'                  " easier csv highlighting
+Plug 'mechatroner/rainbow_csv'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " Text object & formatting
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'godlygeek/tabular'                        " for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
-Plug 'tpope/vim-commentary'                     " easier commenting
-Plug 'tpope/vim-endwise'                        " auto end hanging syntax
+" for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Other tools
-Plug 'nicwest/vim-http'                         " Make HTTP requests from within nvim
-Plug 'tpope/vim-obsession'                      " for saving nvim sessions with tmux-resurrect
+Plug 'nicwest/vim-http'
+Plug 'tpope/vim-obsession'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jpalardy/vim-slime'
-Plug 'itchyny/vim-gitbranch'                    " until I feel better about vim-fugitive
+" until I feel better about vim-fugitive
+Plug 'itchyny/vim-gitbranch'
 
 " Language-specific
 Plug 'vim-python/python-syntax'
@@ -43,21 +45,18 @@ call plug#end()
 " Appearance
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Layout
-set number relativenumber	                " Show line numbers
-set showmatch			                " Show matching brackets
+set number relativenumber
+set showmatch
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-set cc=80			                " 80 character column border
-set cursorline                                  " Draw horizontal line on cursor
-" set lazyredraw                                  " Lazy redraw; for better performance
+set cc=80
+set cursorline
+" Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
+syntax enable
+set noshowmode
 
-" Colors
-syntax enable                                   " Enable syntax. https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
-set noshowmode                                  " (since mode already shows in statusline)
-
-" Set up correct background, colorscheme
-function! SetBackground()                       " Set bg to light or dark depending on parent env values
-    if $TMUX != ""                              " if in tmux
+" set up correct background, colorscheme
+function! SetBackground()
+    if $TMUX != ""
         let darkmode_setting = system("tmux show-environment | grep \"^DARKMODE\"")
         let darkmode_val = strcharpart(darkmode_setting, 9, 9)
         if darkmode_val == 1
@@ -67,8 +66,9 @@ function! SetBackground()                       " Set bg to light or dark depend
         else
             echom "Error - couldn't get darkmode val from tmux"
         endif
-    else                                        " presumably running straight from shell
-        if $DARKMODE == 1
+    else
+        " if running from straight shell (no tmux)
+        if $DARKKMODE == 1
             set background=dark
         elseif $DARKMODE == 0
             set background=light
@@ -79,7 +79,7 @@ function! SetBackground()                       " Set bg to light or dark depend
     endif
 endfunction
 
-" Lightline
+" get current CoC fuction for Lightline
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
@@ -101,9 +101,9 @@ let g:lightline = {
     \ 'component_expand': {'buffers': 'lightline#bufferline#buffers'},
     \ 'component_type': {'buffers': 'tabsel'}
     \ }
-set showtabline=2                               " force show tabline for buffers
+" force show tabline for buffers
+set showtabline=2
 
-" terminal emulator-specific
 if ($TERM_PROGRAM == "iTerm.app") || ($TERM_PROGRAM == "alacritty")
     set termguicolors                               " For solarized theme
     call SetBackground()
@@ -143,14 +143,18 @@ let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'vim']
 " Productivity
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set visualbell                                  " errors flash screen instead of bell
-set clipboard=unnamedplus                       " use system clipboard
-set ignorecase			                " Case-insensitive matching
-set hlsearch			                " Highlight search results
-set scrolloff=2                                 " Scroll window down
-set shell=/bin/zsh                              " Fix the shell to zsh
-filetype plugin indent on                       " Filetype behavior - should be on by default but (shrug emoji)
-set inccommand=nosplit                          " live substitute
+set visualbell
+" use system clipboard
+set clipboard=unnamedplus
+" Case-insensitive matching
+set ignorecase
+set hlsearch
+set scrolloff=2
+set shell=/bin/zsh
+" Filetype behavior - should be on by default but (shrug emoji)
+filetype plugin indent on
+" live substitute
+set inccommand=nosplit
 
 " https://vim.fandom.com/wiki/Map_semicolon_to_colon
 map ; :
@@ -163,15 +167,17 @@ map <esc> :noh<cr>
 " Text
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set expandtab                                   " spaces instead of tabs
+" spaces instead of tabs
+set expandtab
 set encoding=utf-8
 set fenc=utf-8
-set wildmode=longest,list	                " Bash-like tab complete
+" bash-like tab complete
+set wildmode=longest,list
 set shiftwidth=4
 set softtabstop=4
 augroup clean_trailing_spaces
     autocmd!
-    autocmd BufWritePre * %s/\s\+$//e               " Remove trailing whitespace on save
+    autocmd BufWritePre * %s/\s\+$//e
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -179,8 +185,9 @@ augroup END
 " remember to prefix target pane with window number, eg 0.1 for window 0, pane 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:slime_target = "tmux"                     " target tmux for REPL with vim-slime
-let g:slime_python_ipython = 1                  " ipython cpaste fix
+let g:slime_target = "tmux"
+" ipython copypaste fix
+let g:slime_python_ipython = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -213,7 +220,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " trying out buffer movement shortcuts
 nnoremap <leader>d :bp<CR>
 nnoremap <leader>f :bn<CR>
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

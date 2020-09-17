@@ -66,7 +66,7 @@ sudo shutdown -r now'
 # Appearance
 ################################################################################
 
-if [[ "$TERM_PROGRAM" = "iTerm.app" ]]; then
+if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     # default value
     if [ -z ${DARKMODE+x} ]; then
         export BAT_THEME="Solarized (dark)"
