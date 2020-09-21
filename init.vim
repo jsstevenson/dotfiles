@@ -90,8 +90,7 @@ let g:lightline = {
     \   'left': [   [ 'mode', 'paste' ],
     \               [ 'gitbranch' ],
     \               [ 'cocstatus', 'currentfunction', 'readonly', 'modified' ] ],
-    \   'right': [  [ 'lineinfo' ],
-    \               [ 'fileformat', 'fileencoding', 'filetype' ]]
+    \   'right': []
     \ },
     \ 'component_function': {
     \   'cocstatus': 'coc#status',
