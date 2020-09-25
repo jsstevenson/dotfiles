@@ -209,7 +209,7 @@ let g:floaterm_width=0.8
 let g:floaterm_height=0.85
 
 nnoremap <C-S> :FloatermToggle<cr>
-nnoremap <C-H> :w | FloatermNew fzf<cr>
+nnoremap <C-H> :w<cr>:FloatermNew fzf<cr>
 tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
