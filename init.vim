@@ -295,16 +295,62 @@ augroup END
 
 " rust
 " let g:rustfmt_autosave = 1
-" change behavior based on whether tmux pane is zoomed?
-" tmux list-panes -F '#F' | grep -q Z
-" ^^ something to that effect --> autocmd to run in floaterm???
-" not sure how to update on zoom in/out though
+
+" global variable - tmux pane ID of target pane for build commands
+let g:rust_target_pane_id = -999
+
+" set global target variable
+function! Set_Rust_Target()
+    if $TMUX != ""
+        !tmux display-panes
+        let target_pane = input('Select target pane: ')
+        let panes = split(system("tmux list-panes -F '#{pane_index} #{pane_id}'"), "\n")
+        let target_pane_id = -1
+        for pane in panes
+            if target_pane == pane[0:0]
+                let target_pane_id = split(pane)[1]
+                break
+            endif
+        endfor
+
+        if target_pane_id == -1
+            echom "invalid target pane value"
+            return
+        endif
+
+        if target_pane_id == $TMUX_PANE
+            let g:rust_target_pane_id = -1
+            return
+        else
+            let g:rust_target_pane_id = target_pane_id
+            return
+        endif
+    else
+        let g:rust_target_pane_id = -1
+        return
+    endif
+endfunction
+
+" call provided cargo command in target pane
+function! Execute_Rust_Command(cmd)
+    if g:rust_target_pane_id == -999
+        call Set_Rust_Target()
+    endif
+    if g:rust_target_pane_id == -1
+        execute "FloatermSend cargo " . a:cmd
+        execute "FloatermToggle"
+    elseif g:rust_target_pane_id >= 0
+        let b:result = system("tmux send-keys -t " . g:rust_target_pane_id . " 'cargo " . a:cmd . "' Enter")
+        echo b:result
+    endif
+endfunction
+
 augroup rust_tools
     autocmd!
-    autocmd FileType rust nnoremap <leader>r :FloatermToggle<CR>cargo run<CR>
-    autocmd FileType rust nnoremap <leader>b :FloatermToggle<CR>cargo build<CR>
-    autocmd FileType rust nnoremap <leader>c :FloatermToggle<CR>cargo check<CR>
-    autocmd FileType rust nnoremap <leader>t :FloatermToggle<CR>cargo test<CR>
+    autocmd FileType rust nnoremap <leader>r :call Execute_Rust_Command("run")<CR>
+    autocmd FileType rust nnoremap <leader>b :call Execute_Rust_Command("build")<CR>
+    autocmd FileType rust nnoremap <leader>c :call Execute_Rust_Command("check")<CR>
+    autocmd FileType rust nnoremap <leader>t :call Execute_Rust_Command("text")<CR>
     autocmd Filetype rust nnoremap <leader>z :RustFmt<CR>
 augroup END
 
