@@ -9,8 +9,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'crusoexia/vim-monokai'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
@@ -119,9 +117,9 @@ function! SetTheme()
                   \ | call lightline#colorscheme() | call lightline#update()
         augroup END
     elseif $TERM_PROGRAM == "Apple_Terminal"
-        colorscheme PaperColor
+        colorscheme NeoSolarized
         set background=light
-        let g:lightline.colorscheme = "PaperColor"
+        let g:lightline.colorscheme = "solarized"
         " Update lightline color when bg color changes
         augroup setbg
             autocmd!
@@ -209,8 +207,10 @@ let g:floaterm_width=0.8
 let g:floaterm_height=0.85
 
 nnoremap <C-S> :FloatermToggle<cr>
-nnoremap <C-H> :w<cr>:FloatermNew fzf<cr>
 tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
+tnoremap <C-N> <C-\><C-n>:FloatermNew<cr>
+tnoremap <leader>d <C-\><C-n>:FloatermPrev<cr>
+tnoremap <leader>f <C-\><C-n>:FloatermNext<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc

@@ -2,8 +2,13 @@
 # Path
 ################################################################################
 
-export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
-export PATH="/usr/local/sbin:$PATH"                         # Homebrew
+path_python="/Users/jss009/Library/Python/3.8/bin"
+path_nvim="/Users/jss009/nvim-osx64/bin"
+path_local="/Users/jss009/local/bin"
+path_rust="/Users/jss009/.cargo/bin"
+path_brew="/usr/local/sbin"
+export PATH="$path_python:$path_nvim:$path_local:$path_rust:$path_brew:$PATH"
+
 
 ################################################################################
 # Prompt
@@ -28,8 +33,8 @@ export PS2="> "
 # Defaults/aliases
 ################################################################################
 
-export EDITOR=/usr/local/bin/nvim
-export VISUAL=/usr/local/bin/nvim
+export EDITOR=/Users/jss009/nvim-osx64/bin/nvim
+export VISUAL=/Users/jss009/nvim-osx64/bin/nvim
 
 # open current director in Finder
 alias f='open -a Finder ./'
@@ -52,15 +57,11 @@ alias ll='exa -l'
 alias trc='tree -AC'
 
 # open journal
-alias journal='nvim /Users/jss/code/journal.md'
+alias journal='nvim /Volumes/jss009/journal.md'
 
-# fix weird public wifi hotspot stuff
-alias clean_net_config='sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist;
-sudo rm /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist;
-sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist;
-sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
-echo "now restarting....";
-sudo shutdown -r now'
+# set drive
+export DR=/Volumes/jss009/
+
 
 ################################################################################
 # Appearance
@@ -69,9 +70,9 @@ sudo shutdown -r now'
 if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     # default value
     if [ -z ${DARKMODE+x} ]; then
-        export BAT_THEME="Solarized (dark)"
-        export DARKMODE=1;
-        gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
+        export BAT_THEME="Solarized (light)"
+        export DARKMODE=0;
+        gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss009/.alacritty.yml
     fi
 
     # swap light/dark colors
@@ -137,6 +138,17 @@ function tmux_send_nvim_keys() {
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
 
 # Biostar Handbook things
 export LC_ALL=C
