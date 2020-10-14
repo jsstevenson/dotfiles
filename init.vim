@@ -10,8 +10,8 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'voldikss/vim-floaterm'
-Plug 'mechatroner/rainbow_csv'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'mechatroner/rainbow_csv'
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " Text object & formatting
 Plug 'wellle/targets.vim'
@@ -117,6 +117,7 @@ function! SetTheme()
                   \ | call lightline#colorscheme() | call lightline#update()
         augroup END
     elseif $TERM_PROGRAM == "Apple_Terminal"
+        echom "in apple terminal settings"
         colorscheme NeoSolarized
         set background=light
         let g:lightline.colorscheme = "solarized"
@@ -124,7 +125,7 @@ function! SetTheme()
         augroup setbg
             autocmd!
             autocmd OptionSet background
-                  \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/papercolor.vim')
+                  \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
                   \ | call lightline#colorscheme() | call lightline#update()
         augroup END
     endif
@@ -132,13 +133,13 @@ endfunction
 call SetTheme()
 
 " hexokinase
-let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
-let g:Hexokinase_ftOptInPatterns = {
-            \   'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
-            \   'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
-            \   'javascript': 'full_hex,rgb,rgba,hsl,hsla'
-            \ }
-let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'vim']
+" let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
+" let g:Hexokinase_ftOptInPatterns = {
+"             \   'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
+"             \   'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
+"             \   'javascript': 'full_hex,rgb,rgba,hsl,hsla'
+"             \ }
+" let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'vim']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Productivity

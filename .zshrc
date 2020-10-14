@@ -81,7 +81,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-light\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss/code/dotfiles/alacritty.yml
+                gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss009/.alacritty.yml
             fi
             export DARKMODE=0;
             export BAT_THEME="Solarized (light)";
@@ -89,7 +89,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-dark\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
+                gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss009/.alacritty.yml
             fi
             export DARKMODE=1;
             export BAT_THEME="Solarized (dark)";
@@ -149,9 +149,3 @@ fd() {
 fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
-
-# Biostar Handbook things
-export LC_ALL=C
-export PERL_LWP_SSL_VERIFY_HOSTNAME=0
-export PATH=~/bin:$PATH
-
