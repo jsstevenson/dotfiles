@@ -33,6 +33,11 @@ export PS2="> "
 # Defaults/aliases
 ################################################################################
 
+# https://stackoverflow.com/questions/49436922/getting-error-while-trying-to-run-this-command-pipenv-install-requests-in-ma
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
 export EDITOR=/Users/jss009/nvim-osx64/bin/nvim
 export VISUAL=/Users/jss009/nvim-osx64/bin/nvim
 
