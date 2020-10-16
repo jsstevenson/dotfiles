@@ -8,12 +8,15 @@ scrolling:
 font:
   normal:
     family: 'SF Mono Powerline'
+    style: Regular
+  bold:
+    family: 'SF Mono Powerline'
     style: Semibold
-  size: 12
+  size: 10.5
+
   #offset:
   #  x: 0
   #  y: 0
-
   # Thin stroke font rendering (macOS only)
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
@@ -226,7 +229,7 @@ shell:
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
 
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
@@ -293,10 +296,10 @@ shell:
 
   # (macOS only)
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
-  #- { key: Key0,   mods: Command,            action: ResetFontSize    }
-  #- { key: Equals, mods: Command,            action: IncreaseFontSize }
+  - { key: Key0,   mods: Command,            action: ResetFontSize    }
+  - { key: Equals, mods: Command,            action: IncreaseFontSize }
   #- { key: Add,    mods: Command,            action: IncreaseFontSize }
-  #- { key: Minus,  mods: Command,            action: DecreaseFontSize }
+  - { key: Minus,  mods: Command,            action: DecreaseFontSize }
   #- { key: K,      mods: Command,            action: ClearHistory     }
   #- { key: V,      mods: Command,            action: Paste            }
   #- { key: C,      mods: Command,            action: Copy             }
@@ -375,4 +378,4 @@ schemes:
       cyan:    '#93a1a1' # base1
       white:   '#fdf6e3' # base3
 
-colors: *light
+colors: *dark

@@ -19,8 +19,7 @@ parse_git_branch() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
-
+PROMPT='%3c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
 export PS2="> "
 
 ################################################################################
@@ -73,11 +72,11 @@ export DR=/Volumes/jss009/
 ################################################################################
 
 if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
-    # default value
+    # default values
     if [ -z ${DARKMODE+x} ]; then
-        export BAT_THEME="Solarized (light)"
-        export DARKMODE=0;
-        gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss009/.alacritty.yml
+        export BAT_THEME="Solarized (dark)"
+        export DARKMODE=1;
+        gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss009/.alacritty.yml
     fi
 
     # swap light/dark colors
