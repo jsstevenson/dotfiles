@@ -10,13 +10,13 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'voldikss/vim-floaterm'
-" Plug 'mechatroner/rainbow_csv'
+Plug 'mechatroner/rainbow_csv'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " Text object & formatting
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
-" for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
+" try https://github.com/junegunn/vim-easy-align as well?
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'

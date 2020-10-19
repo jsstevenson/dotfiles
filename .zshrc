@@ -37,8 +37,8 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
-export EDITOR=/Users/jss009/nvim-osx64/bin/nvim
-export VISUAL=/Users/jss009/nvim-osx64/bin/nvim
+export EDITOR=/usr/local/bin/nvim
+export VISUAL=/usr/local/bin/nvim
 
 # open current director in Finder
 alias f='open -a Finder ./'
@@ -153,3 +153,16 @@ fd() {
 fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
+
+# conda
+__conda_setup="$('/Users/jss009/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jss009/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jss009/opt/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jss009/opt/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
