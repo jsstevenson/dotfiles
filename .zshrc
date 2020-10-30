@@ -76,7 +76,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     if [ -z ${DARKMODE+x} ]; then
         export BAT_THEME="Solarized (dark)"
         export DARKMODE=1;
-        gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss009/.alacritty.yml
+        gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/.alacritty.yml
     fi
 
     # swap light/dark colors
@@ -85,7 +85,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-light\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss009/.alacritty.yml
+                gsed -i 's/colors: \*solarized_dark/colors: \*solarized_light/' /Users/jss009/.alacritty.yml
             fi
             export DARKMODE=0;
             export BAT_THEME="Solarized (light)";
@@ -93,7 +93,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-dark\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss009/.alacritty.yml
+                gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/.alacritty.yml
             fi
             export DARKMODE=1;
             export BAT_THEME="Solarized (dark)";

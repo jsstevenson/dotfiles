@@ -7,6 +7,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Theme & layout
 Plug 'iCyMind/NeoSolarized'
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'voldikss/vim-floaterm'
@@ -104,18 +106,24 @@ set showtabline=2
 
 function! SetTheme()
     if ($TERM_PROGRAM == "iTerm.app") || ($TERM_PROGRAM == "alacritty")
-        set termguicolors                               " For solarized theme
-        call SetBackground()
-        colorscheme NeoSolarized
-        let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
-        let g:lightline.colorscheme = "solarized"
-        " Update lightline color when bg color changes:
-        augroup setbg
-            autocmd!
-            autocmd OptionSet background
-                  \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
-                  \ | call lightline#colorscheme() | call lightline#update()
-        augroup END
+        if ($COLORSCHEME == "gruvbox")
+            set termguicolors
+            call SetBackground()
+            colorscheme gruvbox
+        else
+            set termguicolors                               " For solarized theme
+            call SetBackground()
+            colorscheme NeoSolarized
+            let g:neosolarized_contrast = "high"            " set high contrast (default = normal)
+            let g:lightline.colorscheme = "solarized"
+    "        Update lightline color when bg color changes:
+            augroup setbg
+                autocmd!
+                autocmd OptionSet background
+                      \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/solarized.vim')
+                      \ | call lightline#colorscheme() | call lightline#update()
+            augroup END
+        endif
     elseif $TERM_PROGRAM == "Apple_Terminal"
         echom "in apple terminal settings"
         colorscheme NeoSolarized
@@ -285,7 +293,11 @@ augroup END
 " filetype-specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" tex
+""" Python
+
+let g:python_highlight_all = 1
+
+""" tex
 let g:tex_flavor = 'latex'
 augroup tex_compile
     autocmd!
@@ -294,7 +306,7 @@ augroup tex_compile
     let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 augroup END
 
-" rust
+""" rust
 " let g:rustfmt_autosave = 1
 
 " global variable - tmux pane ID of target pane for build commands
