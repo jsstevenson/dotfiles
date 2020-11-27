@@ -2,12 +2,14 @@
 # Path
 ################################################################################
 
-path_python="/Users/jss009/Library/Python/3.8/bin"
-path_nvim="/Users/jss009/nvim-osx64/bin"
-path_local="/Users/jss009/local/bin"
+path_python="/usr/local/opt/python@3.8/bin"
+path_python_pks="/Users/jss009/Library/Python/3.8/bin"
+#path_nvim="/Users/jss009/nvim-osx64/bin"
+#path_local="/Users/jss009/local/bin"
 path_rust="/Users/jss009/.cargo/bin"
 path_brew="/usr/local/sbin"
-export PATH="$path_python:$path_nvim:$path_local:$path_rust:$path_brew:$PATH"
+path_aws="/Users/jss009/.ebcli-virtual-env/executable"
+export PATH="$path_python:$path_python_pks:$path_rust:$path_brew:$path_aws:$PATH"
 
 
 ################################################################################
@@ -65,6 +67,15 @@ alias journal='nvim /Volumes/jss009/journal.md'
 
 # set drive
 export DR=/Volumes/jss009/
+
+# create .zip archive for EBS
+ebszip() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: ebszip <project_name>"
+    else
+        git archive -v -o "$1.zip" --format=zip HEAD
+    fi
+}
 
 
 ################################################################################
@@ -166,3 +177,12 @@ else
     fi
 fi
 unset __conda_setup
+
+# eb/pyenv
+export LDFLAGS="-L/usr/local/opt/zlib/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
