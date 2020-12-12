@@ -149,7 +149,6 @@ let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'vim']
 set visualbell
 " use system clipboard
 set clipboard=unnamedplus
-" Case-insensitive matching
 set ignorecase
 set hlsearch
 set scrolloff=2
