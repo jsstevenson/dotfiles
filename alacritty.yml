@@ -8,8 +8,12 @@ scrolling:
 font:
   normal:
     family: 'SF Mono Powerline'
+    style: Regular
+  bold:
+    family: 'SF Mono Powerline'
     style: Semibold
-  size: 12
+  size: 11
+
   #offset:
   #  x: 0
   #  y: 0

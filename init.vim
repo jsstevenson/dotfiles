@@ -283,6 +283,10 @@ augroup END
 " filetype-specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" python
+
+let g:python_highlight_all = 1
+
 " tex
 let g:tex_flavor = 'latex'
 augroup tex_compile
