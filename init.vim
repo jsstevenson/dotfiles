@@ -196,20 +196,25 @@ let g:slime_python_ipython = 1
 " terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" start terminal in insert
+" start all terminals in insert
 augroup floaterm_open
     autocmd TermOpen * startinsert
 augroup END
 tnoremap <Esc> <C-\><C-n>
 
-" Floaterm
+" floaterm
 " some functionality relies on nvr [https://github.com/mhinz/neovim-remote]
 let g:floaterm_width=0.8
 let g:floaterm_height=0.85
 
-nnoremap <C-S> :FloatermToggle<cr>
-nnoremap <C-H> :w<cr>:FloatermNew fzf<cr>
-tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
+let g:floaterm_keymap_toggle = '<C-S>'
+let g:floaterm_keymap_new = '<C-N>'
+let g:floaterm_keymap_prev = '<Leader>d'
+let g:floaterm_keymap_next = '<Leader>f'
+
+hi FloatermBorder guibg=brblack guifg=brwhite
+
+let g:floaterm_autoclose = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc
