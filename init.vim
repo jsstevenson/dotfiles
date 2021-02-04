@@ -207,10 +207,14 @@ tnoremap <Esc> <C-\><C-n>
 let g:floaterm_width=0.8
 let g:floaterm_height=0.85
 
-let g:floaterm_keymap_toggle = '<C-S>'
-let g:floaterm_keymap_new = '<C-N>'
-let g:floaterm_keymap_prev = '<Leader>d'
-let g:floaterm_keymap_next = '<Leader>f'
+nnoremap <C-S> :FloatermToggle<cr>
+nnoremap <C-H> :w<cr>:FloatermNew fzf<cr>
+tnoremap <C-S> <C-\><C-n>:FloatermToggle<cr>
+
+" let g:floaterm_keymap_toggle = '<C-S>'
+" let g:floaterm_keymap_new = '<C-N>'
+" let g:floaterm_keymap_prev = '<Leader>d'
+" let g:floaterm_keymap_next = '<Leader>f'
 
 hi FloatermBorder guibg=brblack guifg=brwhite
 
