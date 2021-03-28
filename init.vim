@@ -197,8 +197,9 @@ let g:slime_python_ipython = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " start all terminals in insert
-augroup floaterm_open
+augroup term_commands
     autocmd TermOpen * startinsert
+    autocmd TermOpen * :set nonumber norelativenumber
 augroup END
 tnoremap <Esc> <C-\><C-n>
 
@@ -374,4 +375,12 @@ let g:html_indent_script1 = "inc"
 augroup js
     autocmd!
     autocmd Filetype js,json nnoremap <leader>p :CocCommand prettier.formatFile<CR>
+augroup END
+
+" c/c++
+augroup c_and_cpp
+    autocmd!
+    autocmd Filetype c,cpp set tabstop=2
+    autocmd Filetype c,cpp set softtabstop=2
+    autocmd Filetype c,cpp set shiftwidth=2
 augroup END
