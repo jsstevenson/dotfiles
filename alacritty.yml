@@ -230,7 +230,7 @@ shell:
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
 
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
@@ -297,10 +297,10 @@ shell:
 
   # (macOS only)
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
-  #- { key: Key0,   mods: Command,            action: ResetFontSize    }
-  #- { key: Equals, mods: Command,            action: IncreaseFontSize }
+  - { key: Key0,   mods: Command,            action: ResetFontSize    }
+  - { key: Equals, mods: Command,            action: IncreaseFontSize }
   #- { key: Add,    mods: Command,            action: IncreaseFontSize }
-  #- { key: Minus,  mods: Command,            action: DecreaseFontSize }
+  - { key: Minus,  mods: Command,            action: DecreaseFontSize }
   #- { key: K,      mods: Command,            action: ClearHistory     }
   #- { key: V,      mods: Command,            action: Paste            }
   #- { key: C,      mods: Command,            action: Copy             }
@@ -308,7 +308,7 @@ shell:
   #- { key: H,      mods: Command,            action: Hide             }
   #- { key: M,      mods: Command,            action: Minimize         }
   #- { key: Q,      mods: Command,            action: Quit             }
-  #- { key: W,      mods: Command,            action: Quit             }
+  - { key: W,      mods: Command,            action: None             }
   #- { key: N,      mods: Command,            action: SpawnNewInstance }
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
 
