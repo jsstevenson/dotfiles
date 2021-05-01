@@ -80,16 +80,27 @@ opt('o', 'showmode', false)  -- ????
 cmd 'colorscheme tokyonight'
 g.tokyonight_style = 'storm'
 
+local function environment_name() 
+    ps1 = os.getenv('PS1')
+    if ps1 then
+        return string.match(ps1, "%((.+)%) ")
+    else
+        return nil
+    end
+end
+
 require('lualine').setup{
     options = {
         theme = 'tokyonight'
     },
     sections = {
-        lualine_x = {'encoding', 'filetype'},
-        lualine_y = {},
-        lualine_z = {'diff'}
+        lualine_c = {environment_name},
+        lualine_x = {'encoding'},
+        lualine_y = {'filetype'},
+        lualine_z = {'filename'}
     }
 }
+
 
 require('bufferline').setup{}
 
