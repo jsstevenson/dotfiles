@@ -69,7 +69,7 @@ sudo shutdown -r now'
 if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     # default value
     if [ -z ${DARKMODE+x} ]; then
-        export BAT_THEME="Solarized (dark)"
+        export BAT_THEME="ansi"
         export DARKMODE=1;
         gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
     fi
