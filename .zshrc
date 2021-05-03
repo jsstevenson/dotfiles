@@ -4,12 +4,12 @@
 
 path_python="/usr/local/opt/python@3.8/bin"
 path_python_pks="/Users/jss009/Library/Python/3.8/bin"
-#path_nvim="/Users/jss009/nvim-osx64/bin"
 #path_local="/Users/jss009/local/bin"
 path_rust="/Users/jss009/.cargo/bin"
 path_brew="/usr/local/sbin"
 path_aws="/Users/jss009/.ebcli-virtual-env/executable"
 export PATH="$path_python:$path_python_pks:$path_rust:$path_brew:$path_aws:$PATH"
+export PATH=/Users/jss009/.pyenv/versions/3.7.2/bin:$PATH
 
 
 ################################################################################
@@ -178,14 +178,9 @@ else
 fi
 unset __conda_setup
 
-# eb/pyenv
+# eb
 export LDFLAGS="-L/usr/local/opt/zlib/lib"
 export CPPFLAGS="-I/usr/local/opt/zlib/include"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
 
 # dynamodb
 alias ddb='cd ~/code/dynamodb_local_latest; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb'
