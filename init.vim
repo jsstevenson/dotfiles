@@ -23,7 +23,6 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
 
 " Other tools
 Plug 'nicwest/vim-http'
@@ -372,11 +371,21 @@ augroup rust_tools
 augroup END
 
 " html
-let g:html_indent_inctags = "html,body,head,tbody,div"
-let g:html_indent_script1 = "inc"
+augroup html
+    autocmd!
+    let g:html_indent_inctags = "html,body,head,tbody,div"
+    let g:html_indent_script1 = "inc"
+    autocmd Filetype html nnoremap <leader>p :CocCommand prettier.formatFile<CR>
+augroup END
 
 " js
 augroup js
     autocmd!
     autocmd Filetype js,json nnoremap <leader>p :CocCommand prettier.formatFile<CR>
+augroup END
+
+" json
+augroup json
+    autocmd!
+    autocmd Filetype json set shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
