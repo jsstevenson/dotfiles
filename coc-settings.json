@@ -2,4 +2,8 @@
     "coc.preferences.formatOnSaveFiletypes": ["css"],
     "python.pythonPath":"python3",
     "python.jediEnabled": false,
+    "html.enable": true,
+    "html.format.enable": true,
+    "html.autoClosingTags": true,
+    "prettier.jsxBracketSameLine": true
 }
