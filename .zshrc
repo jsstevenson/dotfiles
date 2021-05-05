@@ -2,6 +2,7 @@
 # Path
 ################################################################################
 
+export PATH="$HOME/.local/bin:$PATH"                        # local binaries
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
 
@@ -143,9 +144,7 @@ export LC_ALL=C
 export PERL_LWP_SSL_VERIFY_HOSTNAME=0
 export PATH=~/bin:$PATH
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
+# conda
 __conda_setup="$('/Users/jss/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -157,5 +156,3 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-
