@@ -1,16 +1,16 @@
 --------------------------------------------------------------------------------
 -- TODO
 --------------------------------------------------------------------------------
--- delete whitespace on save
 -- light theme
 -- hot reload colors
 --   breaks statusline?
 -- filetype autocmds
 -- nvim-lsp
--- treesitter
+--   individual LSPs: python, js/prettier, tex, lua, rust
 --------------------------------------------------------------------------------
 -- HELPERS
 --------------------------------------------------------------------------------
+-- https://oroques.dev/notes/neovim-init
 local api, cmd, fn, g = vim.api, vim.cmd, vim.fn, vim.g
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 local fmt = string.format
@@ -49,20 +49,21 @@ paq {'tpope/vim-commentary'}
 paq {'tpope/vim-endwise'}
 paq {'tpope/vim-surround'}
 paq {'jiangmiao/auto-pairs'}
+paq {'jpalardy/vim-slime'}
+paq {'nvim-treesitter/nvim-treesitter'}
 
 -- misc
 paq {'nicwest/vim-http'}
 paq {'tpope/vim-obsession'}
-paq {'jpalardy/vim-slime'}
 -- until I feel better about vim-fugitive
 paq {'itchyny/vim-gitbranch'}
+paq {'neovim/nvim-lspconfig'}
+paq {'nvim-lua/completion-nvim'}
 
 -- language-specific
-paq {'vim-python/python-syntax'}
 paq {'wlangstroth/vim-racket'}
 paq {'rust-lang/rust.vim'}
 paq {'lervag/vimtex'}
-
 
 --------------------------------------------------------------------------------
 -- APPEARANCE
@@ -74,13 +75,16 @@ opt('o', 'showmatch', true)
 opt('w', 'cc', '80')
 opt('w', 'cursorline', true)
 opt('o', 'syntax', 'enable')  -- ????
+cmd('filetype plugin indent on')
 opt('o', 'showmode', false)  -- ????
 -- cmd 'hi MatchParen cterm=bold ctermbg=none ctermfg=magenta' -- ???
 
-cmd 'colorscheme tokyonight'
 g.tokyonight_style = 'storm'
+g.tokyonight_dark_float = false
+g.tokyonight_colors = {}
+cmd 'colorscheme tokyonight'
 
-local function environment_name() 
+local function environment_name()
     ps1 = os.getenv('PS1')
     if ps1 then
         return string.match(ps1, "%((.+)%) ")
@@ -101,7 +105,6 @@ require('lualine').setup{
     }
 }
 
-
 require('bufferline').setup{}
 
 --------------------------------------------------------------------------------
@@ -112,9 +115,32 @@ opt('b', 'fileencoding', 'utf-8')
 opt('o', 'wildmode', 'longest,list')
 opt('b', 'shiftwidth', 4)
 opt('b', 'softtabstop', 4)
+cmd('syntax enable')
+cmd('filetype plugin indent on')
 
+-- delete trailing whitespace on save
+cmd([[
+augroup clean_trailing_spaces
+    autocmd!
+    autocmd BufWritePre * %s/\s\+$//e
+augroup END
+]])
 
--- TODO clean_trailing spaces
+-- vim-slime
+g.slime_target = "tmux"
+g.slime_python_ipython = 1
+
+-- treesitter
+local ts = require 'nvim-treesitter.configs'
+ts.setup {
+    ensure_installed = {
+        'bash', 'bibtex', 'c', 'cpp', 'graphql',  'html', 'java', 'javascript',
+        'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'rust', 'sparql',
+        'toml', 'tsx', 'typescript', 'yaml'
+    },
+    highlight = {enable = true},
+    indent = { enable = true }
+}
 
 --------------------------------------------------------------------------------
 -- PRODUCTIVITY
@@ -134,7 +160,7 @@ map('', ';;', ';') -- TODO fix
 map('', '<esc>', ':noh<cr>')
 
 --------------------------------------------------------------------------------
--- MISC
+-- TERMINAL
 --------------------------------------------------------------------------------
 
 map('t', '<Esc>', '<C-\\><C-n>')
@@ -146,7 +172,7 @@ map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>') -- TODO not fully working???
 -- " let g:floaterm_keymap_new = '<C-N>'
 -- " let g:floaterm_keymap_prev = '<Leader>d'
 -- " let g:floaterm_keymap_next = '<Leader>f'
--- 
+--
 -- cmd('hi FloatermBorder guibg=red guifg=brwhite')
 
 g.floaterm_width = 0.8
@@ -163,11 +189,6 @@ map('', '<leader>sv', ':luafile $MYVIMRC<CR>')
 -- buffer movement
 map('n', '<leader>d', ':bp<CR>')
 map('n', '<leader>f', ':bn<CR>')
-
---------------------------------------------------------------------------------
--- PYTHON
---------------------------------------------------------------------------------
-g.python_highlight_all = 1
 
 --------------------------------------------------------------------------------
 -- TeX
@@ -205,3 +226,43 @@ g.python_highlight_all = 1
 --------------------------------------------------------------------------------
 g.html_indent_inctags = "html,body,head,tbody,div"
 g.html_indent_script1 = "inc"
+
+--------------------------------------------------------------------------------
+-- LSP
+--------------------------------------------------------------------------------
+cmd('set completeopt=menuone,noinsert,noselect')
+-- Avoid showing extra messages when using completion
+cmd('set shortmess+=c')
+
+local nvim_lsp = require'lspconfig'
+
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+
+-- Rust https://sharksforarms.dev/posts/neovim-rust/
+nvim_lsp.rust_analyzer.setup({
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importMergeBehavior = "last",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
