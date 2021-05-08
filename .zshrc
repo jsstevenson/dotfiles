@@ -2,6 +2,7 @@
 # Path
 ################################################################################
 
+export PATH="/usr/local/share/dotnet:$PATH"                 # .NET SDK
 export PATH="$HOME/.local/bin:$PATH"                        # local binaries
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
