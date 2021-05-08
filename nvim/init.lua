@@ -6,7 +6,11 @@
 --   breaks statusline?
 -- filetype autocmds
 -- nvim-lsp
---   individual LSPs: python, js/prettier, tex, lua, rust
+--   individual LSPs: python, js/prettier, tex, lua, rust, ruby
+--   formatting for js/json!!!
+--   key mapping updates
+--   use treesitter for indent in python?
+--   set root_dir = lspconfig.util.root_pattern('.git') as global default for lsps
 --------------------------------------------------------------------------------
 -- HELPERS
 --------------------------------------------------------------------------------
@@ -33,11 +37,13 @@ cmd 'packadd paq-nvim'
 local paq = require('paq-nvim').paq
 paq {'savq/paq-nvim', opt = true}
 
-paq {'folke/tokyonight.nvim'}
+-- appearance
+paq {'jsstevenson/tokyonight.nvim', branch = 'new-colors'}
 paq {'hoob3rt/lualine.nvim'}
 paq {'akinsho/nvim-bufferline.lua'}
 paq {'voldikss/vim-floaterm'}
 paq {'mechatroner/rainbow_csv'}
+paq {'rrethy/vim-hexokinase', run = 'make hexokinase'}
 -- Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } -- ????
 
 -- text objects & formatting
@@ -52,15 +58,17 @@ paq {'jiangmiao/auto-pairs'}
 paq {'jpalardy/vim-slime'}
 paq {'nvim-treesitter/nvim-treesitter'}
 
--- misc
-paq {'nicwest/vim-http'}
-paq {'tpope/vim-obsession'}
--- until I feel better about vim-fugitive
-paq {'itchyny/vim-gitbranch'}
+-- LSP things
 paq {'neovim/nvim-lspconfig'}
 paq {'nvim-lua/completion-nvim'}
+paq {'kabouzeid/nvim-lspinstall'}
+
+-- misc
+-- until I feel better about vim-fugitive
+paq {'itchyny/vim-gitbranch'}
 
 -- language-specific
+paq {'nicwest/vim-http'}
 paq {'wlangstroth/vim-racket'}
 paq {'rust-lang/rust.vim'}
 paq {'lervag/vimtex'}
@@ -74,10 +82,10 @@ opt('w', 'relativenumber', true)
 opt('o', 'showmatch', true)
 opt('w', 'cc', '80')
 opt('w', 'cursorline', true)
-opt('o', 'syntax', 'enable')  -- ????
-cmd('filetype plugin indent on')
+opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
--- cmd 'hi MatchParen cterm=bold ctermbg=none ctermfg=magenta' -- ???
+cmd([[ let g:Hexokinase_optOutPatterns = [ 'colour_names' ] ]]) -- ?? why won't this work in lua
+
 
 g.tokyonight_style = 'storm'
 g.tokyonight_dark_float = false
@@ -107,6 +115,8 @@ require('lualine').setup{
 
 require('bufferline').setup{}
 
+
+
 --------------------------------------------------------------------------------
 -- TEXT
 --------------------------------------------------------------------------------
@@ -115,8 +125,6 @@ opt('b', 'fileencoding', 'utf-8')
 opt('o', 'wildmode', 'longest,list')
 opt('b', 'shiftwidth', 4)
 opt('b', 'softtabstop', 4)
-cmd('syntax enable')
-cmd('filetype plugin indent on')
 
 -- delete trailing whitespace on save
 cmd([[
@@ -135,11 +143,11 @@ local ts = require 'nvim-treesitter.configs'
 ts.setup {
     ensure_installed = {
         'bash', 'bibtex', 'c', 'cpp', 'graphql',  'html', 'java', 'javascript',
-        'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'rust', 'sparql',
-        'toml', 'tsx', 'typescript', 'yaml'
+        'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'ruby', 'rust',
+        'sparql', 'toml', 'tsx', 'typescript', 'yaml'
     },
     highlight = {enable = true},
-    indent = { enable = true }
+    indent = { enable = true, disable = { "rust", "lua" } }
 }
 
 --------------------------------------------------------------------------------
@@ -168,7 +176,6 @@ map('', '<C-S>', ':FloatermToggle<cr>')
 map('n', '<C-H>', ':w<cr>:FloatermNew fzf<cr>')
 map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>') -- TODO not fully working???
 
--- " let g:floaterm_keymap_toggle = '<C-S>'
 -- " let g:floaterm_keymap_new = '<C-N>'
 -- " let g:floaterm_keymap_prev = '<Leader>d'
 -- " let g:floaterm_keymap_next = '<Leader>f'
@@ -231,7 +238,6 @@ g.html_indent_script1 = "inc"
 -- LSP
 --------------------------------------------------------------------------------
 cmd('set completeopt=menuone,noinsert,noselect')
--- Avoid showing extra messages when using completion
 cmd('set shortmess+=c')
 
 local nvim_lsp = require'lspconfig'
@@ -266,3 +272,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
+
+cmd([[
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    imap <Tab> <Plug>(completion_smart_tab)
+    imap <S-Tab> <Plug>(completion_smart_s_tab)
+]])
+
+cmd([[
+    nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+    nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+    nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+]])
