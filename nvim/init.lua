@@ -86,6 +86,7 @@ opt('w', 'cursorline', true)
 opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
 cmd([[ let g:Hexokinase_optOutPatterns = [ 'colour_names' ] ]]) -- ?? why won't this work in lua
+cmd('set signcolumn=yes:1')
 
 g.tokyonight_style = 'storm'
 g.tokyonight_dark_float = false
