@@ -12,7 +12,7 @@
 --   use treesitter for indent in python?
 --   set root_dir = lspconfig.util.root_pattern('.git') as global default for lsps
 --------------------------------------------------------------------------------
--- HELPERS
+-- utilities
 --------------------------------------------------------------------------------
 -- https://oroques.dev/notes/neovim-init
 local api, cmd, fn, g = vim.api, vim.cmd, vim.fn, vim.g
@@ -49,7 +49,7 @@ paq {'rrethy/vim-hexokinase', run = 'make hexokinase'}
 -- text objects & formatting
 paq {'wellle/targets.vim'}
 paq {'michaeljsmith/vim-indent-object'}
--- for lining up tables and whatnot. try https://github.com/junegunn/vim-easy-align as well?
+-- try https://github.com/junegunn/vim-easy-align as well?
 paq {'godlygeek/tabular'}
 paq {'tpope/vim-commentary'}
 paq {'tpope/vim-endwise'}
@@ -71,10 +71,11 @@ paq {'itchyny/vim-gitbranch'}
 paq {'nicwest/vim-http'}
 paq {'wlangstroth/vim-racket'}
 paq {'rust-lang/rust.vim'}
+-- https://github.com/simrat39/rust-tools.nvim/
 paq {'lervag/vimtex'}
 
 --------------------------------------------------------------------------------
--- APPEARANCE
+-- appearance
 --------------------------------------------------------------------------------
 opt('o', 'termguicolors', true)
 opt('w', 'number', true)
@@ -86,14 +87,13 @@ opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
 cmd([[ let g:Hexokinase_optOutPatterns = [ 'colour_names' ] ]]) -- ?? why won't this work in lua
 
-
 g.tokyonight_style = 'storm'
 g.tokyonight_dark_float = false
 g.tokyonight_colors = {}
 cmd 'colorscheme tokyonight'
 
 local function environment_name()
-    ps1 = os.getenv('PS1')
+    local ps1 = os.getenv('PS1')
     if ps1 then
         return string.match(ps1, "%((.+)%) ")
     else
@@ -115,10 +115,8 @@ require('lualine').setup{
 
 require('bufferline').setup{}
 
-
-
 --------------------------------------------------------------------------------
--- TEXT
+-- text
 --------------------------------------------------------------------------------
 opt('b', 'expandtab', true)
 opt('b', 'fileencoding', 'utf-8')
@@ -151,7 +149,7 @@ ts.setup {
 }
 
 --------------------------------------------------------------------------------
--- PRODUCTIVITY
+-- productivity
 --------------------------------------------------------------------------------
 opt('o', 'visualbell', true)
 opt('o', 'clipboard', 'unnamedplus')
@@ -168,7 +166,7 @@ map('', ';;', ';') -- TODO fix
 map('', '<esc>', ':noh<cr>')
 
 --------------------------------------------------------------------------------
--- TERMINAL
+-- terminal
 --------------------------------------------------------------------------------
 
 map('t', '<Esc>', '<C-\\><C-n>')
@@ -179,23 +177,95 @@ map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>') -- TODO not fully working???
 -- " let g:floaterm_keymap_new = '<C-N>'
 -- " let g:floaterm_keymap_prev = '<Leader>d'
 -- " let g:floaterm_keymap_next = '<Leader>f'
---
--- cmd('hi FloatermBorder guibg=red guifg=brwhite')
 
 g.floaterm_width = 0.8
 g.floaterm_height = 0.85
 g.floaterm_autoclose = 1
 
 --------------------------------------------------------------------------------
--- MISC
+-- misc
 --------------------------------------------------------------------------------
 -- easy edit config files
-map('', '<leader>ev', ':edit $MYVIMRC<CR>')
-map('', '<leader>sv', ':luafile $MYVIMRC<CR>')
+map('', '<leader>ev', ':edit $MYVIMRC<CR>', {silent = true})
+map('', '<leader>sv', ':luafile $MYVIMRC<CR>', {silent = true})
 
 -- buffer movement
-map('n', '<leader>d', ':bp<CR>')
-map('n', '<leader>f', ':bn<CR>')
+map('n', '<leader>d', ':bp<CR>', {silent = true})
+map('n', '<leader>f', ':bn<CR>', {silent = true})
+
+--------------------------------------------------------------------------------
+-- LSP
+--------------------------------------------------------------------------------
+cmd('set completeopt=menuone,noinsert,noselect')
+cmd('set shortmess+=c')
+
+local nvim_lsp = require'lspconfig'
+
+-- completion
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+
+-- hover
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, { border = "single" }
+)
+
+-- diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+
+-- set defaults
+-- local lspconfig = require'lspconfig'
+-- lspconfig.util.default_config = vim.tbl_extend(
+--     "force",
+--     lspconfig.util.default_config,
+--     {
+--
+--     }
+-- )
+
+-- tab completion
+map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
+map('i', '<S-Tab>', '<Plug>(completion_smart_s_tab)', {noremap = false, silent = true})
+map('i', '<Tab>', 'pumvisible() ? \"\\<C-n>" : \"\\<Tab>"', {expr = true})
+map('i', '<S-Tab>', 'pumvisible() ? \"\\<C-p>" : \"\\<S-Tab>"', {expr = true})
+
+-- other shortcuts
+-- map('n', 'K', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})  -- wtf isn't this working
+cmd('nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {silent = true})
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true})
+map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
+map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
+map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
+
+-- nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+-- nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+-- nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>  -- treesitter maybe does this better?
+
+-- lspinstall
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    require'lspconfig'[server].setup{}
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
 
 --------------------------------------------------------------------------------
 -- TeX
@@ -224,29 +294,14 @@ map('n', '<leader>f', ':bn<CR>')
 -- augroup END
 
 --------------------------------------------------------------------------------
--- RUST
+-- rust
 --------------------------------------------------------------------------------
--- cargo run/build/check/test shortcuts
 
---------------------------------------------------------------------------------
--- HTML
---------------------------------------------------------------------------------
-g.html_indent_inctags = "html,body,head,tbody,div"
-g.html_indent_script1 = "inc"
+-- TODO: cargo run/build/check/test shortcuts
 
---------------------------------------------------------------------------------
--- LSP
---------------------------------------------------------------------------------
-cmd('set completeopt=menuone,noinsert,noselect')
-cmd('set shortmess+=c')
+g.rustfmt_autosave = 0
 
-local nvim_lsp = require'lspconfig'
-
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
-
--- Rust https://sharksforarms.dev/posts/neovim-rust/
+-- LSP https://sharksforarms.dev/posts/neovim-rust/
 nvim_lsp.rust_analyzer.setup({
     on_attach=on_attach,
     settings = {
@@ -265,28 +320,13 @@ nvim_lsp.rust_analyzer.setup({
     }
 })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
-)
+--------------------------------------------------------------------------------
+-- HTML
+--------------------------------------------------------------------------------
+g.html_indent_inctags = "html,body,head,tbody,div"
+g.html_indent_script1 = "inc"
 
-cmd([[
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    imap <Tab> <Plug>(completion_smart_tab)
-    imap <S-Tab> <Plug>(completion_smart_s_tab)
-]])
-
-cmd([[
-    nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-    nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-    nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-]])
+--------------------------------------------------------------------------------
+-- lua
+--------------------------------------------------------------------------------
+require('lua-ls')
