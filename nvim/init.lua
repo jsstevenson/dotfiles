@@ -221,14 +221,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 -- set defaults
--- local lspconfig = require'lspconfig'
--- lspconfig.util.default_config = vim.tbl_extend(
---     "force",
---     lspconfig.util.default_config,
---     {
---
---     }
--- )
+local lspconfig = require'lspconfig'
+lspconfig.util.default_config = vim.tbl_extend(
+    "force",
+    lspconfig.util.default_config,
+    {
+        handlers = {
+            ["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                virtual_text = false
+            }
+            )
+        }
+    }
+)
 
 -- tab completion
 map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
