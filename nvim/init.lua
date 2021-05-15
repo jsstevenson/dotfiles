@@ -173,11 +173,6 @@ map('', '<esc>', ':noh<cr>')
 map('t', '<Esc>', '<C-\\><C-n>')
 map('', '<C-S>', ':FloatermToggle<cr>')
 map('n', '<C-H>', ':w<cr>:FloatermNew fzf<cr>')
-map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>') -- TODO not fully working???
-
--- " let g:floaterm_keymap_new = '<C-N>'
--- " let g:floaterm_keymap_prev = '<Leader>d'
--- " let g:floaterm_keymap_next = '<Leader>f'
 
 g.floaterm_width = 0.8
 g.floaterm_height = 0.85
@@ -202,6 +197,21 @@ cmd('set shortmess+=c')
 
 local nvim_lsp = require'lspconfig'
 
+-- set defaults
+nvim_lsp.util.default_config = vim.tbl_extend(
+    "force",
+    nvim_lsp.util.default_config,
+    {
+        handlers = {
+            ["textDocument/publishDiagnostics"] = vim.lsp.with(
+                vim.lsp.diagnostic.on_publish_diagnostics, {
+                    virtual_text = false
+                }
+            )
+        }
+    }
+)
+
 -- completion
 local on_attach = function(client)
     require'completion'.on_attach(client)
@@ -214,27 +224,15 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 
 -- diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = true,
+        signs = true,
+        update_in_insert = true,
+    }
 )
 
--- set defaults
-local lspconfig = require'lspconfig'
-lspconfig.util.default_config = vim.tbl_extend(
-    "force",
-    lspconfig.util.default_config,
-    {
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = false
-            }
-            )
-        }
-    }
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, { border = "single" }
 )
 
 -- tab completion
@@ -250,12 +248,8 @@ map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {silent = true})
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true})
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
-map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
-map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
-
--- nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
--- nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
--- nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>  -- treesitter maybe does this better?
+map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
+map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
 
 -- lspinstall
 local function setup_servers()
