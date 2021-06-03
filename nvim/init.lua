@@ -20,9 +20,9 @@ local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 local fmt = string.format
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local function opt(scope, key, value)
@@ -145,7 +145,7 @@ ts.setup {
         'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'ruby', 'rust',
         'sparql', 'toml', 'tsx', 'typescript', 'yaml'
     },
-    highlight = {enable = true},
+    highlight = {enable = true, disable = { "tex" } },
     indent = { enable = true, disable = { "rust", "lua" } }
 }
 
@@ -198,26 +198,6 @@ cmd('set shortmess+=c')
 
 local nvim_lsp = require'lspconfig'
 
--- set defaults
-nvim_lsp.util.default_config = vim.tbl_extend(
-    "force",
-    nvim_lsp.util.default_config,
-    {
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics, {
-                    virtual_text = false
-                }
-            )
-        }
-    }
-)
-
--- completion
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
-
 -- hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, { border = "single" }
@@ -226,7 +206,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 -- diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
+        virtual_text = false,
         signs = true,
         update_in_insert = true,
     }
@@ -254,11 +234,11 @@ map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border
 
 -- lspinstall
 local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{}
-  end
+    require'lspinstall'.setup()
+    local servers = require'lspinstall'.installed_servers()
+    for _, server in pairs(servers) do
+        require'lspconfig'[server].setup{}
+    end
 end
 
 setup_servers()
@@ -266,7 +246,7 @@ setup_servers()
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+  vim.cmd'bufdo e' -- this triggers the FileType autocmd that starts the server
 end
 
 --------------------------------------------------------------------------------
@@ -276,6 +256,7 @@ end
 -- compile shortcut
 -- au FileType tex let b:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"', '"""':'"""'}
 -- let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+-- aucmd to re-enable syntax highlighting
 
 --------------------------------------------------------------------------------
 -- JS
@@ -299,18 +280,17 @@ end
 -- rust
 --------------------------------------------------------------------------------
 
--- TODO: cargo run/build/check/test shortcuts
-
 g.rustfmt_autosave = 0
+g.syntastic_rust_checkers = {}
 
 -- LSP https://sharksforarms.dev/posts/neovim-rust/
 nvim_lsp.rust_analyzer.setup({
-    on_attach=on_attach,
+    on_attach=require'completion'.on_attach,
     settings = {
         ["rust-analyzer"] = {
             assist = {
-                importMergeBehavior = "last",
-                importPrefix = "by_self",
+                importMergeBehavior = 'last',
+                importPrefix = 'by_self',
             },
             cargo = {
                 loadOutDirsFromCheck = true
@@ -323,12 +303,13 @@ nvim_lsp.rust_analyzer.setup({
 })
 
 --------------------------------------------------------------------------------
--- HTML
---------------------------------------------------------------------------------
-g.html_indent_inctags = "html,body,head,tbody,div"
-g.html_indent_script1 = "inc"
-
---------------------------------------------------------------------------------
 -- lua
 --------------------------------------------------------------------------------
-require('lua-ls')
+
+require'lua-ls'
+
+--------------------------------------------------------------------------------
+-- HTML
+--------------------------------------------------------------------------------
+g.html_indent_inctags = 'html,body,head,tbody,div'
+g.html_indent_script1 = 'inc'
