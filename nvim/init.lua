@@ -5,9 +5,12 @@
 -- hot reload colors
 --   breaks statusline?
 -- filetype autocmds
+-- fix indent
 -- nvim-lsp
---   individual LSPs: python, js/prettier, tex, lua, rust, ruby
---   formatting for js/json!!!
+--   individual LSPs: js/prettier, tex, lua, rust, ruby
+--   python lsp -- recognize conda env
+--   tex lsp -- build commands
+--   formatting (prettier?) for js/json
 --   key mapping updates
 --   use treesitter for indent in python?
 --   set root_dir = lspconfig.util.root_pattern('.git') as global default for lsps
@@ -33,57 +36,60 @@ end
 --------------------------------------------------------------------------------
 -- paq-nvim
 --------------------------------------------------------------------------------
-cmd 'packadd paq-nvim'
-local paq = require('paq-nvim').paq
-paq {'savq/paq-nvim', opt = true}
 
--- appearance
-paq {'jsstevenson/tokyonight.nvim', branch = 'new-colors'}
-paq {'hoob3rt/lualine.nvim'}
-paq {'akinsho/nvim-bufferline.lua'}
-paq {'voldikss/vim-floaterm'}
-paq {'mechatroner/rainbow_csv'}
-paq {'rrethy/vim-hexokinase', run = 'make hexokinase'}
--- Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } -- ????
+local paq = require('paq');
 
--- text objects & formatting
-paq {'wellle/targets.vim'}
-paq {'michaeljsmith/vim-indent-object'}
--- try https://github.com/junegunn/vim-easy-align as well?
-paq {'godlygeek/tabular'}
-paq {'tpope/vim-commentary'}
-paq {'tpope/vim-endwise'}
-paq {'tpope/vim-surround'}
-paq {'jiangmiao/auto-pairs'}
-paq {'jpalardy/vim-slime'}
-paq {'nvim-treesitter/nvim-treesitter'}
+paq {
+    'savq/paq-nvim';
 
--- LSP things
-paq {'neovim/nvim-lspconfig'}
-paq {'nvim-lua/completion-nvim'}
-paq {'kabouzeid/nvim-lspinstall'}
+    -- appearance
+    {'jsstevenson/tokyonight.nvim', branch='new-colors'};
+    'hoob3rt/lualine.nvim';
+    'akinsho/nvim-bufferline.lua';
+    'voldikss/vim-floaterm';
+    'mechatroner/rainbow_csv';
+    {
+        'rrethy/vim-hexokinase',
+        run = 'cd ~/.local/share/nvim/site/pack/paqs/start/vim-hexokinase && make hexokinase'
+    };
 
--- misc
--- until I feel better about vim-fugitive
-paq {'itchyny/vim-gitbranch'}
+    -- text objects & formatting
+    'wellle/targets.vim';
+    'michaeljsmith/vim-indent-object';
+    -- try https://github.com/junegunn/vim-easy-align as well?
+    'godlygeek/tabular';
+    'tpope/vim-commentary';
+    'tpope/vim-endwise';
+    'tpope/vim-surround';
+    'jiangmiao/auto-pairs';
+    'jpalardy/vim-slime';
+    'nvim-treesitter/nvim-treesitter';
+    'mhartington/formatter.nvim';
 
--- language-specific
-paq {'nicwest/vim-http'}
-paq {'wlangstroth/vim-racket'}
-paq {'rust-lang/rust.vim'}
--- https://github.com/simrat39/rust-tools.nvim/
-paq {'lervag/vimtex'}
+    -- LSP things
+    'neovim/nvim-lspconfig';
+    'nvim-lua/completion-nvim';
+
+    -- misc
+    'itchyny/vim-gitbranch';
+
+    -- language
+    'nicwest/vim-http';
+    'wlangstroth/vim-racket';
+    'rust-lang/rust.vim';
+    'lervag/vimtex';
+}
 
 --------------------------------------------------------------------------------
 -- appearance
 --------------------------------------------------------------------------------
+
 opt('o', 'termguicolors', true)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
 opt('o', 'showmatch', true)
 opt('w', 'cc', '80')
 opt('w', 'cursorline', true)
-opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
 cmd([[ let g:Hexokinase_optOutPatterns = [ 'colour_names' ] ]]) -- ?? why won't this work in lua
 cmd('set signcolumn=yes:1')
@@ -119,6 +125,7 @@ require('bufferline').setup{}
 --------------------------------------------------------------------------------
 -- text
 --------------------------------------------------------------------------------
+
 opt('b', 'expandtab', true)
 opt('b', 'fileencoding', 'utf-8')
 opt('o', 'wildmode', 'longest,list')
@@ -138,7 +145,7 @@ g.slime_target = "tmux"
 g.slime_python_ipython = 1
 
 -- treesitter
-local ts = require 'nvim-treesitter.configs'
+local ts = require'nvim-treesitter.configs'
 ts.setup {
     ensure_installed = {
         'bash', 'bibtex', 'c', 'cpp', 'graphql',  'html', 'java', 'javascript',
@@ -146,16 +153,16 @@ ts.setup {
         'sparql', 'toml', 'tsx', 'typescript', 'yaml'
     },
     highlight = {enable = true, disable = { "tex" } },
-    indent = { enable = true, disable = { "rust", "lua" } }
+    indent = { enable = true, disable = { "rust", "lua", "python" } }
 }
 
 --------------------------------------------------------------------------------
 -- productivity
 --------------------------------------------------------------------------------
+
 opt('o', 'visualbell', true)
 opt('o', 'clipboard', 'unnamedplus')
 opt('o', 'ignorecase', true)
-opt('o', 'hlsearch', true)
 opt('o', 'scrolloff', 2)
 opt('o', 'inccommand', 'nosplit')
 
@@ -182,6 +189,7 @@ g.floaterm_autoclose = 1
 --------------------------------------------------------------------------------
 -- misc
 --------------------------------------------------------------------------------
+--
 -- easy edit config files
 map('', '<leader>ev', ':edit $MYVIMRC<CR>', {silent = true})
 map('', '<leader>sv', ':luafile $MYVIMRC<CR>', {silent = true})
@@ -193,10 +201,12 @@ map('n', '<leader>f', ':bn<CR>', {silent = true})
 --------------------------------------------------------------------------------
 -- LSP
 --------------------------------------------------------------------------------
+
 cmd('set completeopt=menuone,noinsert,noselect')
 cmd('set shortmess+=c')
 
-local nvim_lsp = require'lspconfig'
+vim.lsp.set_log_level("debug")  -- TODO remove
+
 
 -- hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -232,22 +242,93 @@ map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
 map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
 map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
 
--- lspinstall
-local function setup_servers()
-    require'lspinstall'.setup()
-    local servers = require'lspinstall'.installed_servers()
-    for _, server in pairs(servers) do
-        require'lspconfig'[server].setup{}
-    end
+-- lsp config
+local nvim_lsp = require'lspconfig'
+local on_attach = require'completion'.on_attach
+
+--------------------------------------------------------------------------------
+-- rust
+--------------------------------------------------------------------------------
+
+g.rustfmt_autosave = 0
+g.syntastic_rust_checkers = {}
+
+-- LSP https://sharksforarms.dev/posts/neovim-rust/
+nvim_lsp.rust_analyzer.setup({
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importMergeBehavior = 'last',
+                importPrefix = 'by_self',
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
+--------------------------------------------------------------------------------
+-- python
+--------------------------------------------------------------------------------
+
+require'lspconfig'.pyright.setup{
+    on_attach = on_attach,
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                -- make completion a lot faster, especially when large libaries are imported; auto-import suffers though generally good improvement as completion is not cached like as opposed to vscode defaults to true
+                useLibraryCodeForTypes = false,
+            }
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+-- lua
+--------------------------------------------------------------------------------
+
+require'lua-ls'
+
+--------------------------------------------------------------------------------
+-- HTML
+--------------------------------------------------------------------------------
+
+g.html_indent_inctags = 'html,body,head,tbody,div'
+g.html_indent_script1 = 'inc'
+require'lspconfig'.html.setup{}
+
+--------------------------------------------------------------------------------
+-- JSON
+--------------------------------------------------------------------------------
+
+require'lspconfig'.jsonls.setup{}
+
+function format_prettier()
+   return {
+     exe = "npx",
+     args = {"prettier", "--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+     stdin = true
+   }
 end
 
-setup_servers()
+--------------------------------------------------------------------------------
+-- formatter
+--------------------------------------------------------------------------------
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd'bufdo e' -- this triggers the FileType autocmd that starts the server
-end
+require('formatter').setup {
+  logging = true,
+  filetype = {
+    json = { format_prettier },
+  }
+}
+
+map('n', '<leader>p', ':Format<cr>:w<cr>')
 
 --------------------------------------------------------------------------------
 -- TeX
@@ -276,40 +357,3 @@ end
 --     autocmd Filetype c,cpp set shiftwidth=2
 -- augroup END
 
---------------------------------------------------------------------------------
--- rust
---------------------------------------------------------------------------------
-
-g.rustfmt_autosave = 0
-g.syntastic_rust_checkers = {}
-
--- LSP https://sharksforarms.dev/posts/neovim-rust/
-nvim_lsp.rust_analyzer.setup({
-    on_attach=require'completion'.on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importMergeBehavior = 'last',
-                importPrefix = 'by_self',
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
-})
-
---------------------------------------------------------------------------------
--- lua
---------------------------------------------------------------------------------
-
-require'lua-ls'
-
---------------------------------------------------------------------------------
--- HTML
---------------------------------------------------------------------------------
-g.html_indent_inctags = 'html,body,head,tbody,div'
-g.html_indent_script1 = 'inc'
