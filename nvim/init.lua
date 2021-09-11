@@ -56,6 +56,7 @@ paq {
     -- text objects & formatting
     'wellle/targets.vim';
     'michaeljsmith/vim-indent-object';
+    'Vimjas/vim-python-pep8-indent';
     -- try https://github.com/junegunn/vim-easy-align as well?
     'godlygeek/tabular';
     'tpope/vim-commentary';
