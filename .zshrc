@@ -4,6 +4,7 @@
 
 export PATH="/usr/local/share/dotnet:$PATH"                 # .NET SDK
 export PATH="$HOME/.local/bin:$PATH"                        # local binaries
+export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"    # Julia
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
 
@@ -63,6 +64,11 @@ sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist;
 sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
 echo "now restarting....";
 sudo shutdown -r now'
+
+# pipenv
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 
 ################################################################################
 # Appearance
