@@ -1,10 +1,7 @@
 USER = vim.fn.expand('$USER')
 
-local sumneko_root_path = ""
-local sumneko_binary = ""
-
-sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lspinstall/lua/sumneko-lua"
-sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"
+local sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lspinstall/lua/sumneko-lua"
+local sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"
 
 local on_attach = function(client)
     require'completion'.on_attach(client)
