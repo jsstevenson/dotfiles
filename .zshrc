@@ -2,14 +2,14 @@
 # Path
 ################################################################################
 
-path_python="/usr/local/opt/python@3.8/bin"
-path_python_pks="/Users/jss009/Library/Python/3.8/bin"
-#path_local="/Users/jss009/local/bin"
+# path_local="/Users/jss009/local/bin"
+# path_brew="/usr/local/sbin"
+path_python="/Users/jss009/Library/Python/3.9/bin"
 path_rust="/Users/jss009/.cargo/bin"
-path_brew="/usr/local/sbin"
 path_aws="/Users/jss009/.ebcli-virtual-env/executable"
-export PATH="$path_python:$path_python_pks:$path_rust:$path_brew:$path_aws:$PATH"
-export PATH=/Users/jss009/.pyenv/versions/3.7.2/bin:$PATH
+path_julia="/Applications/Julia-1.6.app/Contents/Resources/julia/bin"
+path_ruby="/Users/jss009/.gem/ruby/2.7.0/bin/"
+export PATH="$path_rust:$path_aws:$path_python:$path_julia:$path_ruby:$PATH"
 
 
 ################################################################################
@@ -66,7 +66,7 @@ alias trc='tree -AC'
 alias journal='nvim /Volumes/jss009/journal.md'
 
 # set drive
-export DR=/Volumes/jss009/
+alias DR=/Volumes/jss009/
 
 # create .zip archive for EBS
 ebszip() {
@@ -85,9 +85,9 @@ ebszip() {
 if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
     # default values
     if [ -z ${DARKMODE+x} ]; then
-        export BAT_THEME="Solarized (dark)"
+        export BAT_THEME="ansi"
         export DARKMODE=1;
-        gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/.alacritty.yml
+        gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/dotfiles/alacritty.yml
     fi
 
     # swap light/dark colors
@@ -96,7 +96,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-light\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*solarized_dark/colors: \*solarized_light/' /Users/jss009/.alacritty.yml
+                gsed -i 's/colors: \*solarized_dark/colors: \*solarized_light/' /Users/jss009/dotfiles/alacritty.yml
             fi
             export DARKMODE=0;
             export BAT_THEME="Solarized (light)";
@@ -104,7 +104,7 @@ if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
                 echo -e "\033]50;SetProfile=solarized-dark\a";
             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/.alacritty.yml
+                gsed -i 's/colors: \*solarized_light/colors: \*solarized_dark/' /Users/jss009/dotfiles/alacritty.yml
             fi
             export DARKMODE=1;
             export BAT_THEME="Solarized (dark)";
@@ -184,3 +184,12 @@ export CPPFLAGS="-I/usr/local/opt/zlib/include"
 
 # dynamodb
 alias ddb='cd ~/code/dynamodb_local_latest; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb'
+
+# postgres
+alias postgres_start="pg_ctl -D /usr/local/var/postgres start"
+alias postgres_end="pg_ctl -D /usr/local/var/postgres stop"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+alias scylla="docker run --name scylla -p 8000:8000 -d scylladb/scylla --alternator-port=8000 --alternator-write-isolation=always"
