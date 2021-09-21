@@ -47,9 +47,11 @@ paq {
         'rrethy/vim-hexokinase',
         run = 'cd ~/.local/share/nvim/site/pack/paqs/start/vim-hexokinase && make hexokinase'
     };
+
     -- text objects & formatting
     'wellle/targets.vim';
     'michaeljsmith/vim-indent-object';
+    'Vimjas/vim-python-pep8-indent';
     -- try https://github.com/junegunn/vim-easy-align as well?
     'godlygeek/tabular';
     'tpope/vim-commentary';
@@ -58,16 +60,19 @@ paq {
     'jiangmiao/auto-pairs';
     'jpalardy/vim-slime';
     'nvim-treesitter/nvim-treesitter';
+    'mhartington/formatter.nvim';
+
     -- LSP things
     'neovim/nvim-lspconfig';
     'nvim-lua/completion-nvim';
+
     -- misc
     'itchyny/vim-gitbranch'; -- until I feel better about vim-fugitive
+
     -- language-specific
     'nicwest/vim-http';
     'wlangstroth/vim-racket';
     'rust-lang/rust.vim';
-    -- https://github.com/simrat39/rust-tools.nvim/
     'lervag/vimtex';
 }
 
@@ -78,7 +83,7 @@ opt('o', 'termguicolors', true)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
 opt('o', 'showmatch', true)
-opt('w', 'cc', '80')
+opt('w', 'cc', '80,100')
 opt('w', 'cursorline', true)
 opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
@@ -299,6 +304,34 @@ require'lua-ls'
 --------------------------------------------------------------------------------
 -- HTML
 --------------------------------------------------------------------------------
+
 g.html_indent_inctags = 'html,body,head,tbody,div'
 g.html_indent_script1 = 'inc'
+require'lspconfig'.html.setup{}
 
+--------------------------------------------------------------------------------
+-- JSON
+--------------------------------------------------------------------------------
+
+require'lspconfig'.jsonls.setup{}
+
+function format_prettier()
+   return {
+     exe = "npx",
+     args = {"prettier", "--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+     stdin = true
+   }
+end
+
+--------------------------------------------------------------------------------
+-- formatter
+--------------------------------------------------------------------------------
+
+require('formatter').setup {
+  logging = true,
+  filetype = {
+    json = { format_prettier },
+  }
+}
+
+map('n', '<leader>p', ':Format<cr>:w<cr>')
