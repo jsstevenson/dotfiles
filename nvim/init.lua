@@ -153,7 +153,7 @@ ts.setup {
         'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'ruby', 'rust',
         'sparql', 'toml', 'tsx', 'typescript', 'yaml'
     },
-    highlight = {enable = true, disable = { "tex" } },
+    highlight = {enable = true, disable = { "tex", "html" } },
     indent = { enable = true, disable = { "rust", "lua", "python" } }
 }
 
@@ -302,6 +302,7 @@ require'lua-ls'
 
 g.html_indent_inctags = 'html,body,head,tbody,div'
 g.html_indent_script1 = 'inc'
+
 require'lspconfig'.html.setup{}
 
 --------------------------------------------------------------------------------
@@ -309,6 +310,17 @@ require'lspconfig'.html.setup{}
 --------------------------------------------------------------------------------
 
 require'lspconfig'.jsonls.setup{}
+
+--------------------------------------------------------------------------------
+-- RST
+--------------------------------------------------------------------------------
+
+map('n', '<leader>=', 'yypv$r=')
+map('n', '<leader>-', 'yypv$r-')
+
+--------------------------------------------------------------------------------
+-- formatter
+--------------------------------------------------------------------------------
 
 function format_prettier()
    return {
@@ -318,14 +330,12 @@ function format_prettier()
    }
 end
 
---------------------------------------------------------------------------------
--- formatter
---------------------------------------------------------------------------------
 
 require('formatter').setup {
   logging = true,
   filetype = {
     json = { format_prettier },
+    html = { format_prettier },
   }
 }
 
@@ -357,4 +367,3 @@ map('n', '<leader>p', ':Format<cr>:w<cr>')
 --     autocmd Filetype c,cpp set softtabstop=2
 --     autocmd Filetype c,cpp set shiftwidth=2
 -- augroup END
-
