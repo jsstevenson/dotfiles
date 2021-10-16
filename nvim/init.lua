@@ -6,10 +6,8 @@
 --   breaks statusline?
 -- filetype autocmds
 -- nvim-lsp
---   individual LSPs: python, js/prettier, tex, lua, rust, ruby
---   formatting for js/json!!!
+--   individual LSPs: js, tex, ruby
 --   key mapping updates
---   use treesitter for indent in python?
 --   set root_dir = lspconfig.util.root_pattern('.git') as global default for lsps
 --------------------------------------------------------------------------------
 -- utilities
@@ -31,50 +29,10 @@ local function opt(scope, key, value)
 end
 
 --------------------------------------------------------------------------------
--- paq-nvim
+-- packer
 --------------------------------------------------------------------------------
-local paq = require("paq")
 
-paq {
-    "savq/paq-nvim";
-    -- appearance
-    {'jsstevenson/tokyonight.nvim', branch='new-colors'};
-    'hoob3rt/lualine.nvim';
-    'akinsho/nvim-bufferline.lua';
-    'voldikss/vim-floaterm';
-    'mechatroner/rainbow_csv';
-    {
-        'rrethy/vim-hexokinase',
-        run = 'cd ~/.local/share/nvim/site/pack/paqs/start/vim-hexokinase && make hexokinase'
-    };
-
-    -- text objects & formatting
-    'wellle/targets.vim';
-    'michaeljsmith/vim-indent-object';
-    'Vimjas/vim-python-pep8-indent';
-    -- try https://github.com/junegunn/vim-easy-align as well?
-    'godlygeek/tabular';
-    'tpope/vim-commentary';
-    'tpope/vim-endwise';
-    'tpope/vim-surround';
-    'jiangmiao/auto-pairs';
-    'jpalardy/vim-slime';
-    'nvim-treesitter/nvim-treesitter';
-    'mhartington/formatter.nvim';
-
-    -- LSP things
-    'neovim/nvim-lspconfig';
-    'nvim-lua/completion-nvim';
-
-    -- misc
-    'itchyny/vim-gitbranch'; -- until I feel better about vim-fugitive
-
-    -- language-specific
-    'nicwest/vim-http';
-    'wlangstroth/vim-racket';
-    'rust-lang/rust.vim';
-    'lervag/vimtex';
-}
+require('plugins');
 
 --------------------------------------------------------------------------------
 -- appearance
@@ -147,7 +105,7 @@ ts.setup {
         'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'ruby', 'rust',
         'sparql', 'toml', 'tsx', 'typescript', 'yaml'
     },
-    highlight = {enable = true, disable = { "tex" } },
+    highlight = {enable = true, disable = { "tex", "html" } },
     indent = { enable = true, disable = { "rust", "lua", "python" } }
 }
 
@@ -252,14 +210,6 @@ nvim_lsp.pyright.setup{
 -- aucmd to re-enable syntax highlighting
 
 --------------------------------------------------------------------------------
--- JS
---------------------------------------------------------------------------------
--- augroup js
---     autocmd!
---     autocmd Filetype js,json nnoremap <leader>p :CocCommand prettier.formatFile<CR>
--- augroup END
-
---------------------------------------------------------------------------------
 -- C/C++
 --------------------------------------------------------------------------------
 -- augroup c_and_cpp
@@ -315,6 +265,10 @@ require'lspconfig'.html.setup{}
 
 require'lspconfig'.jsonls.setup{}
 
+--------------------------------------------------------------------------------
+-- formatter
+--------------------------------------------------------------------------------
+
 function format_prettier()
    return {
      exe = "npx",
@@ -323,14 +277,12 @@ function format_prettier()
    }
 end
 
---------------------------------------------------------------------------------
--- formatter
---------------------------------------------------------------------------------
-
 require('formatter').setup {
   logging = true,
   filetype = {
     json = { format_prettier },
+    html = { format_prettier },
+    typescriptreact = { format_prettier },
   }
 }
 
