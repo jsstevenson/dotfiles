@@ -42,7 +42,8 @@ return require('packer').startup(function(use)
     use 'jiangmiao/auto-pairs'
     use {
         'jpalardy/vim-slime',
-        ft = {'python', 'racket', 'javascript', 'javascriptreact'}
+        ft = {'python', 'racket', 'javascript', 'javascriptreact'},
+        config = function() require'plugins.slime' end,
     }
     use 'nvim-treesitter/nvim-treesitter'
     use {

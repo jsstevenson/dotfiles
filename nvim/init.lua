@@ -14,7 +14,7 @@
 --------------------------------------------------------------------------------
 -- https://oroques.dev/notes/neovim-init
 
-require('plugins')
+require('packerPlugins')
 require('options')
 require('mappings')
 require('theme')

@@ -30,7 +30,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help, { border = "single" }
 )
 
-
 --------------------------------------------------------------------------------
 -- mappings
 --------------------------------------------------------------------------------
@@ -77,6 +76,9 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
         { name = 'buffer' },
+    },
+    documentation = {
+        maxheight = 50,
     }
 })
 
@@ -99,7 +101,6 @@ require'lspconfig'.html.setup{
 -- python
 --------------------------------------------------------------------------------
 require'lspconfig'.pyright.setup{
-    -- on_attach=require'completion'.on_attach
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
@@ -135,10 +136,6 @@ local sumneko_binary = ""
 
 sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/macOS/lua-language-server"
 sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
-
--- local on_attach = function(client)
---     require'completion'.on_attach(client)
--- end
 
 require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},

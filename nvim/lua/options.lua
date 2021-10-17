@@ -31,9 +31,6 @@ opt('o', 'inccommand', 'nosplit')
 
 -- disable unused stuff
 local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
     "netrwFileHandlers",
     "gzip",
     "zip",
