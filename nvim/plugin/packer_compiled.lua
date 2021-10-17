@@ -74,36 +74,47 @@ _G.packer_plugins = {
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/auto-pairs"
   },
   ["cmp-buffer"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+    after_files = { "/Users/jss009/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/cmp-buffer"
   },
   ["cmp-nvim-lsp"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+    after_files = { "/Users/jss009/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp"
   },
   ["formatter.nvim"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/formatter.nvim"
+    config = { "\27LJ\2\nL\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0016\0\2\0'\2\3\0B\0\2\1K\0\1\0\22plugins.formatter\frequire\rsdlfkjdf\nprint\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/formatter.nvim"
   },
   ["lualine.nvim"] = {
+    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.lualine\frequire\0" },
     loaded = true,
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   ["nvim-bufferline.lua"] = {
+    config = { "\27LJ\2\n<\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\15bufferline\frequire\0" },
     loaded = true,
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
   },
   ["nvim-cmp"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/nvim-cmp"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer"
   },
   ["nvim-lspconfig"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+    config = { "\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16plugins.lsp\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
     loaded = true,
@@ -114,8 +125,9 @@ _G.packer_plugins = {
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
   rainbow_csv = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/rainbow_csv"
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/rainbow_csv"
   },
   ["rust.vim"] = {
     loaded = false,
@@ -123,8 +135,10 @@ _G.packer_plugins = {
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim"
   },
   tabular = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/tabular"
+    after_files = { "/Users/jss009/.local/share/nvim/site/pack/packer/opt/tabular/after/plugin/TabularMaps.vim" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/tabular"
   },
   ["targets.vim"] = {
     loaded = true,
@@ -183,12 +197,15 @@ _G.packer_plugins = {
     path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-vsnip"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-vsnip"
   },
   ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/Users/jss009/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
+    after_files = { "/Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-vsnip-integ/after/plugin/vsnip_integ.vim" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-vsnip-integ"
   },
   vimtex = {
     loaded = false,
@@ -198,26 +215,39 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.lualine\frequire\0", "config", "lualine.nvim")
+time([[Config for lualine.nvim]], false)
+-- Config for: nvim-bufferline.lua
+time([[Config for nvim-bufferline.lua]], true)
+try_loadstring("\27LJ\2\n<\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\15bufferline\frequire\0", "config", "nvim-bufferline.lua")
+time([[Config for nvim-bufferline.lua]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-python-pep8-indent', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType javascript ++once lua require("packer.load")({'vim-slime'}, { ft = "javascript" }, _G.packer_plugins)]]
+vim.cmd [[au FileType json ++once lua require("packer.load")({'formatter.nvim', 'nvim-lspconfig'}, { ft = "json" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'formatter.nvim', 'nvim-lspconfig'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType typescript ++once lua require("packer.load")({'formatter.nvim'}, { ft = "typescript" }, _G.packer_plugins)]]
+vim.cmd [[au FileType typescriptreact ++once lua require("packer.load")({'formatter.nvim'}, { ft = "typescriptreact" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'tabular', 'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
 vim.cmd [[au FileType http ++once lua require("packer.load")({'vim-http'}, { ft = "http" }, _G.packer_plugins)]]
-vim.cmd [[au FileType javascriptreact ++once lua require("packer.load")({'vim-slime'}, { ft = "javascriptreact" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim', 'nvim-lspconfig'}, { ft = "rust" }, _G.packer_plugins)]]
+vim.cmd [[au FileType ruby ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "ruby" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tsv ++once lua require("packer.load")({'rainbow_csv'}, { ft = "tsv" }, _G.packer_plugins)]]
+vim.cmd [[au FileType csv ++once lua require("packer.load")({'rainbow_csv'}, { ft = "csv" }, _G.packer_plugins)]]
 vim.cmd [[au FileType racket ++once lua require("packer.load")({'vim-racket', 'vim-slime'}, { ft = "racket" }, _G.packer_plugins)]]
+vim.cmd [[au FileType javascript ++once lua require("packer.load")({'formatter.nvim', 'vim-slime'}, { ft = "javascript" }, _G.packer_plugins)]]
+vim.cmd [[au FileType javascriptreact ++once lua require("packer.load")({'formatter.nvim', 'vim-slime'}, { ft = "javascriptreact" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lua ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "lua" }, _G.packer_plugins)]]
+vim.cmd [[au FileType python ++once lua require("packer.load")({'nvim-lspconfig', 'vim-python-pep8-indent', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]], true)
-vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]]
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]], false)
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]], true)
-vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]]
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]], false)
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
+vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
 time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], true)
 vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]]
 time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], false)
@@ -227,9 +257,12 @@ time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/pa
 time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], true)
 vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]]
 time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], false)
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
-vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
-time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]], true)
+vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]]
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-http/ftdetect/http.vim]], false)
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]], true)
+vim.cmd [[source /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]]
+time([[Sourcing ftdetect script at: /Users/jss009/.local/share/nvim/site/pack/packer/opt/vim-racket/ftdetect/racket.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

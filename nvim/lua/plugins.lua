@@ -6,10 +6,19 @@ return require('packer').startup(function(use)
         'jsstevenson/tokyonight.nvim',
         branch = 'new-colors'
     }
-    use 'hoob3rt/lualine.nvim'
-    use 'akinsho/nvim-bufferline.lua'
+    use {
+        'hoob3rt/lualine.nvim',
+        config = function() require'plugins.lualine' end
+    }
+    use {
+        'akinsho/nvim-bufferline.lua',
+        config = function() require'bufferline'.setup{} end,
+    }
     use 'voldikss/vim-floaterm'
-    use 'mechatroner/rainbow_csv'
+    use {
+        'mechatroner/rainbow_csv',
+        ft = {'csv', 'tsv'}
+    }
     use {
         'rrethy/vim-hexokinase',
 	run = 'cd ~/.local/share/nvim/site/pack/packer/start/vim-hexokinase && make hexokinase'
@@ -23,7 +32,10 @@ return require('packer').startup(function(use)
         ft = {'python'}
     }
     -- try https://github.com/junegunn/vim-easy-align as well?
-    use 'godlygeek/tabular'
+    use {
+        'godlygeek/tabular',
+        ft = {'tex'}
+    }
     use 'tpope/vim-commentary'
     use 'tpope/vim-endwise'
     use 'tpope/vim-surround'
@@ -33,16 +45,34 @@ return require('packer').startup(function(use)
         ft = {'python', 'racket', 'javascript', 'javascriptreact'}
     }
     use 'nvim-treesitter/nvim-treesitter'
-    use 'mhartington/formatter.nvim'
+    use {
+        'mhartington/formatter.nvim',
+        ft = {
+            'json', 'html', 'javascript',  'javascriptreact', 'typescript',
+            'typescriptreact'
+        },
+        config = function()
+            require'plugins.formatter'
+        end,
+    }
 
     -- LSP things
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
+    use {
+        'neovim/nvim-lspconfig',
+        ft = {'python', 'html', 'rust', 'lua', 'ruby', 'json'},
+        requires = {
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/vim-vsnip'},
+            {'hrsh7th/vim-vsnip-integ'},
+        },
+        config = function() require'plugins.lsp' end,
+    }
+    use {
+        'williamboman/nvim-lsp-installer',
+        config = function() require'plugins.lsp_installer' end,
+    }
 
     -- misc
     use 'itchyny/vim-gitbranch' -- until I feel better about vim-fugitive
