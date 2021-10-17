@@ -10,7 +10,7 @@ opt('o', 'termguicolors', true)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
 opt('o', 'showmatch', true)
-opt('w', 'cc', '80,100')
+opt('w', 'cc', '80,88')
 opt('w', 'cursorline', true)
 opt('o', 'syntax', 'disable') -- theoretically treesitter covers this better
 opt('o', 'showmode', false)  -- ????
@@ -28,7 +28,6 @@ opt('o', 'ignorecase', true)
 opt('o', 'hlsearch', true)
 opt('o', 'scrolloff', 2)
 opt('o', 'inccommand', 'nosplit')
-
 
 -- disable unused stuff
 local disabled_built_ins = {

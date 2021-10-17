@@ -59,6 +59,11 @@ cmd('set shortmess+=c')
 local cmp = require'cmp'
 
 cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
     mapping = {
         ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -70,6 +75,7 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'vsnip' },
         { name = 'buffer' },
     }
 })
@@ -78,24 +84,29 @@ cmp.setup({
 --------------------------------------------------------------------------------
 -- json
 --------------------------------------------------------------------------------
-require'lspconfig'.jsonls.setup{}
+require'lspconfig'.jsonls.setup{
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
 
 --------------------------------------------------------------------------------
 -- html
 --------------------------------------------------------------------------------
-require'lspconfig'.html.setup{}
+require'lspconfig'.html.setup{
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
 
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
 require'lspconfig'.pyright.setup{
     -- on_attach=require'completion'.on_attach
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 --------------------------------------------------------------------------------
 -- rust
 --------------------------------------------------------------------------------
--- LSP https://sharksforarms.dev/posts/neovim-rust/
+-- https://sharksforarms.dev/posts/neovim-rust/
 require'lspconfig'.rust_analyzer.setup({
     -- on_attach=require'completion'.on_attach,
     settings = {
@@ -131,7 +142,6 @@ sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko
 
 require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
---    on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
         Lua = {
@@ -152,4 +162,3 @@ require'lspconfig'.sumneko_lua.setup {
         }
     }
 }
-
