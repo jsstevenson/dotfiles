@@ -51,15 +51,12 @@ return require('packer').startup(function(use)
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
             'typescriptreact'
         },
-        config = function()
-            require'plugins.formatter'
-        end,
+        config = function() require'plugins.formatter' end,
     }
 
     -- LSP things
     use {
         'neovim/nvim-lspconfig',
-        ft = {'python', 'html', 'rust', 'lua', 'ruby', 'json'},
         requires = {
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-buffer'},
@@ -67,7 +64,6 @@ return require('packer').startup(function(use)
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
         },
-        config = function() require'plugins.lsp' end,
     }
     use {
         'williamboman/nvim-lsp-installer',

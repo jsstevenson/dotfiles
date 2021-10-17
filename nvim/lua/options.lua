@@ -30,6 +30,25 @@ opt('o', 'scrolloff', 2)
 opt('o', 'inccommand', 'nosplit')
 
 
+-- disable unused stuff
+local disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "spellfile_plugin",
+    "tutor",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
+
 -- treesitter
 local ts = require 'nvim-treesitter.configs'
 ts.setup {
