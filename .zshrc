@@ -4,12 +4,13 @@
 
 # path_local="/Users/jss009/local/bin"
 # path_brew="/usr/local/sbin"
-path_python="/Users/jss009/Library/Python/3.9/bin"
+path_python39_user="/users/jss009/Library/Python/3.9/bin"
+path_python38="/usr/local/opt/python@3.8/bin"
 path_rust="/Users/jss009/.cargo/bin"
 path_aws="/Users/jss009/.ebcli-virtual-env/executable"
 path_julia="/Applications/Julia-1.6.app/Contents/Resources/julia/bin"
 path_ruby="/Users/jss009/.gem/ruby/2.7.0/bin/"
-export PATH="$path_rust:$path_aws:$path_python:$path_julia:$path_ruby:$PATH"
+export PATH="$path_rust:$path_aws:$path_julia:$path_ruby:$path_python39_user:$PATH:$path_python38"
 
 
 ################################################################################
@@ -186,10 +187,13 @@ export CPPFLAGS="-I/usr/local/opt/zlib/include"
 alias ddb='cd ~/code/dynamodb_local_latest; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb'
 
 # postgres
-alias postgres_start="pg_ctl -D /usr/local/var/postgres start"
-alias postgres_end="pg_ctl -D /usr/local/var/postgres stop"
+alias postgres_start="pg_ctl -D /Users/jss009/.local/share/postgres start"
+alias postgres_end="pg_ctl -D /Users/jss009/.local/share/postgres stop"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 alias scylla="docker run --name scylla -p 8000:8000 -d scylladb/scylla --alternator-port=8000 --alternator-write-isolation=always"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+[ -f "/Users/jss009/.ghcup/env" ] && source "/Users/jss009/.ghcup/env" # ghcup-env
