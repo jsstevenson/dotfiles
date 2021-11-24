@@ -14,12 +14,13 @@
 --------------------------------------------------------------------------------
 -- https://oroques.dev/notes/neovim-init
 
-require('packerPlugins')
+require('packer_plugins')
 require('options')
 require('mappings')
 require('theme')
 require('utils')
 require('lsp')
+require('treesitter')
 
 --------------------------------------------------------------------------------
 -- TeX
