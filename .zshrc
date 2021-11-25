@@ -78,6 +78,9 @@ ebszip() {
     fi
 }
 
+# prettier path print
+alias pathprint="tr ':' '\n' <<< '$PATH'"
+
 
 ################################################################################
 # Appearance
