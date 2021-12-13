@@ -18,3 +18,6 @@ map('', '<leader>sv', ':luafile $MYVIMRC<CR>', {silent = true})
 -- buffer movement
 map('n', '<leader>d', ':bp<CR>', {silent = true})
 map('n', '<leader>f', ':bn<CR>', {silent = true})
+
+-- misc
+map('n', '<C-o>', '<C-o>zz', {silent = true})
