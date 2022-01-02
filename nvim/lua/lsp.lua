@@ -134,7 +134,7 @@ USER = vim.fn.expand('$USER')
 local sumneko_root_path = ""
 local sumneko_binary = ""
 
-sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/macOS/lua-language-server"
+sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
 sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
 require'lspconfig'.sumneko_lua.setup {
