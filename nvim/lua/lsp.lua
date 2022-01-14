@@ -9,6 +9,9 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+
 --------------------------------------------------------------------------------
 -- basic functions
 --------------------------------------------------------------------------------
@@ -45,8 +48,8 @@ map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {silent = true})
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true})
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
-map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
-map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
+map('n', '<c-j>', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
+map('n', '<c-k>', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
 
 --------------------------------------------------------------------------------
 -- completion
@@ -87,22 +90,25 @@ cmp.setup({
 -- json
 --------------------------------------------------------------------------------
 require'lspconfig'.jsonls.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 
 --------------------------------------------------------------------------------
 -- html
 --------------------------------------------------------------------------------
 require'lspconfig'.html.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
 require'lspconfig'.pyright.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities
 }
+-- require'lspconfig'.pylsp.setup{
+--     capabilities = capabilities
+-- }
 
 --------------------------------------------------------------------------------
 -- rust
@@ -131,15 +137,12 @@ require'lspconfig'.rust_analyzer.setup({
 --------------------------------------------------------------------------------
 USER = vim.fn.expand('$USER')
 
-local sumneko_root_path = ""
-local sumneko_binary = ""
-
-sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/macOS/lua-language-server"
-sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
+local sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
+local sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
 require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
