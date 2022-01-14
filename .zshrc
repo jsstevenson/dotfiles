@@ -7,6 +7,7 @@ export PATH="$HOME/.local/bin:$PATH"                        # local binaries
 export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"    # Julia
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
+export PATH="$HOME/.poetry/bin:$PATH"                       # poetry
 
 ################################################################################
 # Prompt
@@ -163,3 +164,6 @@ else
     fi
 fi
 unset __conda_setup
+
+# zoxide
+eval "$(zoxide init zsh)"
