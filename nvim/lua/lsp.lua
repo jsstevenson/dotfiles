@@ -45,8 +45,8 @@ map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {silent = true})
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true})
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
-map('n', '<c-j>', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
-map('n', '<c-k>', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
+map('n', '<c-j>', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
+map('n', '<c-k>', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
 
 --------------------------------------------------------------------------------
 -- completion
@@ -70,7 +70,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
     },
     sources = {
         { name = 'nvim_lsp' },
