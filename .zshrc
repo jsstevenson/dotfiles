@@ -64,7 +64,7 @@ alias ll='exa -l'
 alias trc='tree -AC'
 
 # open journal
-alias journal='nvim /Volumes/jss009/journal.md'
+alias journal='nvim /Users/jss009/journal.md'
 
 # set drive
 alias DR=/Volumes/jss009/
