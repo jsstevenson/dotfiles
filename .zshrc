@@ -61,7 +61,7 @@ function cd {
 alias ll='exa -l'
 
 # default tree args
-alias trc='tree -AC'
+alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local'"
 
 # open journal
 alias journal='nvim /Users/jss009/journal.md'
