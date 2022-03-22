@@ -159,3 +159,14 @@ require'lspconfig'.sumneko_lua.setup {
         }
     }
 }
+
+--------------------------------------------------------------------------------
+-- ruby
+--------------------------------------------------------------------------------
+require'lspconfig'.solargraph.setup {
+    settings = {
+        solargraph = {
+            diagnostics = true
+        }
+    }
+}
