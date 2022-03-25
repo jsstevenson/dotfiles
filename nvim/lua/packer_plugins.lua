@@ -24,9 +24,22 @@ return require('packer').startup(function(use)
 	run = 'cd ~/.local/share/nvim/site/pack/packer/start/vim-hexokinase && make hexokinase'
     }
 
+    -- general
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                run = 'make'
+            }
+        }
+    }
+    use 'b0o/mapx.nvim'
+
     -- text objects & formatting
-    use 'wellle/targets.vim'
-    use 'michaeljsmith/vim-indent-object'
+    -- use 'wellle/targets.vim'
+    -- use 'michaeljsmith/vim-indent-object'
     use {
         'Vimjas/vim-python-pep8-indent',
         ft = {'python'}
