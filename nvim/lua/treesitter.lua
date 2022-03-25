@@ -15,6 +15,9 @@ ts.setup {
             node_incremental = '<TAB>',
             node_decremental = '<S-TAB>',
         }
+    },
+    endwise = {
+        enable = true,
     }
 }
 

@@ -37,7 +37,6 @@ return require('packer').startup(function(use)
         ft = {'tex'}
     }
     use 'tpope/vim-commentary'
-    use 'tpope/vim-endwise'
     use 'tpope/vim-surround'
     use 'jiangmiao/auto-pairs'
     use {
@@ -46,8 +45,10 @@ return require('packer').startup(function(use)
         config = function() require'plugins.slime' end,
     }
     use {
+        'RRethy/nvim-treesitter-endwise'
+    }
+    use {
         'nvim-treesitter/nvim-treesitter',
-        -- config = function() require'treesitter' end
     }
     use {
         'mhartington/formatter.nvim',
