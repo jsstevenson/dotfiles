@@ -1,20 +1,25 @@
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+local mapx = require('mapx').setup{}
 
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
-map('', ';', ':')
-map('', ';;', ';') -- TODO fix
+mapx.noremap(';', ':')
+mapx.noremap(';;', ';') -- TODO fix
 
 -- map esc to clear
-map('', '<esc>', ':noh<cr>')
+mapx.noremap('<esc>', ':noh<cr>')
 
 -- easy edit config files
-map('', '<leader>ev', ':edit $MYVIMRC<CR>', {silent = true})
-map('', '<leader>sv', ':luafile $MYVIMRC<CR>', {silent = true})
+mapx.noremap('<leader>ev', ':edit $MYVIMRC<CR>', 'silent')
+mapx.noremap('<leader>sv', ':luafile $MYVIMRC<CR>', 'silent')
 
 -- buffer movement
-map('n', '<leader>d', ':bp<CR>', {silent = true})
-map('n', '<leader>f', ':bn<CR>', {silent = true})
+mapx.nnoremap('<leader>d', ':bp<CR>', 'silent')
+mapx.nnoremap('<leader>f', ':bn<CR>', 'silent')
+
+-- comment
+mapx.vnoremap('<C-_>', 'gc', 'silent')
+
+-- telescope
+mapx.nnoremap('ff', ':Telescope find_files<CR>', 'silent')
+
+-- misc
+mapx.nnoremap('<C-o>', '<C-o>zz', 'silent')

@@ -44,15 +44,3 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
-
--- treesitter
-local ts = require 'nvim-treesitter.configs'
-ts.setup {
-    ensure_installed = {
-        'bash', 'bibtex', 'c', 'cpp', 'graphql',  'html', 'java', 'javascript',
-        'jsdoc', 'json', 'jsonc', 'julia', 'lua', 'python', 'ruby', 'rust',
-        'sparql', 'toml', 'tsx', 'typescript', 'yaml'
-    },
-    highlight = {enable = true, disable = { "tex", "html" } },
-    indent = { enable = true, disable = { "rust", "lua", "python" } }
-}
