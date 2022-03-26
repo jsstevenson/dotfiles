@@ -3,14 +3,12 @@ local actions = require('telescope.actions')
 
 require('telescope').setup{
     defaults = {
-        file_sorter = require'telescope.sorters'.get_fzy_sorter,
+        file_sorter = require('telescope.sorters').get_fzy_sorter,
         prompt_prefix = ' >',
         file_previewer = previewers.vim_buffer_cat.new,
         grep_previewer = previewers.vim_buffer_vimgrep.new,
-        qflist_previewer = previewers.bim_buffer_qflist.new,
         mappings = {
             i = {
-                ['<C-n'] = actions.action_layout.cycle_layout_next(0),
                 ['<C-u>'] = false,
                 ['<C-d>'] = false,
                 ['<esc>'] = actions.close,

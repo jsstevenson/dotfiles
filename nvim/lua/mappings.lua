@@ -19,7 +19,9 @@ mapx.nnoremap('<leader>f', ':bn<CR>', 'silent')
 mapx.vnoremap('<C-_>', 'gc', 'silent')
 
 -- telescope
-mapx.nnoremap('ff', ':Telescope find_files<CR>', 'silent')
+local telescope = require('telescope.builtin')
+mapx.nnoremap('ff', function() telescope.find_files() end, 'silent')
+mapx.nnoremap('fg', function() telescope.live_grep() end, 'silent')
 
 -- misc
 mapx.nnoremap('<C-o>', '<C-o>zz', 'silent')
