@@ -13,7 +13,6 @@
 -- utilities
 --------------------------------------------------------------------------------
 -- https://oroques.dev/notes/neovim-init
-
 require('packer_plugins')
 require('options')
 require('mappings')

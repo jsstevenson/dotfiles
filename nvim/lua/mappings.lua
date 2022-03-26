@@ -1,4 +1,4 @@
-local mapx = require('mapx').setup{}
+local mapx = require('mapx')
 
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
 mapx.noremap(';', ':')

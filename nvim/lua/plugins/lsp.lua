@@ -32,22 +32,23 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 --------------------------------------------------------------------------------
 -- mappings
 --------------------------------------------------------------------------------
+local mapx = require('mapx')
+
 -- map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
 -- map('i', '<S-Tab>', '<Plug>(completion_smart_s_tab)', {noremap = false, silent = true})
 -- map('i', '<Tab>', 'pumvisible() ? \"\\<C-n>" : \"\\<Tab>"', {expr = true})
 -- map('i', '<S-Tab>', 'pumvisible() ? \"\\<C-p>" : \"\\<S-Tab>"', {expr = true})
 
-local on_attach = function(_, bufnr)
-    local fmap = function(mode, lhs, rhs)
-        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { silent = true, noremap = true })
-    end
-    fmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    fmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    fmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    fmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-    fmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    fmap('n', '<c-j>', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>')
-    fmap('n', '<c-k>', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>')
+local on_attach = function(_, _)
+    local options = { silent = true, buffer = true }
+
+    mapx.nnoremap('K', function() vim.lsp.buf.hover() end, options)
+    mapx.nnoremap('gD', function() vim.lsp.buf.declaration() end, options)
+    mapx.nnoremap('gd', function() vim.lsp.buf.definition() end, options)
+    mapx.nnoremap('gr', function() vim.lsp.buf.references() end, options)
+    mapx.nnoremap('gi', function() vim.lsp.buf.implementation() end, options)
+    mapx.nnoremap('<C-j>', function() vim.diagnostic.goto_next({ popup_opts = { border = "single" }}) end, options)
+    mapx.nnoremap('<C-k>', function() vim.diagnostic.goto_prev({ popup_opts = { border = "single" }}) end, options)
 end
 
 --------------------------------------------------------------------------------
@@ -57,7 +58,7 @@ end
 cmd('set completeopt=menuone,noinsert,noselect')
 cmd('set shortmess+=c')
 
-local cmp = require'cmp'
+local cmp = require('cmp')
 
 cmp.setup({
     snippet = {

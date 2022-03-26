@@ -36,8 +36,10 @@ return require('packer').startup(function(use)
         },
         config = function() require('plugins.telescope') end,
     }
-    use 'b0o/mapx.nvim'
-
+    use {
+        'b0o/mapx.nvim',
+        config = function() require('mapx').setup{} end
+    }
     -- text objects & formatting
     -- use 'wellle/targets.vim'
     -- use 'michaeljsmith/vim-indent-object'
