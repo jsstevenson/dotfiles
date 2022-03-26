@@ -82,11 +82,11 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
-        },
-    }
-    use {
-        'williamboman/nvim-lsp-installer',
-        config = function() require('plugins.lsp_installer') end,
+            {
+                'williamboman/nvim-lsp-installer',
+                config = function() require('plugins.lsp') end,
+            }
+        }
     }
 
     -- misc

@@ -1,13 +1,12 @@
 --------------------------------------------------------------------------------
 -- top-level
 --------------------------------------------------------------------------------
-local cmd = vim.cmd
-
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+local present, lsp_installer = pcall(require, 'nvim-lsp-installer')
+if not present then
+    return
 end
+
+local cmd = vim.cmd
 
 --------------------------------------------------------------------------------
 -- basic functions
@@ -38,15 +37,18 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 -- map('i', '<Tab>', 'pumvisible() ? \"\\<C-n>" : \"\\<Tab>"', {expr = true})
 -- map('i', '<S-Tab>', 'pumvisible() ? \"\\<C-p>" : \"\\<S-Tab>"', {expr = true})
 
--- other shortcuts
--- map('n', 'K', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})  -- wtf isn't this working
-cmd('nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {silent = true})
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true})
-map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {silent = true})
-map('n', '<c-j>', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', {silent = true})
-map('n', '<c-k>', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', {silent = true})
+local on_attach = function(_, bufnr)
+    local fmap = function(mode, lhs, rhs)
+        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { silent = true, noremap = true })
+    end
+    fmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+    fmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+    fmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    fmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+    fmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    fmap('n', '<c-j>', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>')
+    fmap('n', '<c-k>', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>')
+end
 
 --------------------------------------------------------------------------------
 -- completion
@@ -86,30 +88,47 @@ cmp.setup({
 --------------------------------------------------------------------------------
 -- json
 --------------------------------------------------------------------------------
-require'lspconfig'.jsonls.setup{
+local options_json = {
+    on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 --------------------------------------------------------------------------------
 -- html
 --------------------------------------------------------------------------------
-require'lspconfig'.html.setup{
+local options_html = {
+    on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
-require'lspconfig'.pyright.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local options_pyright = {
+--     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- }
+--
+local options_python = {
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = { enabled = false },
+                pyflakes = { enabled = false },
+                yapf = { enabled = false },
+                flake8 = { enabled = true }
+            }
+        }
+    }
 }
 
 --------------------------------------------------------------------------------
 -- rust
 --------------------------------------------------------------------------------
 -- https://sharksforarms.dev/posts/neovim-rust/
-require'lspconfig'.rust_analyzer.setup({
-    -- on_attach=require'completion'.on_attach,
+local options_rust = {
+    on_attach = on_attach,
     settings = {
         ["rust-analyzer"] = {
             assist = {
@@ -124,7 +143,7 @@ require'lspconfig'.rust_analyzer.setup({
             },
         }
     }
-})
+}
 
 --------------------------------------------------------------------------------
 -- lua
@@ -137,7 +156,8 @@ local sumneko_binary = ""
 sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
 sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
-require'lspconfig'.sumneko_lua.setup {
+local options_lua = {
+    on_attach = on_attach,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
@@ -163,10 +183,27 @@ require'lspconfig'.sumneko_lua.setup {
 --------------------------------------------------------------------------------
 -- ruby
 --------------------------------------------------------------------------------
-require'lspconfig'.solargraph.setup {
+local options_ruby = {
+    on_attach = on_attach,
     settings = {
         solargraph = {
             diagnostics = true
         }
     }
 }
+
+--------------------------------------------------------------------------------
+-- initialize
+--------------------------------------------------------------------------------
+lsp_installer.on_server_ready(function(server)
+    if server.name == 'pylsp' then server:setup(options_python)
+    elseif server.name == 'solargraph' then server:setup(options_ruby)
+    elseif server.name == 'sumneko_lua' then server:setup(options_lua)
+    elseif server.name == 'html' then server:setup(options_html)
+    elseif server.name == 'jsonls' then server:setup(options_json)
+    elseif server.name == 'rust_analyzer' then server:setup(options_rust)
+    else
+        server:setup({})
+    end
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
