@@ -20,6 +20,7 @@ mapx.vnoremap('<C-_>', 'gc', 'silent')
 
 -- telescope
 mapx.nnoremap('ff', ':Telescope find_files<CR>', 'silent')
+mapx.nnoremap('fg', ':Telescope live_grep<CR>', 'silent')
 
 -- misc
 mapx.nnoremap('<C-o>', '<C-o>zz', 'silent')

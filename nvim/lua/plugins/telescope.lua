@@ -18,6 +18,9 @@ require('telescope').setup{
         },
         layout_strategy = 'vertical'
     },
+    -- pickers = {
+    --     builtin.treesitter
+    -- }
 }
 
 require'telescope'.load_extension('fzf')
