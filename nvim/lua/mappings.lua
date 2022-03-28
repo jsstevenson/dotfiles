@@ -1,4 +1,4 @@
-local mapx = require('mapx').setup{}
+local mapx = require('mapx')
 
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
 mapx.noremap(';', ':')
@@ -19,8 +19,9 @@ mapx.nnoremap('<leader>f', ':bn<CR>', 'silent')
 mapx.vnoremap('<C-_>', 'gc', 'silent')
 
 -- telescope
-mapx.nnoremap('ff', ':Telescope find_files<CR>', 'silent')
-mapx.nnoremap('fg', ':Telescope live_grep<CR>', 'silent')
+local telescope = require('telescope.builtin')
+mapx.nnoremap('ff', function() telescope.find_files() end, 'silent')
+mapx.nnoremap('fg', function() telescope.live_grep() end, 'silent')
 
 -- misc
 mapx.nnoremap('<C-o>', '<C-o>zz', 'silent')

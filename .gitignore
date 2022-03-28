@@ -2,3 +2,4 @@
 *.log
 .gitignore
 packer_compiled.lua
+nvim/plugin/*

@@ -8,11 +8,11 @@ return require('packer').startup(function(use)
     }
     use {
         'hoob3rt/lualine.nvim',
-        config = function() require'plugins.lualine' end
+        config = function() require('plugins.lualine') end
     }
     use {
         'akinsho/nvim-bufferline.lua',
-        config = function() require'bufferline'.setup{} end,
+        config = function() require('bufferline').setup{} end,
     }
     use 'voldikss/vim-floaterm'
     use {
@@ -33,9 +33,13 @@ return require('packer').startup(function(use)
                 'nvim-telescope/telescope-fzf-native.nvim',
                 run = 'make'
             }
-        }
+        },
+        config = function() require('plugins.telescope') end,
     }
-    use 'b0o/mapx.nvim'
+    use {
+        'b0o/mapx.nvim',
+        config = function() require('mapx').setup{} end
+    }
 
     -- text objects & formatting
     -- use 'wellle/targets.vim'
@@ -55,7 +59,7 @@ return require('packer').startup(function(use)
     use {
         'jpalardy/vim-slime',
         -- ft = {'python', 'racket', 'javascript', 'javascriptreact'},
-        config = function() require'plugins.slime' end,
+        config = function() require('plugins.slime') end,
     }
     use {
         'RRethy/nvim-treesitter-endwise'
@@ -69,7 +73,7 @@ return require('packer').startup(function(use)
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
             'typescriptreact'
         },
-        config = function() require'plugins.formatter' end,
+        config = function() require('plugins.formatter') end,
     }
 
     -- LSP things
@@ -81,11 +85,11 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
-        },
-    }
-    use {
-        'williamboman/nvim-lsp-installer',
-        config = function() require'plugins.lsp_installer' end,
+            {
+                'williamboman/nvim-lsp-installer',
+                config = function() require('plugins.lsp') end,
+            }
+        }
     }
 
     -- misc
