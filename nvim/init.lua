@@ -19,7 +19,6 @@ require('options')
 require('mappings')
 require('theme')
 require('utils')
-require('lsp')
 require('treesitter')
 
 --------------------------------------------------------------------------------
