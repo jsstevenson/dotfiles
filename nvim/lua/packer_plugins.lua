@@ -62,18 +62,23 @@ return require('packer').startup(function(use)
         config = function() require('plugins.slime') end,
     }
     use {
-        'RRethy/nvim-treesitter-endwise'
-    }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-    }
-    use {
         'mhartington/formatter.nvim',
         ft = {
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
             'typescriptreact'
         },
         config = function() require('plugins.formatter') end,
+    }
+
+    -- treesitter stuff
+    use {
+        'nvim-treesitter/nvim-treesitter',
+    }
+    use {
+        'RRethy/nvim-treesitter-endwise'
+    }
+    use {
+        'nvim-treesitter/playground'
     }
 
     -- LSP things
