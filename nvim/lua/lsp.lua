@@ -8,6 +8,8 @@ end
 
 local cmd = vim.cmd
 
+local capabilities_cmp = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 --------------------------------------------------------------------------------
 -- basic functions
 --------------------------------------------------------------------------------
@@ -91,7 +93,7 @@ cmp.setup({
 --------------------------------------------------------------------------------
 local options_json = {
     on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities_cmp
 }
 
 --------------------------------------------------------------------------------
@@ -99,7 +101,7 @@ local options_json = {
 --------------------------------------------------------------------------------
 local options_html = {
     on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities_cmp
 }
 
 --------------------------------------------------------------------------------
@@ -107,12 +109,12 @@ local options_html = {
 --------------------------------------------------------------------------------
  local options_pyright = {
      on_attach = on_attach,
-     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+     capabilities = capabilities_cmp
  }
 
 local options_python = {
     on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    capabilities = capabilities_cmp,
     settings = {
         pylsp = {
             plugins = {
@@ -131,6 +133,7 @@ local options_python = {
 -- https://sharksforarms.dev/posts/neovim-rust/
 local options_rust = {
     on_attach = on_attach,
+    capabilities = capabilities_cmp,
     settings = {
         ["rust-analyzer"] = {
             assist = {
@@ -161,7 +164,7 @@ sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko
 local options_lua = {
     on_attach = on_attach,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    capabilities = capabilities_cmp,
     settings = {
         Lua = {
             runtime = {
@@ -187,6 +190,7 @@ local options_lua = {
 --------------------------------------------------------------------------------
 local options_ruby = {
     on_attach = on_attach,
+    capabilities = capabilities_cmp,
     settings = {
         solargraph = {
             diagnostics = true

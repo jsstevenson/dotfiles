@@ -78,6 +78,9 @@ return require('packer').startup(function(use)
         'RRethy/nvim-treesitter-endwise'
     }
     use {
+        'windwp/nvim-ts-autotag'
+    }
+    use {
         'nvim-treesitter/playground'
     }
 
@@ -92,13 +95,14 @@ return require('packer').startup(function(use)
             {'hrsh7th/vim-vsnip-integ'},
             {
                 'williamboman/nvim-lsp-installer',
-                config = function() require('plugins.lsp') end,
+                -- config = function() require('plugins.lsp') end,
             }
         }
     }
 
     -- misc
     use 'itchyny/vim-gitbranch' -- until I feel better about vim-fugitive
+    use 'rhysd/conflict-marker.vim'
 
     -- language-specific
     use {
