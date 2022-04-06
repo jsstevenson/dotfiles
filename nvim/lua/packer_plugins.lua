@@ -102,7 +102,10 @@ return require('packer').startup(function(use)
 
     -- misc
     use 'itchyny/vim-gitbranch' -- until I feel better about vim-fugitive
-    use 'rhysd/conflict-marker.vim'
+    use {
+        'rhysd/conflict-marker.vim',
+        config = function() require('plugins.conflict_marker') end,
+    }
 
     -- language-specific
     use {
