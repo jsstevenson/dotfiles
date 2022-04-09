@@ -105,10 +105,11 @@ local options_html = {
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
--- local options_pyright = {
---     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- }
---
+ local options_pyright = {
+     on_attach = on_attach,
+     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+ }
+
 local options_python = {
     on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
@@ -130,6 +131,7 @@ local options_python = {
 -- https://sharksforarms.dev/posts/neovim-rust/
 local options_rust = {
     on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
         ["rust-analyzer"] = {
             assist = {
@@ -186,6 +188,7 @@ local options_lua = {
 --------------------------------------------------------------------------------
 local options_ruby = {
     on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
         solargraph = {
             diagnostics = true
@@ -198,6 +201,7 @@ local options_ruby = {
 --------------------------------------------------------------------------------
 lsp_installer.on_server_ready(function(server)
     if server.name == 'pylsp' then server:setup(options_python)
+    elseif server.name == 'pyright' then server:setup(options_pyright)
     elseif server.name == 'solargraph' then server:setup(options_ruby)
     elseif server.name == 'sumneko_lua' then server:setup(options_lua)
     elseif server.name == 'html' then server:setup(options_html)

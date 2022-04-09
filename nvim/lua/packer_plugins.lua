@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     }
     use {
         'hoob3rt/lualine.nvim',
-        config = function() require('plugins.lualine') end
+        config = function() require('plugins.status_line') end
     }
     use {
         'akinsho/nvim-bufferline.lua',
