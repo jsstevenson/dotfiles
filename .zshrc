@@ -18,11 +18,12 @@ export PATH="$path_rust:$path_aws:$path_julia:$path_ruby:$path_python39_user:$PA
 ################################################################################
 
 parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
 setopt PROMPT_SUBST
-PROMPT='%3c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
+
+PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(parse_git_branch) %{\e[38;2;122;162;247;48;2;84;92;126m%}\UE0B0%{\e[38;2;192;202;245;48;2;84;92;126m%} %~ %{\e[38;2;84;92;126;48;2;31;35;53m%}\uE0B0%{\e[0m%} %% '
 export PS2="> "
 
 ################################################################################
