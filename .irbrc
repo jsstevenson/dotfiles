@@ -1,13 +1,14 @@
 require 'irb/completion'
 
 IRB.conf[:AUTO_INDENT] = true
-
+purple_1 = "187;154;247"
+purple_2 = "157;124;216"
 dark = "31;35;53"
 blue = "122;162;247"
 red = "247;118;142"
 grey = "84;92;126"
 white = "192;202;245"
-outer_bg_color = blue
+outer_bg_color = purple_1
 
 if defined?(Rails)
   outer_text = Rails.application.class.module_parent.name
@@ -42,9 +43,9 @@ prompt_length = outer_text.length + middle_text.length + 1
 
 IRB.conf[:PROMPT][:CUSTOM] = {
   PROMPT_I: "#{outer_prompt} #{middle_prompt} ",
-  PROMPT_N: "#{' ' * prompt_length} >    ",
-  PROMPT_S: "#{' ' * prompt_length} *    ",
-  PROMPT_C: "#{' ' * prompt_length} ?    ",
+  PROMPT_N: "#{' ' * prompt_length}> ... ",
+  PROMPT_S: "#{' ' * prompt_length}* ... ",
+  PROMPT_C: "#{' ' * prompt_length}? ... ",
   RETURN: " => %s\n"
 }
 
