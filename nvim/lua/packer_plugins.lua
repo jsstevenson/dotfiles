@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
     -- try https://github.com/junegunn/vim-easy-align as well?
     use {
         'godlygeek/tabular',
-        ft = {'tex'}
+        ft = {'tex', 'markdown'}
     }
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
