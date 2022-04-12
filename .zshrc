@@ -2,7 +2,6 @@
 # Path
 ################################################################################
 
-export PATH="/usr/local/share/dotnet:$PATH"                 # .NET SDK
 export PATH="$HOME/.local/bin:$PATH"                        # local binaries
 export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"    # Julia
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
@@ -70,6 +69,9 @@ sudo shutdown -r now'
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
+
+# readable PATH
+alias printpath="tr ':' '\n' <<< '$PATH'"
 
 ################################################################################
 # Appearance
@@ -167,3 +169,6 @@ unset __conda_setup
 
 # zoxide
 eval "$(zoxide init zsh)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
