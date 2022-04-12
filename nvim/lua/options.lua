@@ -31,14 +31,14 @@ opt('o', 'inccommand', 'nosplit')
 
 -- disable unused stuff
 local disabled_built_ins = {
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "spellfile_plugin",
-    "tutor",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "spellfile_plugin",
+  "tutor",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
