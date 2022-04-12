@@ -27,6 +27,8 @@ else
   if IRB.conf[:PROMPT].key? :RVM  # requires RVM
     version = IRB.conf[:PROMPT][:RVM][:PROMPT_I].split(" ")[0]
     middle_text = "v#{version}"
+  else
+    middle_text = RUBY_VERSION
   end
 end
 
