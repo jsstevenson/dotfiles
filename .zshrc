@@ -24,11 +24,12 @@ parse_git_branch() {
 
 virtualenv_info() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        venv="${VIRTUAL_ENV##*/}"
+        venv="venv"
     else
         venv=''
     fi
-    [[ -n "$venv" ]] && echo "%{\e[38;2;31;35;53m%} \UE0B1 %{\e[38;2;192;202;245m%}($venv)"
+    # [[ -n "$venv" ]] && echo " ($venv)"
+    [[ -n "$venv" ]] && echo "%{\e[38;2;31;35;53m%} \UE0B1 %{\e[38;2;192;202;245m%}$venv"
 }
 
 setopt PROMPT_SUBST
@@ -38,7 +39,7 @@ if [[ -z "${ALACRITTY_LOG}" ]]; then
 else
     export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%} %3c %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%}$(parse_git_branch)$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} %% '
+    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%} %2c %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%}$(parse_git_branch)$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
 fi
 export PS2="> "
 ################################################################################
