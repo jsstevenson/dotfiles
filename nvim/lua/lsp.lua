@@ -82,8 +82,10 @@ cmp.setup({
         { name = 'vsnip' },
         { name = 'buffer' },
     },
-    documentation = {
-        maxheight = 50,
+    window = {
+        documentation = {
+            maxheight = 50,
+        }
     }
 })
 
