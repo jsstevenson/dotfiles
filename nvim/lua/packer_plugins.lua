@@ -40,6 +40,7 @@ return require('packer').startup(function(use)
         'b0o/mapx.nvim',
         config = function() require('mapx').setup{} end
     }
+
     -- text objects & formatting
     -- use 'wellle/targets.vim'
     -- use 'michaeljsmith/vim-indent-object'
@@ -61,18 +62,26 @@ return require('packer').startup(function(use)
         config = function() require('plugins.slime') end,
     }
     use {
-        'RRethy/nvim-treesitter-endwise'
-    }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-    }
-    use {
         'mhartington/formatter.nvim',
         ft = {
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
             'typescriptreact'
         },
         config = function() require('plugins.formatter') end,
+    }
+
+    -- treesitter stuff
+    use {
+        'nvim-treesitter/nvim-treesitter',
+    }
+    use {
+        'RRethy/nvim-treesitter-endwise'
+    }
+    use {
+        'windwp/nvim-ts-autotag'
+    }
+    use {
+        'nvim-treesitter/playground'
     }
 
     -- LSP things
@@ -86,13 +95,17 @@ return require('packer').startup(function(use)
             {'hrsh7th/vim-vsnip-integ'},
             {
                 'williamboman/nvim-lsp-installer',
-                config = function() require('plugins.lsp') end,
+                -- config = function() require('plugins.lsp') end,
             }
         }
     }
 
     -- misc
     use 'itchyny/vim-gitbranch' -- until I feel better about vim-fugitive
+    use {
+        'rhysd/conflict-marker.vim',
+        config = function() require('plugins.conflict_marker') end,
+    }
 
     -- language-specific
     use {

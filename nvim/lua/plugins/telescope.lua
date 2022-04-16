@@ -14,8 +14,15 @@ require('telescope').setup{
                 ['<esc>'] = actions.close,
             }
         },
-        layout_strategy = 'vertical'
+        layout_strategy = 'vertical',
+        file_ignore_patterns = {
+            "node_modules",
+            "site-packages"
+        }
     },
+    -- pickers = {
+    --     builtin.treesitter
+    -- }
 }
 
 require'telescope'.load_extension('fzf')
