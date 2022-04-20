@@ -22,7 +22,9 @@ formatter.setup {
   filetype = {
     json = { format_prettier },
     html = { format_prettier },
+    typescript = { format_prettier },
     typescriptreact = { format_prettier },
+    yaml = { format_prettier },
   }
 }
 map('n', '<leader>p', ':Format<cr>:w<cr>')

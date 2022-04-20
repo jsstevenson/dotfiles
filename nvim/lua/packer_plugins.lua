@@ -65,7 +65,7 @@ return require('packer').startup(function(use)
         'mhartington/formatter.nvim',
         ft = {
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
-            'typescriptreact'
+            'typescriptreact', 'yaml', 'graphql'
         },
         config = function() require('plugins.formatter') end,
     }
