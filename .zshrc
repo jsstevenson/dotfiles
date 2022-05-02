@@ -17,9 +17,13 @@ export PATH="$path_rust:$path_aws:$path_julia:$path_ruby:$path_python39_user:$PA
 # Prompt
 ################################################################################
 
-parse_git_branch() {
+fancy_parse_git_branch() {
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/')
     [[ -n "$branch" ]] && echo " \UE0A0$branch"
+}
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 virtualenv_info() {
@@ -39,7 +43,8 @@ if [[ -z "${ALACRITTY_LOG}" ]]; then
 else
     export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%} %2c %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%}$(parse_git_branch)$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
+    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
+    # PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%} %2c %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%}$(fancy_parse_git_branch)$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
 fi
 export PS2="> "
 ################################################################################
@@ -96,6 +101,7 @@ eval "$(zoxide init zsh)"
 # Appearance
 ################################################################################
 
+export BAT_THEME="ansi"
 # if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
 #     # default values
 #     if [ -z ${DARKMODE+x} ]; then
