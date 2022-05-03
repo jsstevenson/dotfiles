@@ -12,13 +12,33 @@ export PATH="$HOME/.poetry/bin:$PATH"                       # poetry
 # Prompt
 ################################################################################
 
+fancy_parse_git_branch() {
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/')
+    [[ -n "$branch" ]] && echo " \UE0A0$branch"
+}
+
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-setopt PROMPT_SUBST
-PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
+virtualenv_info() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="venv"
+    else
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo "%{\e[38;2;31;35;53m%} \UE0B1 %{\e[38;2;192;202;245m%}$venv"
+}
 
+setopt PROMPT_SUBST
+if [[ -z "${ALACRITTY_LOG}" ]]; then
+    # don't use truecolor in mac terminal
+    PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
+else
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
+fi
 export PS2="> "
 
 ################################################################################
@@ -33,6 +53,12 @@ export PS2="> "
 
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
+
+# https://stackoverflow.com/questions/49436922/getting-error-while-trying-to-run-this-command-pipenv-install-requests-in-ma
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
 
 # open current director in Finder
 alias f='open -a Finder ./'
@@ -52,7 +78,7 @@ function cd {
 alias ll='exa -l'
 
 # default tree args
-alias trc='tree -AC'
+alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local'"
 
 # open journal
 alias journal='nvim /Users/jss/code/journal.md'
@@ -65,80 +91,78 @@ sudo rm /Library/Preferences/SystemConfiguration/preferences.plist;
 echo "now restarting....";
 sudo shutdown -r now'
 
-# pipenv
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
-
 # readable PATH
 alias printpath="tr ':' '\n' <<< '$PATH'"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 ################################################################################
 # Appearance
 ################################################################################
 
-if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
-    # default value
-    if [ -z ${DARKMODE+x} ]; then
-        export BAT_THEME="ansi"
-        export DARKMODE=1;
-        gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
-    fi
+# if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
+#     # default value
+#     if [ -z ${DARKMODE+x} ]; then
+#         export BAT_THEME="ansi"
+#         export DARKMODE=1;
+#         gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
+#     fi
 
-    # swap light/dark colors
-    switchbg() {
-        if [[ "$DARKMODE" -eq 1 ]]; then
-            if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
-                echo -e "\033]50;SetProfile=solarized-light\a";
-            elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss/code/dotfiles/alacritty.yml
-            fi
-            export DARKMODE=0;
-            export BAT_THEME="Solarized (light)";
-        elif [[ "$DARKMODE" -eq 0 ]]; then
-            if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
-                echo -e "\033]50;SetProfile=solarized-dark\a";
-            elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
-                gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
-            fi
-            export DARKMODE=1;
-            export BAT_THEME="Solarized (dark)";
-        else
-            1>&2 echo "Unexpected DARKMODE value: $DARKMODE"
-        fi;
-    }
+#     # swap light/dark colors
+#     switchbg() {
+#         if [[ "$DARKMODE" -eq 1 ]]; then
+#             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
+#                 echo -e "\033]50;SetProfile=solarized-light\a";
+#             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+#                 gsed -i 's/colors: \*dark/colors: \*light/' /Users/jss/code/dotfiles/alacritty.yml
+#             fi
+#             export DARKMODE=0;
+#             export BAT_THEME="Solarized (light)";
+#         elif [[ "$DARKMODE" -eq 0 ]]; then
+#             if [[ "$LC_TERMINAL" == "iTerm2"  ]]; then
+#                 echo -e "\033]50;SetProfile=solarized-dark\a";
+#             elif [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+#                 gsed -i 's/colors: \*light/colors: \*dark/' /Users/jss/code/dotfiles/alacritty.yml
+#             fi
+#             export DARKMODE=1;
+#             export BAT_THEME="Solarized (dark)";
+#         else
+#             1>&2 echo "Unexpected DARKMODE value: $DARKMODE"
+#         fi;
+#     }
 
-    # tmux hook should render this unnecessary, but just in case:
-    if [ -n "$TMUX" ]; then
-        function refresh {
-            darkmode_setting=$(tmux show-environment | grep "^DARKMODE");
-            battheme_setting=$(tmux show-environment | grep "^BAT_THEME");
-            if [[ -n "$darkmode_setting" ]]; then
-                export "$darkmode_setting"
-            else
-                echo "Tmux couldn't get darkmode setting";
-            fi
+#     # tmux hook should render this unnecessary, but just in case:
+#     if [ -n "$TMUX" ]; then
+#         function refresh {
+#             darkmode_setting=$(tmux show-environment | grep "^DARKMODE");
+#             battheme_setting=$(tmux show-environment | grep "^BAT_THEME");
+#             if [[ -n "$darkmode_setting" ]]; then
+#                 export "$darkmode_setting"
+#             else
+#                 echo "Tmux couldn't get darkmode setting";
+#             fi
 
-            if [[ -n "$battheme_setting" ]]; then
-                export "$battheme_setting";
-            else
-                echo "Tmux couldn't get bat theme setting";
-            fi
-        }
-    else
-        function refresh { }
-    fi
-elif [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
-    export BAT_THEME="GitHub"
-fi
+#             if [[ -n "$battheme_setting" ]]; then
+#                 export "$battheme_setting";
+#             else
+#                 echo "Tmux couldn't get bat theme setting";
+#             fi
+#         }
+#     else
+#         function refresh { }
+#     fi
+# elif [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
+#     export BAT_THEME="GitHub"
+# fi
 
-function tmux_send_nvim_keys() {
-    for _pane in $(tmux list-panes -a -F '#{pane_id}'); do
-        if [[ $(tmux display-message -t $_pane -p -F '#{pane_current_command}') = "nvim" ]]; then
-            tmux send-keys -t $_pane Escape ':call SetBackground()' Enter
-        fi
-    done
-}
+# function tmux_send_nvim_keys() {
+#     for _pane in $(tmux list-panes -a -F '#{pane_id}'); do
+#         if [[ $(tmux display-message -t $_pane -p -F '#{pane_current_command}') = "nvim" ]]; then
+#             tmux send-keys -t $_pane Escape ':call SetBackground()' Enter
+#         fi
+#     done
+# }
 
 ################################################################################
 # Specific tools
@@ -146,8 +170,21 @@ function tmux_send_nvim_keys() {
 
 # fzf
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
+
+# ghc
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
 
 # Biostar Handbook things
 export LC_ALL=C

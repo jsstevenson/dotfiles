@@ -65,7 +65,7 @@ return require('packer').startup(function(use)
         'mhartington/formatter.nvim',
         ft = {
             'json', 'html', 'javascript',  'javascriptreact', 'typescript',
-            'typescriptreact'
+            'typescriptreact', 'yaml', 'graphql'
         },
         config = function() require('plugins.formatter') end,
     }
@@ -73,15 +73,11 @@ return require('packer').startup(function(use)
     -- treesitter stuff
     use {
         'nvim-treesitter/nvim-treesitter',
-    }
-    use {
-        'RRethy/nvim-treesitter-endwise'
-    }
-    use {
-        'windwp/nvim-ts-autotag'
-    }
-    use {
-        'nvim-treesitter/playground'
+        requires = {
+            {'RRethy/nvim-treesitter-endwise'},
+            {'windwp/nvim-ts-autotag'},
+            {'nvim-treesitter/playground'}
+        }
     }
 
     -- LSP things
@@ -95,16 +91,19 @@ return require('packer').startup(function(use)
             {'hrsh7th/vim-vsnip-integ'},
             {
                 'williamboman/nvim-lsp-installer',
-                -- config = function() require('plugins.lsp') end,
             }
         }
     }
 
-    -- misc
+    -- git
     use 'itchyny/vim-gitbranch' -- until I feel better about vim-fugitive
     use {
         'rhysd/conflict-marker.vim',
         config = function() require('plugins.conflict_marker') end,
+    }
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function() require('gitsigns').setup() end
     }
 
     -- language-specific
