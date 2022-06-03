@@ -1,4 +1,4 @@
-return require('packer').startup(function(use)
+return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     -- appearance
@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     }
     use {
         'hoob3rt/lualine.nvim',
-        config = function() require('plugins.lualine') end
+        config = function() require('plugins.status_line') end
     }
     use {
         'akinsho/nvim-bufferline.lua',
@@ -51,7 +51,7 @@ return require('packer').startup(function(use)
     -- try https://github.com/junegunn/vim-easy-align as well?
     use {
         'godlygeek/tabular',
-        ft = {'tex'}
+        ft = {'tex', 'markdown'}
     }
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
@@ -63,21 +63,25 @@ return require('packer').startup(function(use)
     }
     use {
         'mhartington/formatter.nvim',
-        ft = {
-            'json', 'html', 'javascript',  'javascriptreact', 'typescript',
-            'typescriptreact', 'yaml', 'graphql'
-        },
+        -- ft = {
+        --     'json', 'html', 'javascript',  'javascriptreact', 'typescript',
+        --     'typescriptreact', 'yaml'
+        -- },
         config = function() require('plugins.formatter') end,
     }
 
     -- treesitter stuff
     use {
         'nvim-treesitter/nvim-treesitter',
-        requires = {
-            {'RRethy/nvim-treesitter-endwise'},
-            {'windwp/nvim-ts-autotag'},
-            {'nvim-treesitter/playground'}
-        }
+    }
+    use {
+        'RRethy/nvim-treesitter-endwise'
+    }
+    use {
+        'windwp/nvim-ts-autotag'
+    }
+    use {
+        'nvim-treesitter/playground'
     }
 
     -- LSP things
@@ -89,7 +93,9 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
-            {'williamboman/nvim-lsp-installer'},
+            {
+                'williamboman/nvim-lsp-installer',
+            }
         }
     }
 
@@ -99,10 +105,10 @@ return require('packer').startup(function(use)
         'rhysd/conflict-marker.vim',
         config = function() require('plugins.conflict_marker') end,
     }
-    -- use {
-    --   'lewis6991/gitsigns.nvim',
-    --   config = function() require('gitsigns').setup() end,
-    -- }
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function() require('gitsigns').setup() end
+    }
 
     -- language-specific
     use {
@@ -121,4 +127,9 @@ return require('packer').startup(function(use)
         'lervag/vimtex',
         ft = {'tex'}
     }
-end)
+end,
+config = {
+    display = {
+        open_fn = require('packer.util').float,
+    }
+}})

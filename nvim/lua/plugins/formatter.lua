@@ -24,7 +24,8 @@ formatter.setup {
     html = { format_prettier },
     typescript = { format_prettier },
     typescriptreact = { format_prettier },
-    yaml = { format_prettier },
+    yaml = { format_prettier }
+    -- yaml = { require('formatter.filetypes.yaml').pyaml },
   }
 }
 map('n', '<leader>p', ':Format<cr>:w<cr>')

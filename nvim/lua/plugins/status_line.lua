@@ -8,7 +8,7 @@ local function environment_name()
     if ps1 then
         return string.match(ps1, "%((.+)%) ")
     else
-        return nil
+        return ""
     end
 end
 

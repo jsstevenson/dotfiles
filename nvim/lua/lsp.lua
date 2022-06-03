@@ -1,10 +1,14 @@
 --------------------------------------------------------------------------------
 -- top-level
 --------------------------------------------------------------------------------
-local present, lsp_installer = pcall(require, 'nvim-lsp-installer')
-if not present then
-    return
-end
+require("nvim-lsp-installer").setup({
+    ensure_installed = {
+        "rust_analyzer", "sumneko_lua", "jsonls", "tsserver", "cssls",
+        "graphql", "html", "pyright"
+    },
+    automatic_installation = true
+})
+local lspconfig = require("lspconfig")
 
 local cmd = vim.cmd
 
@@ -93,7 +97,7 @@ cmp.setup({
 --------------------------------------------------------------------------------
 -- json
 --------------------------------------------------------------------------------
-local options_json = {
+lspconfig.jsonls.setup {
     on_attach = on_attach,
     capabilities = capabilities_cmp
 }
@@ -101,7 +105,7 @@ local options_json = {
 --------------------------------------------------------------------------------
 -- html
 --------------------------------------------------------------------------------
-local options_html = {
+lspconfig.html.setup {
     on_attach = on_attach,
     capabilities = capabilities_cmp
 }
@@ -109,31 +113,31 @@ local options_html = {
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
- local options_pyright = {
-     on_attach = on_attach,
-     capabilities = capabilities_cmp
- }
-
-local options_python = {
+lspconfig.pyright.setup {
     on_attach = on_attach,
-    capabilities = capabilities_cmp,
-    settings = {
-        pylsp = {
-            plugins = {
-                pycodestyle = { enabled = false },
-                pyflakes = { enabled = false },
-                yapf = { enabled = false },
-                flake8 = { enabled = true }
-            }
-        }
-    }
+    capabilities = capabilities_cmp
 }
+
+-- local options_python = {
+--     on_attach = on_attach,
+--     capabilities = capabilities_cmp,
+--     settings = {
+--         pylsp = {
+--             plugins = {
+--                 pycodestyle = { enabled = false },
+--                 pyflakes = { enabled = false },
+--                 yapf = { enabled = false },
+--                 flake8 = { enabled = true }
+--             }
+--         }
+--     }
+-- }
 
 --------------------------------------------------------------------------------
 -- rust
 --------------------------------------------------------------------------------
 -- https://sharksforarms.dev/posts/neovim-rust/
-local options_rust = {
+lspconfig.rust_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities_cmp,
     settings = {
@@ -163,7 +167,7 @@ local sumneko_binary = ""
 sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
 sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
-local options_lua = {
+lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     capabilities = capabilities_cmp,
@@ -190,7 +194,7 @@ local options_lua = {
 --------------------------------------------------------------------------------
 -- ruby
 --------------------------------------------------------------------------------
-local options_ruby = {
+lspconfig.solargraph.setup {
     on_attach = on_attach,
     capabilities = capabilities_cmp,
     settings = {
@@ -199,20 +203,3 @@ local options_ruby = {
         }
     }
 }
-
---------------------------------------------------------------------------------
--- initialize
---------------------------------------------------------------------------------
-lsp_installer.on_server_ready(function(server)
-    if server.name == 'pylsp' then server:setup(options_python)
-    elseif server.name == 'pyright' then server:setup(options_pyright)
-    elseif server.name == 'solargraph' then server:setup(options_ruby)
-    elseif server.name == 'sumneko_lua' then server:setup(options_lua)
-    elseif server.name == 'html' then server:setup(options_html)
-    elseif server.name == 'jsonls' then server:setup(options_json)
-    elseif server.name == 'rust_analyzer' then server:setup(options_rust)
-    else
-        server:setup({})
-    end
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
