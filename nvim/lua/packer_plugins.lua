@@ -127,6 +127,11 @@ return require('packer').startup({function(use)
         'lervag/vimtex',
         ft = {'tex'}
     }
+    use {
+        'NTBBloodbath/rest.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function() require('plugins.nvim-rest') end
+    }
 end,
 config = {
     display = {
