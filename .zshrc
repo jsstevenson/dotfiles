@@ -11,6 +11,9 @@ export PATH="$HOME/.poetry/bin:$PATH"                       # poetry
 ################################################################################
 # Prompt
 ################################################################################
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 
 fancy_parse_git_branch() {
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/')
@@ -36,8 +39,8 @@ if [[ -z "${ALACRITTY_LOG}" ]]; then
     PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
 else
     export VIRTUAL_ENV_DISABLE_PROMPT=1
-
     PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
+    # PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
 fi
 export PS2="> "
 
@@ -53,11 +56,6 @@ export PS2="> "
 
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
-
-# https://stackoverflow.com/questions/49436922/getting-error-while-trying-to-run-this-command-pipenv-install-requests-in-ma
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
 
 
 # open current director in Finder
@@ -185,11 +183,6 @@ fd() {
 fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
-
-# Biostar Handbook things
-export LC_ALL=C
-export PERL_LWP_SSL_VERIFY_HOSTNAME=0
-export PATH=~/bin:$PATH
 
 # conda
 __conda_setup="$('/Users/jss/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
