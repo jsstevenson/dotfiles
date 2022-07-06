@@ -77,6 +77,7 @@ alias ll='exa -l'
 
 # default tree args
 alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local'"
+alias gtrc="git ls-tree -r --name-only HEAD | tree --fromfile"
 
 # open journal
 alias journal='nvim /Users/jss/code/journal.md'
