@@ -53,7 +53,12 @@ return require('packer').startup(function(use)
         'godlygeek/tabular',
         ft = {'tex', 'markdown'}
     }
-    use 'tpope/vim-commentary'
+    use {
+        'numToStr/Comment.nvim',
+        config = function ()
+            require('Comment').setup()
+        end
+    }
     use 'tpope/vim-surround'
     use 'jiangmiao/auto-pairs'
     use {
