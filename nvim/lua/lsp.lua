@@ -6,7 +6,10 @@ require("nvim-lsp-installer").setup({
         "rust_analyzer", "sumneko_lua", "jsonls", "tsserver", "cssls",
         "graphql", "html", "pyright"
     },
-    automatic_installation = true
+    automatic_installation = true,
+    ui = {
+        border = "double"
+    }
 })
 local lspconfig = require("lspconfig")
 
