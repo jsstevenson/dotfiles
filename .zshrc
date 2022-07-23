@@ -7,40 +7,61 @@ export PATH="/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH"    
 export PATH="$HOME/.cargo/bin:$PATH"                        # Rust tools
 export PATH="/usr/local/sbin:$PATH"                         # Homebrew
 export PATH="$HOME/.poetry/bin:$PATH"                       # poetry
+# pyenv specific:
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+# export PATH="/usr/local/lib/python3.9/site-packages:$PATH"  # python
 
 ################################################################################
 # Prompt
 ################################################################################
+
+# weird UTF compiler flags
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
-fancy_parse_git_branch() {
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/')
-    [[ -n "$branch" ]] && echo " \UE0A0$branch"
+# prompt data functions
+get_git_branch_name() {
+    BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    [[ -n "$BRANCH_NAME" ]] && echo "\UE0A0 ${BRANCH_NAME}"
 }
 
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-virtualenv_info() {
+get_env_name() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        venv="venv"
-    else
-        venv=''
+        env_name="${VIRTUAL_ENV##*/}"
     fi
-    [[ -n "$venv" ]] && echo "%{\e[38;2;31;35;53m%} \UE0B1 %{\e[38;2;192;202;245m%}$venv"
+    [[ -n "$env_name" ]] && echo "\U2632 ${env_name}"
+}
+
+get_working_info() {
+    BLUE='%{\e[38;2;122;162;247m%}'
+    GIT_BRANCH_NAME="$(get_git_branch_name | xargs)"
+    GIT_BRANCH_NAME_STYLED="$BLUE$GIT_BRANCH_NAME"
+    PURPLE='%{\e[38;2;157;124;216m%}'
+    ENV_NAME="$(get_env_name)"
+    ENV_NAME_STYLED="$PURPLE$ENV_NAME"
+    BLANK=$'%{\e[0m%}'
+    if [[ (-n $GIT_BRANCH_NAME) && (-n $ENV_NAME) ]]; then
+        echo "[$GIT_BRANCH_NAME_STYLED $ENV_NAME_STYLED$BLANK] "
+    elif [[ -n $GIT_BRANCH_NAME ]]; then
+        echo "[$GIT_BRANCH_NAME_STYLED$BLANK] "
+    elif [[ -n $ENV_NAME ]]; then
+        echo "[$ENV_NAME_STYLED$BLANK]"
+    fi
 }
 
 setopt PROMPT_SUBST
 if [[ -z "${ALACRITTY_LOG}" ]]; then
     # don't use truecolor in mac terminal
-    PROMPT='%9c%{%F{blue}%}$(parse_git_branch)%{%F{none}%} %% '
+    PROMPT='%9c%{%F{blue}%} ($(get_git_branch_name))%{%F{none}%} %% '
 else
     export VIRTUAL_ENV_DISABLE_PROMPT=1
-    PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
-    # PROMPT=$'%{\e[38;2;31;35;53;48;2;122;162;247m%}$(fancy_parse_git_branch) %{\e[38;2;122;162;247;48;2;65;72;104m%}\UE0B0%{\e[38;2;192;202;245;48;2;65;72;104m%} %2c$(virtualenv_info) %{\e[38;2;65;72;104;48;2;36;40;59m%}\UE0B0%{\e[0m%} '
+    blank=$'%{\e[0m%}'
+    green=$'%{\e[38;2;158;206;106m%}'
+    red=$'%{\e[38;2;219;75;75m%}'
+    PROMPT=$'$(get_working_info)%3c %(?.%{$green%}.%{$red%})\U276F$blank '
 fi
 export PS2="> "
 
@@ -56,7 +77,6 @@ export PS2="> "
 
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
-
 
 # open current director in Finder
 alias f='open -a Finder ./'
@@ -93,11 +113,17 @@ sudo shutdown -r now'
 # readable PATH
 alias printpath="tr ':' '\n' <<< '$PATH'"
 
-# zoxide
-eval "$(zoxide init zsh)"
+# finder helpers
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
 
-# bat
-export BAT_THEME="tokyonight-storm"
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
 
 ################################################################################
 # Appearance
@@ -177,17 +203,6 @@ export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat -
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
 # conda
 __conda_setup="$('/Users/jss/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -204,5 +219,11 @@ unset __conda_setup
 # zoxide
 eval "$(zoxide init zsh)"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# bat
+export BAT_THEME="tokyonight-storm"
+
+################################################################################
+# RVM says it should be last, so it's last
+################################################################################
+
 export PATH="$PATH:$HOME/.rvm/bin"
