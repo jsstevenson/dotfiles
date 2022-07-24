@@ -29,26 +29,28 @@ get_git_branch_name() {
 }
 
 get_env_name() {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        env_name="${VIRTUAL_ENV##*/}"
+    if [[ -n "$PIPENV_ACTIVE" ]]; then
+        GREEN=$'%{\e[38;2;158;206;106m%}'
+        VIRTUAL_ENV_NAME="${VIRTUAL_ENV##*/}"
+        echo "$GREEN\U168A ${VIRTUAL_ENV_NAME:0:-9}"
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        GREEN=$'%{\e[38;2;158;206;106m%}'
+        echo "$GREEN\U168A ${VIRTUAL_ENV##*/}"
     fi
-    [[ -n "$env_name" ]] && echo "\U2632 ${env_name}"
 }
 
 get_working_info() {
     BLUE='%{\e[38;2;122;162;247m%}'
     GIT_BRANCH_NAME="$(get_git_branch_name | xargs)"
     GIT_BRANCH_NAME_STYLED="$BLUE$GIT_BRANCH_NAME"
-    PURPLE='%{\e[38;2;157;124;216m%}'
     ENV_NAME="$(get_env_name)"
-    ENV_NAME_STYLED="$PURPLE$ENV_NAME"
     BLANK=$'%{\e[0m%}'
     if [[ (-n $GIT_BRANCH_NAME) && (-n $ENV_NAME) ]]; then
-        echo "[$GIT_BRANCH_NAME_STYLED $ENV_NAME_STYLED$BLANK] "
+        echo "[$GIT_BRANCH_NAME_STYLED $ENV_NAME$BLANK] "
     elif [[ -n $GIT_BRANCH_NAME ]]; then
         echo "[$GIT_BRANCH_NAME_STYLED$BLANK] "
     elif [[ -n $ENV_NAME ]]; then
-        echo "[$ENV_NAME_STYLED$BLANK]"
+        echo "[$ENV_NAME$BLANK]"
     fi
 }
 
@@ -58,10 +60,10 @@ if [[ -z "${ALACRITTY_LOG}" ]]; then
     PROMPT='%9c%{%F{blue}%} ($(get_git_branch_name))%{%F{none}%} %% '
 else
     export VIRTUAL_ENV_DISABLE_PROMPT=1
-    blank=$'%{\e[0m%}'
-    green=$'%{\e[38;2;158;206;106m%}'
-    red=$'%{\e[38;2;219;75;75m%}'
-    PROMPT=$'$(get_working_info)%3c %(?.%{$green%}.%{$red%})\U276F$blank '
+    BLANK=$'%{\e[0m%}'
+    GREEN=$'%{\e[38;2;158;206;106m%}'
+    RED=$'%{\e[38;2;219;75;75m%}'
+    PROMPT=$'$(get_working_info)%3c %(?.%{$GREEN%}.%{$RED%})%%$BLANK '
 fi
 export PS2="> "
 
