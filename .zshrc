@@ -32,7 +32,7 @@ get_env_name() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         env_name="${VIRTUAL_ENV##*/}"
     fi
-    [[ -n "$env_name" ]] && echo "\U2632 ${env_name}"
+    [[ -n "$env_name" ]] && echo "\U2699 ${env_name}"
 }
 
 get_working_info() {
@@ -61,7 +61,7 @@ else
     blank=$'%{\e[0m%}'
     green=$'%{\e[38;2;158;206;106m%}'
     red=$'%{\e[38;2;219;75;75m%}'
-    PROMPT=$'$(get_working_info)%3c %(?.%{$green%}.%{$red%})\U276F$blank '
+    PROMPT=$'$(get_working_info)%3c %(?.%{$green%}.%{$red%})%%$blank '
 fi
 export PS2="> "
 
