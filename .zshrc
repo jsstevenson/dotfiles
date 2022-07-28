@@ -32,10 +32,10 @@ get_env_name() {
     if [[ -n "$PIPENV_ACTIVE" ]]; then
         GREEN=$'%{\e[38;2;158;206;106m%}'
         VIRTUAL_ENV_NAME="${VIRTUAL_ENV##*/}"
-        echo "$GREEN\U168A ${VIRTUAL_ENV_NAME:0:-9}"
+        echo "$GREEN\U2699 ${VIRTUAL_ENV_NAME:0:-9}"
     elif [[ -n "$VIRTUAL_ENV" ]]; then
         GREEN=$'%{\e[38;2;158;206;106m%}'
-        echo "$GREEN\U168A ${VIRTUAL_ENV##*/}"
+        echo "$GREEN\U2699 ${VIRTUAL_ENV##*/}"
     fi
 }
 
