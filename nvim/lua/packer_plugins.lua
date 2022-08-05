@@ -94,9 +94,8 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
-            {
-                'williamboman/nvim-lsp-installer',
-            }
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'}
         }
     }
 

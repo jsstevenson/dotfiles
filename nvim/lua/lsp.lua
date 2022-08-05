@@ -1,14 +1,11 @@
 --------------------------------------------------------------------------------
 -- top-level
 --------------------------------------------------------------------------------
-local present, lsp_installer = pcall(require, 'nvim-lsp-installer')
-if not present then
-    return
-end
-
--- lsp_installer.setup {
---     border = "double"
--- }
+require("mason").setup({
+    ui = {
+        border = "single"
+    }
+})
 
 local cmd = vim.cmd
 
@@ -206,16 +203,28 @@ local options_ruby = {
 --------------------------------------------------------------------------------
 -- initialize
 --------------------------------------------------------------------------------
-lsp_installer.on_server_ready(function(server)
-    if server.name == 'pylsp' then server:setup(options_python)
-    elseif server.name == 'pyright' then server:setup(options_pyright)
-    elseif server.name == 'solargraph' then server:setup(options_ruby)
-    elseif server.name == 'sumneko_lua' then server:setup(options_lua)
-    elseif server.name == 'html' then server:setup(options_html)
-    elseif server.name == 'jsonls' then server:setup(options_json)
-    elseif server.name == 'rust_analyzer' then server:setup(options_rust)
-    else
-        server:setup({})
+local lspconfig = require("lspconfig")
+
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup {}
+    end,
+    ["sumneko_lua"] = function()
+        lspconfig.sumneko_lua.setup(options_lua)
+    end,
+    -- ["solagraph"] = function()
+    --     lspconfig.solargraph.setup(options_ruby)
+    -- end,
+    ["pyright"] = function()
+        lspconfig.pyright.setup(options_pyright)
+    end,
+    ["html"] = function()
+        lspconfig.html.setup(options_html)
+    end,
+    ["jsonls"] = function()
+        lspconfig.jsonls.setup(options_json)
+    end,
+    ["rust_analyzer"] = function ()
+        lspconfig.rust_analyzer.setup(options_rust)
     end
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
+})
