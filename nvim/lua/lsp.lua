@@ -6,6 +6,10 @@ if not present then
     return
 end
 
+-- lsp_installer.setup {
+--     border = "double"
+-- }
+
 local cmd = vim.cmd
 
 local capabilities_cmp = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -47,7 +51,6 @@ local on_attach = function(_, _)
     mapx.nnoremap('K', function() vim.lsp.buf.hover() end, options)
     mapx.nnoremap('gD', function() vim.lsp.buf.declaration() end, options)
     mapx.nnoremap('gd', function() vim.lsp.buf.definition() end, options)
-    mapx.nnoremap('gr', function() vim.lsp.buf.references() end, options)
     mapx.nnoremap('gi', function() vim.lsp.buf.implementation() end, options)
     mapx.nnoremap('<C-j>', function() vim.diagnostic.goto_next({ popup_opts = { border = "single" }}) end, options)
     mapx.nnoremap('<C-k>', function() vim.diagnostic.goto_prev({ popup_opts = { border = "single" }}) end, options)
