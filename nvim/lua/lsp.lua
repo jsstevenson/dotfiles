@@ -28,9 +28,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help, { border = "single" }
-)
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+--     vim.lsp.handlers.signature_help, { border = "single" }
+-- )
 
 --------------------------------------------------------------------------------
 -- mappings
@@ -49,6 +49,7 @@ local on_attach = function(_, _)
     mapx.nnoremap('gD', function() vim.lsp.buf.declaration() end, options)
     mapx.nnoremap('gd', function() vim.lsp.buf.definition() end, options)
     mapx.nnoremap('gi', function() vim.lsp.buf.implementation() end, options)
+    -- mapx.nnoremap('<C-k>', function() vim.lsp.buf.signature_help() end, options)
     mapx.nnoremap('<C-j>', function() vim.diagnostic.goto_next({ popup_opts = { border = "single" }}) end, options)
     mapx.nnoremap('<C-k>', function() vim.diagnostic.goto_prev({ popup_opts = { border = "single" }}) end, options)
 end
@@ -212,9 +213,9 @@ require("mason-lspconfig").setup_handlers({
     ["sumneko_lua"] = function()
         lspconfig.sumneko_lua.setup(options_lua)
     end,
-    -- ["solagraph"] = function()
-    --     lspconfig.solargraph.setup(options_ruby)
-    -- end,
+    ["solargraph"] = function()
+        lspconfig.solargraph.setup(options_ruby)
+    end,
     ["pyright"] = function()
         lspconfig.pyright.setup(options_pyright)
     end,
@@ -224,8 +225,21 @@ require("mason-lspconfig").setup_handlers({
     ["jsonls"] = function()
         lspconfig.jsonls.setup(options_json)
     end,
-    ["rust_analyzer"] = function ()
+    ["rust_analyzer"] = function()
         lspconfig.rust_analyzer.setup(options_rust)
+    end,
+    ["efm"] = function()
+        lspconfig.efm.setup{
+            init_options = {documentFormatting = true},
+            settings = {
+                rootMarkers = {".git/"},
+                languages = {
+                    lua = {
+                        {formatCommand = "lua-format -i", formatStdin = true}
+                    }
+                }
+            }
+        }
     end
 })
 
