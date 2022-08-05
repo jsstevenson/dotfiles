@@ -26,6 +26,12 @@ return require('packer').startup({function(use)
 
     -- general
     use {
+        'b0o/mapx.nvim',
+        config = function() require('mapx').setup{} end
+    }
+
+    -- telescope
+    use {
         'nvim-telescope/telescope.nvim',
         requires = {
             {'nvim-lua/plenary.nvim'},
@@ -35,10 +41,6 @@ return require('packer').startup({function(use)
             }
         },
         config = function() require('plugins.telescope') end,
-    }
-    use {
-        'b0o/mapx.nvim',
-        config = function() require('mapx').setup{} end
     }
 
     -- text objects & formatting
@@ -53,7 +55,12 @@ return require('packer').startup({function(use)
         'godlygeek/tabular',
         ft = {'tex', 'markdown'}
     }
-    use 'tpope/vim-commentary'
+    use {
+        'numToStr/Comment.nvim',
+        config = function ()
+            require('Comment').setup()
+        end
+    }
     use 'tpope/vim-surround'
     use 'jiangmiao/auto-pairs'
     use {
@@ -93,9 +100,8 @@ return require('packer').startup({function(use)
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/vim-vsnip'},
             {'hrsh7th/vim-vsnip-integ'},
-            {
-                'williamboman/nvim-lsp-installer',
-            }
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'}
         }
     }
 

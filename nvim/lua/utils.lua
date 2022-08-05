@@ -16,7 +16,6 @@ map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>')
 g.floaterm_width = 0.8
 g.floaterm_height = 0.85
 g.floaterm_autoclose = 1
-g.floaterm_borderchars='═║═║╔╗╚╝'
 
 -- delete trailing whitespace on save
 cmd([[
