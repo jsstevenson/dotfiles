@@ -12,8 +12,8 @@ mapx.noremap('<leader>ev', ':edit $MYVIMRC<CR>', 'silent')
 mapx.noremap('<leader>sv', ':luafile $MYVIMRC<CR>', 'silent')
 
 -- buffer movement
-mapx.nnoremap('<leader>d', ':bp<CR>', 'silent')
-mapx.nnoremap('<leader>f', ':bn<CR>', 'silent')
+mapx.nnoremap('<leader>h', ':bp<CR>', 'silent')
+mapx.nnoremap('<leader>l', ':bn<CR>', 'silent')
 
 -- comment
 mapx.vnoremap('<C-_>', 'gc', 'silent')

@@ -7,8 +7,6 @@ require("mason").setup({
     }
 })
 
-local cmd = vim.cmd
-
 local capabilities_cmp = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 --------------------------------------------------------------------------------
@@ -49,7 +47,9 @@ local on_attach = function(_, _)
     mapx.nnoremap('gD', function() vim.lsp.buf.declaration() end, options)
     mapx.nnoremap('gd', function() vim.lsp.buf.definition() end, options)
     mapx.nnoremap('gi', function() vim.lsp.buf.implementation() end, options)
+    mapx.nnoremap('<C-g>', function() vim.lsp.buf.code_action() end, options)
     -- mapx.nnoremap('<C-k>', function() vim.lsp.buf.signature_help() end, options)
+    mapx.nnoremap('<leader>f', function() vim.lsp.buf.format() end, options)
     mapx.nnoremap('<C-j>', function() vim.diagnostic.goto_next({ popup_opts = { border = "single" }}) end, options)
     mapx.nnoremap('<C-k>', function() vim.diagnostic.goto_prev({ popup_opts = { border = "single" }}) end, options)
 end
@@ -58,8 +58,8 @@ end
 -- completion
 --------------------------------------------------------------------------------
 
-cmd('set completeopt=menuone,noinsert,noselect')
-cmd('set shortmess+=c')
+vim.cmd('set completeopt=menuone,noinsert,noselect')
+vim.cmd('set shortmess+=c')
 
 local cmp = require('cmp')
 
@@ -184,6 +184,9 @@ local options_lua = {
                     [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
                 }
             },
+            format = {
+                enable = false
+            }
         }
     }
 }
@@ -230,16 +233,27 @@ require("mason-lspconfig").setup_handlers({
     end,
     ["efm"] = function()
         lspconfig.efm.setup{
-            init_options = {documentFormatting = true},
+            init_options = {
+                documentFormatting = true,
+                logLevel = 5
+            },
             settings = {
                 rootMarkers = {".git/"},
                 languages = {
                     lua = {
-                        {formatCommand = "lua-format -i", formatStdin = true}
-                    }
+                        {formatCommand = "stylua --indent-type=spaces -", formatStdin = true}
+                    },
+                    python = {
+                        {
+                            formatCommand = "black --quiet -", formatStdin = true
+                        }
+                    },
+                    yaml = {{formatCommand = "prettierd -", formatStdin = true}},
+                    html = {{formatCommand = "prettierd -", formatStdin = true}},
+                    css = {{formatCommand = "prettierd -", formatStdin = true}},
+                    json = {{formatCommand = "prettier -", formatStdin = true}}
                 }
             }
         }
     end
 })
-

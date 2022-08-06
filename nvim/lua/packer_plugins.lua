@@ -68,14 +68,6 @@ return require('packer').startup({function(use)
         -- ft = {'python', 'racket', 'javascript', 'javascriptreact'},
         config = function() require('plugins.slime') end,
     }
-    use {
-        'mhartington/formatter.nvim',
-        -- ft = {
-        --     'json', 'html', 'javascript',  'javascriptreact', 'typescript',
-        --     'typescriptreact', 'yaml'
-        -- },
-        config = function() require('plugins.formatter') end,
-    }
 
     -- treesitter stuff
     use {
