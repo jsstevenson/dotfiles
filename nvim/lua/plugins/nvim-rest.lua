@@ -1,4 +1,4 @@
-require('rest-nvim').setup({
+require("rest-nvim").setup({
     -- Open request results in a horizontal split
     result_split_horizontal = false,
     -- Keep the http file buffer above|left when split horizontal|vertical
@@ -18,7 +18,7 @@ require('rest-nvim').setup({
     },
     -- Jump to request line on run
     jump_to_request = false,
-    env_file = '.env',
+    env_file = ".env",
     custom_dynamic_variables = {},
     yank_dry_run = true,
 })

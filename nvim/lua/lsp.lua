@@ -3,28 +3,24 @@
 --------------------------------------------------------------------------------
 require("mason").setup({
     ui = {
-        border = "single"
-    }
+        border = "single",
+    },
 })
 
-local capabilities_cmp = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities_cmp = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 --------------------------------------------------------------------------------
 -- basic functions
 --------------------------------------------------------------------------------
 -- hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover, { border = "single" }
-)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 
 -- diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        signs = true,
-        update_in_insert = true,
-    }
-)
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+})
 
 -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 --     vim.lsp.handlers.signature_help, { border = "single" }
@@ -33,7 +29,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --------------------------------------------------------------------------------
 -- mappings
 --------------------------------------------------------------------------------
-local mapx = require('mapx')
+local mapx = require("mapx")
 
 -- map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
 -- map('i', '<S-Tab>', '<Plug>(completion_smart_s_tab)', {noremap = false, silent = true})
@@ -43,60 +39,75 @@ local mapx = require('mapx')
 local on_attach = function(_, _)
     local options = { silent = true, buffer = true }
 
-    mapx.nnoremap('K', function() vim.lsp.buf.hover() end, options)
-    mapx.nnoremap('gD', function() vim.lsp.buf.declaration() end, options)
-    mapx.nnoremap('gd', function() vim.lsp.buf.definition() end, options)
-    mapx.nnoremap('gi', function() vim.lsp.buf.implementation() end, options)
-    mapx.nnoremap('<C-g>', function() vim.lsp.buf.code_action() end, options)
+    mapx.nnoremap("K", function()
+        vim.lsp.buf.hover()
+    end, options)
+    mapx.nnoremap("gD", function()
+        vim.lsp.buf.declaration()
+    end, options)
+    mapx.nnoremap("gd", function()
+        vim.lsp.buf.definition()
+    end, options)
+    mapx.nnoremap("gi", function()
+        vim.lsp.buf.implementation()
+    end, options)
+    mapx.nnoremap("<C-g>", function()
+        vim.lsp.buf.code_action()
+    end, options)
     -- mapx.nnoremap('<C-k>', function() vim.lsp.buf.signature_help() end, options)
-    mapx.nnoremap('<leader>f', function() vim.lsp.buf.format() end, options)
-    mapx.nnoremap('<C-j>', function() vim.diagnostic.goto_next({ popup_opts = { border = "single" }}) end, options)
-    mapx.nnoremap('<C-k>', function() vim.diagnostic.goto_prev({ popup_opts = { border = "single" }}) end, options)
+    mapx.nnoremap("<leader>f", function()
+        vim.lsp.buf.format()
+    end, options)
+    mapx.nnoremap("<C-j>", function()
+        vim.diagnostic.goto_next({ popup_opts = { border = "single" } })
+    end, options)
+    mapx.nnoremap("<C-k>", function()
+        vim.diagnostic.goto_prev({ popup_opts = { border = "single" } })
+    end, options)
 end
 
 --------------------------------------------------------------------------------
 -- completion
 --------------------------------------------------------------------------------
 
-vim.cmd('set completeopt=menuone,noinsert,noselect')
-vim.cmd('set shortmess+=c')
+vim.cmd("set completeopt=menuone,noinsert,noselect")
+vim.cmd("set shortmess+=c")
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 cmp.setup({
     snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
     },
     mapping = {
-        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
     },
     sources = {
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'buffer' },
+        { name = "nvim_lsp" },
+        { name = "vsnip" },
+        { name = "buffer" },
     },
     window = {
         documentation = {
             maxheight = 50,
-        }
-    }
+        },
+    },
 })
-
 
 --------------------------------------------------------------------------------
 -- json
 --------------------------------------------------------------------------------
 local options_json = {
     on_attach = on_attach,
-    capabilities = capabilities_cmp
+    capabilities = capabilities_cmp,
 }
 
 --------------------------------------------------------------------------------
@@ -104,16 +115,16 @@ local options_json = {
 --------------------------------------------------------------------------------
 local options_html = {
     on_attach = on_attach,
-    capabilities = capabilities_cmp
+    capabilities = capabilities_cmp,
 }
 
 --------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
- local options_pyright = {
-     on_attach = on_attach,
-     capabilities = capabilities_cmp
- }
+local options_pyright = {
+    on_attach = on_attach,
+    capabilities = capabilities_cmp,
+}
 
 local options_python = {
     on_attach = on_attach,
@@ -124,10 +135,10 @@ local options_python = {
                 pycodestyle = { enabled = false },
                 pyflakes = { enabled = false },
                 yapf = { enabled = false },
-                flake8 = { enabled = true }
-            }
-        }
-    }
+                flake8 = { enabled = true },
+            },
+        },
+    },
 }
 
 --------------------------------------------------------------------------------
@@ -140,55 +151,57 @@ local options_rust = {
     settings = {
         ["rust-analyzer"] = {
             assist = {
-                importMergeBehavior = 'last',
-                importPrefix = 'by_self',
+                importMergeBehavior = "last",
+                importPrefix = "by_self",
             },
             cargo = {
-                loadOutDirsFromCheck = true
+                loadOutDirsFromCheck = true,
             },
             procMacro = {
-                enable = true
+                enable = true,
             },
-        }
-    }
+        },
+    },
 }
 
 --------------------------------------------------------------------------------
 -- lua
 --------------------------------------------------------------------------------
-USER = vim.fn.expand('$USER')
+USER = vim.fn.expand("$USER")
 
 local sumneko_root_path = ""
 local sumneko_binary = ""
 
-sumneko_binary = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
+sumneko_binary = "/Users/"
+    .. USER
+    .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
 sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
 local options_lua = {
     on_attach = on_attach,
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     capabilities = capabilities_cmp,
     settings = {
         Lua = {
             runtime = {
-                version = 'LuaJIT',
-                path = vim.split(package.path, ';')
+                version = "LuaJIT",
+                path = vim.split(package.path, ";"),
             },
             diagnostics = {
-                globals = {'vim'}
+                globals = { "vim" },
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-                }
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                },
             },
             format = {
-                enable = false
-            }
-        }
-    }
+                enable = false,
+            },
+        },
+    },
 }
 
 --------------------------------------------------------------------------------
@@ -199,9 +212,9 @@ local options_ruby = {
     capabilities = capabilities_cmp,
     settings = {
         solargraph = {
-            diagnostics = true
-        }
-    }
+            diagnostics = true,
+        },
+    },
 }
 
 --------------------------------------------------------------------------------
@@ -211,7 +224,7 @@ local lspconfig = require("lspconfig")
 
 require("mason-lspconfig").setup_handlers({
     function(server_name)
-        lspconfig[server_name].setup {}
+        lspconfig[server_name].setup({})
     end,
     ["sumneko_lua"] = function()
         lspconfig.sumneko_lua.setup(options_lua)
@@ -232,28 +245,29 @@ require("mason-lspconfig").setup_handlers({
         lspconfig.rust_analyzer.setup(options_rust)
     end,
     ["efm"] = function()
-        lspconfig.efm.setup{
+        lspconfig.efm.setup({
             init_options = {
                 documentFormatting = true,
             },
             settings = {
-                rootMarkers = {".git/"},
+                rootMarkers = { ".git/" },
                 languages = {
                     lua = {
-                        {formatCommand = "stylua --indent-type=spaces -", formatStdin = true}
+                        { formatCommand = "stylua --indent-type=spaces -", formatStdin = true },
                     },
                     python = {
                         {
-                            formatCommand = "black --quiet -", formatStdin = true
-                        }
+                            formatCommand = "black --quiet -",
+                            formatStdin = true,
+                        },
                     },
-                    yaml = {{formatCommand = "prettierd -", formatStdin = true}},
-                    html = {{formatCommand = "prettierd -", formatStdin = true}},
-                    css = {{formatCommand = "prettierd -", formatStdin = true}},
-                    json = {{formatCommand = "prettier -", formatStdin = true}}
-                }
+                    yaml = { { formatCommand = "prettierd -", formatStdin = true } },
+                    html = { { formatCommand = "prettierd -", formatStdin = true } },
+                    css = { { formatCommand = "prettierd -", formatStdin = true } },
+                    json = { { formatCommand = "prettier -", formatStdin = true } },
+                },
             },
-            filetypes = {'lua', 'python'}
-        }
-    end
+            filetypes = { "lua", "python" },
+        })
+    end,
 })
