@@ -21,13 +21,13 @@ mapx.vnoremap("<C-_>", "gc", "silent")
 -- telescope
 local telescope = require("telescope.builtin")
 mapx.nnoremap("ff", function()
-    telescope.find_files()
+  telescope.find_files()
 end, "silent")
 mapx.nnoremap("fg", function()
-    telescope.live_grep()
+  telescope.live_grep()
 end, "silent")
 mapx.nnoremap("gr", function()
-    telescope.lsp_references()
+  telescope.lsp_references()
 end, "silent")
 
 -- misc

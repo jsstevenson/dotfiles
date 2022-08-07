@@ -2,10 +2,10 @@ local cmd = vim.cmd
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 
 local function opt(scope, key, value)
-    scopes[scope][key] = value
-    if scope ~= "o" then
-        scopes["o"][key] = value
-    end
+  scopes[scope][key] = value
+  if scope ~= "o" then
+    scopes["o"][key] = value
+  end
 end
 
 opt("o", "termguicolors", true)
@@ -33,16 +33,16 @@ opt("o", "inccommand", "nosplit")
 
 -- disable unused stuff
 local disabled_built_ins = {
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "spellfile_plugin",
-    "tutor",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "spellfile_plugin",
+  "tutor",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+  vim.g["loaded_" .. plugin] = 1
 end
