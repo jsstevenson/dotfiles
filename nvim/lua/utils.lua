@@ -10,7 +10,6 @@ end
 -- terminal
 map('t', '<Esc>', '<C-\\><C-n>')
 map('', '<C-S>', ':FloatermToggle<cr>')
-map('n', '<C-H>', ':w<cr>:FloatermNew fzf<cr>')
 map('t', '<C-S>', '<C-\\><C-n>:FloatermToggle<cr>')
 
 g.floaterm_width = 0.8
