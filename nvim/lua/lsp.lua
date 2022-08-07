@@ -235,7 +235,6 @@ require("mason-lspconfig").setup_handlers({
         lspconfig.efm.setup{
             init_options = {
                 documentFormatting = true,
-                logLevel = 5
             },
             settings = {
                 rootMarkers = {".git/"},
@@ -253,7 +252,8 @@ require("mason-lspconfig").setup_handlers({
                     css = {{formatCommand = "prettierd -", formatStdin = true}},
                     json = {{formatCommand = "prettier -", formatStdin = true}}
                 }
-            }
+            },
+            filetypes = {'lua', 'python'}
         }
     end
 })
