@@ -127,6 +127,11 @@ local options_html = {
 local options_pyright = {
     on_attach = on_attach,
     capabilities = capabilities_cmp,
+    settings = {
+        pyright = {
+            disableLanguageServices = true
+        }
+    }
 }
 
 local options_python = {
@@ -263,11 +268,22 @@ require("mason-lspconfig").setup_handlers({
                             formatCommand = "black --quiet -",
                             formatStdin = true,
                         },
+                        {
+                            formatCommand = "isort --quiet -",
+                            formatStdin = true,
+                        },
+                        {
+                            lintCommand = "flake8 -",
+                            lintStdin = true,
+                            lintFormats = {"%f:%l:%c: %m"}
+                        }
+
                     },
                     yaml = { { formatCommand = "prettierd -", formatStdin = true } },
                     html = { { formatCommand = "prettierd -", formatStdin = true } },
                     css = { { formatCommand = "prettierd -", formatStdin = true } },
                     json = { { formatCommand = "prettier -", formatStdin = true } },
+
                 },
             },
             filetypes = { "lua", "python" },
