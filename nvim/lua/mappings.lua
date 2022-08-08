@@ -23,6 +23,7 @@ local telescope = require('telescope.builtin')
 mapx.nnoremap('ff', function() telescope.find_files() end, 'silent')
 mapx.nnoremap('fg', function() telescope.live_grep() end, 'silent')
 mapx.nnoremap('gr', function() telescope.lsp_references{} end, 'silent')
+mapx.nnoremap('fh', function() telescope.help_tags() end, 'silent')
 
 -- misc
 mapx.nnoremap('<C-o>', '<C-o>zz', 'silent')
