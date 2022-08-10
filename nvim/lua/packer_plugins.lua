@@ -19,7 +19,12 @@ return require("packer").startup({
         require("bufferline").setup({})
       end,
     })
-    use("voldikss/vim-floaterm")
+    use({
+      "voldikss/vim-floaterm",
+      config = function()
+        require("plugins.floaterm")
+      end,
+    })
     use({
       "mechatroner/rainbow_csv",
       ft = { "csv", "tsv" },
