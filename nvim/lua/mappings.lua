@@ -29,6 +29,9 @@ end, "silent")
 mapx.nnoremap("gr", function()
   telescope.lsp_references()
 end, "silent")
+mapx.nnoremap("fh", function()
+  telescope.help_tags()
+end, "silent")
 
 -- misc
 mapx.nnoremap("<C-o>", "<C-o>zz", "silent")
