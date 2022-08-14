@@ -152,6 +152,14 @@ return require("packer").startup({
         require("plugins.nvim-rest")
       end,
     })
+    use({
+      "~/code/nvim-tmux/",
+      -- "jsstevenson/nvim-tmux",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("nvim_tmux").setup()
+      end,
+    })
   end,
   config = {
     display = {
