@@ -157,7 +157,7 @@ return require("packer").startup({
       -- "jsstevenson/nvim-tmux",
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
-        require("nvim_tmux").setup({})
+        require("nvim_tmux").setup()
       end,
     })
   end,
