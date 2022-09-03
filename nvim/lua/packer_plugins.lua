@@ -19,7 +19,12 @@ return require("packer").startup({
         require("bufferline").setup({})
       end,
     })
-    use("voldikss/vim-floaterm")
+    use({
+      "voldikss/vim-floaterm",
+      config = function()
+        require("plugins.floaterm")
+      end,
+    })
     use({
       "mechatroner/rainbow_csv",
       ft = { "csv", "tsv" },
@@ -71,6 +76,7 @@ return require("packer").startup({
       end,
     })
     use("tpope/vim-surround")
+    -- https://github.com/windwp/nvim-autopairs ?
     use("jiangmiao/auto-pairs")
     use({
       "jpalardy/vim-slime",
@@ -145,6 +151,14 @@ return require("packer").startup({
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
         require("plugins.nvim-rest")
+      end,
+    })
+    use({
+      -- "~/code/nvim-tmux/",
+      "jsstevenson/nvim-tmux",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("nvim_tmux").setup()
       end,
     })
   end,

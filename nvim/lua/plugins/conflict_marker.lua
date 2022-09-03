@@ -1,1 +1,1 @@
-vim.cmd("let g:conflict_marker_enable_mappings = 0")
+vim.go.conflict_marker_enable_mappings = 0

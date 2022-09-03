@@ -29,7 +29,14 @@ end, "silent")
 mapx.nnoremap("gr", function()
   telescope.lsp_references()
 end, "silent")
-mapx.nnoremap('fh', function() telescope.help_tags() end, 'silent')
+mapx.nnoremap("fh", function()
+  telescope.help_tags()
+end, "silent")
+
+-- terminal
+mapx.tnoremap("<Esc>", "<C-\\><C-n>")
+mapx.noremap("<C-S>", ":FloatermToggle<cr>")
+mapx.tnoremap("<C-S>", "<C-\\><C-n>:FloatermToggle<cr>")
 
 -- misc
 mapx.nnoremap("<C-o>", "<C-o>zz", "silent")

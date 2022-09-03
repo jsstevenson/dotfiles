@@ -16,11 +16,11 @@
 
 require("packer_plugins")
 require("lsp")
-require("treesitter")
 require("options")
 require("mappings")
 require("theme")
 require("utils")
+require("treesitter")
 
 --------------------------------------------------------------------------------
 -- TeX ftplugin?

@@ -1,9 +1,4 @@
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
--- header syntax
-map('n', '<leader>=', 'yypv$r=')
-map('n', '<leader>-', 'yypv$r-')
+-- header shortcuts
+local mapx = require("mapx")
+mapx.nnoremap("<leader>=", "yypv$r=", "silet")
+mapx.nnoremap("<leader>-", "yypv$r-", "silet")

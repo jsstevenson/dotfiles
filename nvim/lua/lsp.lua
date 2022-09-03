@@ -31,11 +31,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 --------------------------------------------------------------------------------
 local mapx = require("mapx")
 
--- map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
--- map('i', '<S-Tab>', '<Plug>(completion_smart_s_tab)', {noremap = false, silent = true})
--- map('i', '<Tab>', 'pumvisible() ? \"\\<C-n>" : \"\\<Tab>"', {expr = true})
--- map('i', '<S-Tab>', 'pumvisible() ? \"\\<C-p>" : \"\\<S-Tab>"', {expr = true})
-
 local on_attach = function(_, _)
   local options = { silent = true, buffer = true }
 
