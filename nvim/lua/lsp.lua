@@ -22,19 +22,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   update_in_insert = true,
 })
 
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
---     vim.lsp.handlers.signature_help, { border = "single" }
--- )
-
 --------------------------------------------------------------------------------
 -- mappings
 --------------------------------------------------------------------------------
 local mapx = require("mapx")
-
--- map('i', '<Tab>', '<Plug>(completion_smart_tab)', {noremap = false, silent = true})
--- map('i', '<S-Tab>', '<Plug>(completion_smart_s_tab)', {noremap = false, silent = true})
--- map('i', '<Tab>', 'pumvisible() ? \"\\<C-n>" : \"\\<Tab>"', {expr = true})
--- map('i', '<S-Tab>', 'pumvisible() ? \"\\<C-p>" : \"\\<S-Tab>"', {expr = true})
 
 local on_attach = function(_, _)
   local options = { silent = true, buffer = true }
@@ -282,9 +273,10 @@ require("mason-lspconfig").setup_handlers({
           html = { { formatCommand = "prettierd -", formatStdin = true } },
           css = { { formatCommand = "prettierd -", formatStdin = true } },
           json = { { formatCommand = "prettier -", formatStdin = true } },
+          javascript = { { formatCommand = "prettierd -", formatStdin = true } },
         },
       },
-      filetypes = { "lua", "python", "yaml", "html", "css", "json" },
+      filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript"},
     })
   end,
 })
