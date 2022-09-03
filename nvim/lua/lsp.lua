@@ -224,6 +224,43 @@ local options_ruby = {
 }
 
 --------------------------------------------------------------------------------
+-- efm
+--------------------------------------------------------------------------------
+local options_efm = {
+  init_options = {
+    documentFormatting = true,
+  },
+  settings = {
+    rootMarkers = { ".git/" },
+    languages = {
+      lua = {
+        { formatCommand = "stylua -", formatStdin = true },
+      },
+      python = {
+        {
+          formatCommand = "black --quiet -",
+          formatStdin = true,
+        },
+        {
+          formatCommand = "isort --quiet -",
+          formatStdin = true,
+        },
+        {
+          lintCommand = "flake8 -",
+          lintStdin = true,
+          lintFormats = { "%f:%l:%c: %m" },
+        },
+      },
+      yaml = { { formatCommand = "prettierd -", formatStdin = true } },
+      html = { { formatCommand = "prettierd -", formatStdin = true } },
+      css = { { formatCommand = "prettierd -", formatStdin = true } },
+      json = { { formatCommand = "prettier -", formatStdin = true } },
+    },
+  },
+  filetypes = { "lua", "python", "yaml", "html", "css", "json" },
+}
+
+--------------------------------------------------------------------------------
 -- initialize
 --------------------------------------------------------------------------------
 local lspconfig = require("lspconfig")
@@ -251,38 +288,6 @@ require("mason-lspconfig").setup_handlers({
     lspconfig.rust_analyzer.setup(options_rust)
   end,
   ["efm"] = function()
-    lspconfig.efm.setup({
-      init_options = {
-        documentFormatting = true,
-      },
-      settings = {
-        rootMarkers = { ".git/" },
-        languages = {
-          lua = {
-            { formatCommand = "stylua -", formatStdin = true },
-          },
-          python = {
-            {
-              formatCommand = "black --quiet -",
-              formatStdin = true,
-            },
-            {
-              formatCommand = "isort --quiet -",
-              formatStdin = true,
-            },
-            {
-              lintCommand = "flake8 -",
-              lintStdin = true,
-              lintFormats = { "%f:%l:%c: %m" },
-            },
-          },
-          yaml = { { formatCommand = "prettierd -", formatStdin = true } },
-          html = { { formatCommand = "prettierd -", formatStdin = true } },
-          css = { { formatCommand = "prettierd -", formatStdin = true } },
-          json = { { formatCommand = "prettier -", formatStdin = true } },
-        },
-      },
-      filetypes = { "lua", "python", "yaml", "html", "css", "json" },
-    })
+    lspconfig.efm.setup(options_efm)
   end,
 })
