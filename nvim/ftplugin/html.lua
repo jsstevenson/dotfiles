@@ -3,7 +3,3 @@ vim.g.html_indent_script1 = 'inc'
 vim.b.softtabstop = 2
 vim.b.shiftwidth = 2
 vim.b.tabstop = 2
-
--- opt('b', 'shiftwidth', 4)
--- opt('b', 'softtabstop', 4)
-

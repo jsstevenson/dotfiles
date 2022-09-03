@@ -1,8 +1,6 @@
-local cmd, g = vim.cmd, vim.g
+vim.g.Hexokinase_optOutPatterns = {"colour_names"}
 
-cmd([[ let g:Hexokinase_optOutPatterns = [ 'colour_names' ] ]]) -- ?? why won't this work in lua
-
-g.tokyonight_style = 'storm'
-g.tokyonight_dark_float = false
-g.tokyonight_colors = {}
-cmd 'colorscheme tokyonight'
+vim.g.tokyonight_style = "storm"
+vim.g.tokyonight_dark_float = false
+vim.g.tokyonight_colors = {}
+vim.cmd("colorscheme tokyonight")
