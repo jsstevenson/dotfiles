@@ -59,7 +59,6 @@ export PS2="> "
 # Appearance
 ################################################################################
 
-export BAT_THEME="ansi"
 # if [[ "$TERM_PROGRAM" = "iTerm.app" || "$TERM_PROGRAM" = "alacritty" ]]; then
 #     # default values
 #     if [ -z ${DARKMODE+x} ]; then
@@ -123,28 +122,15 @@ export BAT_THEME="ansi"
 #     done
 # }
 
+# bat
+export BAT_THEME="tokyonight-storm"
+
 ################################################################################
-# Specific tools
+# Commands and settings
 ################################################################################
 
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
-
-# fzf
-export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
-
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
-# helper stuff
 
 # readable PATH
 alias printpath="tr ':' '\n' <<< '$PATH'"
@@ -162,7 +148,11 @@ alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local'"
 alias gtrc="git ls-tree -r --name-only HEAD | tree --fromfile"
 
 # open journal
-alias journal='nvim /Users/jss009/journal.md'
+if (( ${+JOURNAL_LOCATION} )); then
+    alias journal="nvim ${JOURNAL_LOCATION}"
+else
+    alias journal="echo 'env var JOURNAL_LOCATION unset'"
+fi
 
 # open current director in Finder
 alias f='open -a Finder ./'
@@ -173,5 +163,16 @@ alias tmux='tmux -u'
 # homebrew catch-all alias
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
+# fzf
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
 
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
 
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
