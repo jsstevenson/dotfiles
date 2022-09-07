@@ -29,7 +29,7 @@ font:
   #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
   # This is a global setting and will require a log out or restart to take
   # effect.
-  use_thin_strokes: true
+  # use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
@@ -417,7 +417,7 @@ schemes:
     primary:
       background: '0x1a1b26'
       foreground: '0xc0caf5'
-  
+
     # Normal colors
     normal:
       black:   '0x15161E'
@@ -428,7 +428,7 @@ schemes:
       magenta: '0xbb9af7'
       cyan:    '0x7dcfff'
       white:   '0xa9b1d6'
-  
+
     # Bright colors
     bright:
       black:   '0x15161E'
@@ -439,7 +439,7 @@ schemes:
       magenta: '0xbb9af7'
       cyan:    '0x7dcfff'
       white:   '0xc0caf5'
-  
+
     indexed_colors:
       - { index: 16, color: '0xff9e64' }
       - { index: 17, color: '0xdb4b4b' }
@@ -449,7 +449,7 @@ schemes:
     primary:
       background: '0x24283b'
       foreground: '0xc0caf5'
-  
+
     # Normal colors
     normal:
       black:   '0x1D202F'
@@ -460,7 +460,7 @@ schemes:
       magenta: '0xbb9af7'
       cyan:    '0x7dcfff'
       white:   '0xa9b1d6'
-  
+
     # Bright colors
     bright:
       black:   '0x1D202F'
@@ -471,7 +471,7 @@ schemes:
       magenta: '0xbb9af7'
       cyan:    '0x7dcfff'
       white:   '0xc0caf5'
-  
+
     indexed_colors:
       - { index: 16, color: '0xff9e64' }
       - { index: 17, color: '0xdb4b4b' }
