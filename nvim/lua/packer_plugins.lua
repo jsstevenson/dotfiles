@@ -115,7 +115,7 @@ return require("packer").startup({
     })
 
     -- git
-    use("itchyny/vim-gitbranch") -- until I feel better about vim-fugitive
+    -- vim-fugitive, someday?
     use({
       "rhysd/conflict-marker.vim",
       config = function()
@@ -156,6 +156,7 @@ return require("packer").startup({
     use({
       -- "~/code/nvim-tmux/",
       "jsstevenson/nvim-tmux",
+      ft = { "tmux" },
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
         require("nvim_tmux").setup()
