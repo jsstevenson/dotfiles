@@ -346,7 +346,8 @@ CERULEAN = "#2AC3DE"
 TEAL = "#1ABC9C"
 RED = "#DB4B4B"
 LIGHT_RED = "#F7768E"
-PURPLE = "#9D7CD8"
+PURPLE = "#BB9AF7"
+# PURPLE = "#9D7CD8"
 BLUE = "#7AA2F7"
 WHITE = "#C0CAF5"
 
@@ -366,7 +367,7 @@ c.TerminalInteractiveShell.highlighting_style_overrides = {
     Keyword.Reserved:           PURPLE,                     # except, finally, for, if, not, raise, etc
     Keyword.Namespace:          RED,                        # "from" and "import" keywords
 
-    Operator:                   WHITE,                      # brackets, parens
+    Operator:                   PURPLE,                      # brackets, parens
     Operator.Word:              PURPLE,                     # in, is, and, or, not
 
     Punctuation:                WHITE,
