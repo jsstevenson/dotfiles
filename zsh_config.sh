@@ -7,7 +7,12 @@
 # prompt data functions
 get_git_branch_name() {
     BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    [[ -n "$BRANCH_NAME" ]] && echo "\UE0A0 ${BRANCH_NAME}"
+    if [[ $TERM_PROGRAM == "Apple_Terminal" || $TERM_PROGRAM == "vscode" ]]; then
+        GIT_LOGO=""
+    else
+        GIT_LOGO="\UE0A0 "
+    fi
+    [[ -n "$BRANCH_NAME" ]] && echo "${GIT_LOGO}${BRANCH_NAME}"
 }
 
 get_env_name() {
@@ -37,15 +42,15 @@ get_working_info() {
 }
 
 setopt PROMPT_SUBST
-if [[ -z "${ALACRITTY_LOG}" ]]; then
-    # don't use truecolor in mac terminal
-    PROMPT='%9c%{%F{blue}%} ($(get_git_branch_name))%{%F{none}%} %% '
-else
+if [[ $TERM_PROGRAM != "Apple_Terminal" && $TERM_PROGRAM != "vscode" ]]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     blank=$'%{\e[0m%}'
     green=$'%{\e[38;2;158;206;106m%}'
     red=$'%{\e[38;2;219;75;75m%}'
     PROMPT=$'$(get_working_info)%3c %(?.%{$green%}.%{$red%})%%$blank '
+else
+    # don't use truecolor/icons in mac or vscode terminals
+    PROMPT='%9c%{%F{blue}%} ($(get_git_branch_name))%{%F{none}%} %% '
 fi
 export PS2="> "
 
