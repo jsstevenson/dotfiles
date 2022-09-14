@@ -15,6 +15,8 @@ return require("packer").startup({
     })
     use({
       "akinsho/nvim-bufferline.lua",
+      tag = "v2.*",
+      requires = { { "kyazdani42/nvim-web-devicons" } },
       config = function()
         require("bufferline").setup({})
       end,
