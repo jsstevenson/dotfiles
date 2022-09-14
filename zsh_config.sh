@@ -144,7 +144,7 @@ function cd {
 alias ll='exa -l'
 
 # default tree args
-alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local'"
+alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local|dist'"
 alias gtrc="git ls-tree -r --name-only HEAD | tree --fromfile"
 
 # open journal
