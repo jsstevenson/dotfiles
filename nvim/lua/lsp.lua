@@ -109,6 +109,11 @@ cmp.setup({
 local options_json = {
   on_attach = on_attach,
   capabilities = capabilities_cmp,
+  settings = {
+    json = {
+      format = false,
+    },
+  },
 }
 
 --------------------------------------------------------------------------------
