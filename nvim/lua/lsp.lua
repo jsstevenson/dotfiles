@@ -260,9 +260,10 @@ local options_efm = {
       html = { { formatCommand = "prettierd -", formatStdin = true } },
       css = { { formatCommand = "prettierd -", formatStdin = true } },
       json = { { formatCommand = "prettier -", formatStdin = true } },
+      javascript = { { formatCommand = "prettierd -", formatStdin = true } },
     },
   },
-  filetypes = { "lua", "python", "yaml", "html", "css", "json" },
+  filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript" },
 }
 
 --------------------------------------------------------------------------------
