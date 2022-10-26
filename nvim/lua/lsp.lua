@@ -7,7 +7,7 @@ require("mason").setup({
   },
 })
 
-local capabilities_cmp = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 --------------------------------------------------------------------------------
 -- basic functions
@@ -130,11 +130,11 @@ local options_html = {
 local options_pyright = {
   on_attach = on_attach,
   capabilities = capabilities_cmp,
-  settings = {
-    pyright = {
-      disableLanguageServices = true,
-    },
-  },
+  -- settings = {
+  --   pyright = {
+  --     disableLanguageServices = true,
+  --   },
+  -- },
 }
 
 local options_python = {
@@ -231,6 +231,14 @@ local options_ruby = {
 --------------------------------------------------------------------------------
 -- efm
 --------------------------------------------------------------------------------
+local prettierd_options = {
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true,
+  env = {
+    string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~.prettierrc.json")),
+  },
+}
+
 local options_efm = {
   init_options = {
     documentFormatting = true,
@@ -256,11 +264,13 @@ local options_efm = {
           lintFormats = { "%f:%l:%c: %m" },
         },
       },
-      yaml = { { formatCommand = "prettierd -", formatStdin = true } },
-      html = { { formatCommand = "prettierd -", formatStdin = true } },
-      css = { { formatCommand = "prettierd -", formatStdin = true } },
-      json = { { formatCommand = "prettier -", formatStdin = true } },
-      javascript = { { formatCommand = "prettierd -", formatStdin = true } },
+      yaml = { prettierd_options },
+      html = { prettierd_options },
+      css = { prettierd_options },
+      json = {
+        prettierd_options,
+      },
+      javascript = { prettierd_options },
     },
   },
   filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript" },
