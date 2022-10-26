@@ -4,6 +4,7 @@ return require("packer").startup({
 
     -- appearance
     use({
+      -- "folke/tokyonight.nvim",
       "jsstevenson/tokyonight.nvim",
       branch = "new-colors",
     })
