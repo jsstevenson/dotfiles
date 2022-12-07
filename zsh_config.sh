@@ -16,7 +16,11 @@ get_git_branch_name() {
 }
 
 get_env_name() {
-    if [[ -n "$PIPENV_ACTIVE" ]]; then
+    if [[ -n "$POETRY_ACTIVE" ]]; then
+        GREEN=$'%{\e[38;2;158;206;106m%}'
+        VIRTUAL_ENV_NAME="${VIRTUAL_ENV##*/}"
+        echo "$GREEN\U2699 ${VIRTUAL_ENV_NAME:0:-16}"
+    elif [[ -n "$PIPENV_ACTIVE" ]]; then
         GREEN=$'%{\e[38;2;158;206;106m%}'
         VIRTUAL_ENV_NAME="${VIRTUAL_ENV##*/}"
         echo "$GREEN\U2699 ${VIRTUAL_ENV_NAME:0:-9}"
