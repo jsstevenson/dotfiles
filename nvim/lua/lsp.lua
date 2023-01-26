@@ -2,6 +2,7 @@
 -- top-level
 --------------------------------------------------------------------------------
 require("mason").setup({
+  PATH = "prepend",
   ui = {
     border = "single",
   },
@@ -28,6 +29,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
 --------------------------------------------------------------------------------
 -- mappings
+-- TODO rewrite as autocmd
+-- if client.server_capabilities.hoverProvider then ... etc
 --------------------------------------------------------------------------------
 local mapx = require("mapx")
 
@@ -130,11 +133,13 @@ local options_html = {
 local options_pyright = {
   on_attach = on_attach,
   capabilities = capabilities_cmp,
-  -- settings = {
-  --   pyright = {
-  --     disableLanguageServices = true,
-  --   },
-  -- },
+  settings = {
+    pyright = {
+      exclude = {
+        "**/build"
+      }
+    },
+  },
 }
 
 local options_python = {
@@ -178,19 +183,19 @@ local options_rust = {
 --------------------------------------------------------------------------------
 -- lua
 --------------------------------------------------------------------------------
-USER = vim.fn.expand("$USER")
-
-local sumneko_root_path = ""
-local sumneko_binary = ""
-
-sumneko_binary = "/Users/"
-  .. USER
-  .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
-sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
+-- USER = vim.fn.expand("$USER")
+--
+-- local sumneko_root_path = ""
+-- local sumneko_binary = ""
+--
+-- sumneko_binary = "/Users/"
+--   .. USER
+--   .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
+-- sumneko_root_path = "/Users/" .. USER .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
 
 local options_lua = {
   on_attach = on_attach,
-  cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+  -- cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
   capabilities = capabilities_cmp,
   settings = {
     Lua = {
@@ -231,12 +236,12 @@ local options_ruby = {
 --------------------------------------------------------------------------------
 -- efm
 --------------------------------------------------------------------------------
-local prettierd_options = {
-  formatCommand = 'prettierd "${INPUT}"',
+local prettier_options = {
+  formatCommand = 'prettier "${INPUT}"',
   formatStdin = true,
-  env = {
-    string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~/.prettierrc.json")),
-  },
+  -- env = {
+  --   string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~/.prettierrc.json")),
+  -- },
 }
 
 local options_efm = {
@@ -258,22 +263,22 @@ local options_efm = {
           formatCommand = "isort --quiet -",
           formatStdin = true,
         },
-        {
-          lintCommand = "flake8 -",
-          lintStdin = true,
-          lintFormats = { "%f:%l:%c: %m" },
-        },
+        -- {
+        --   lintCommand = "flake8 -",
+        --   lintStdin = true,
+        --   lintFormats = { "%f:%l:%c: %m" },
+        -- },
       },
-      yaml = { prettierd_options },
-      html = { prettierd_options },
-      css = { prettierd_options },
+      yaml = { prettier_options },
+      html = { prettier_options },
+      css = { prettier_options },
       json = {
-        prettierd_options,
+        prettier_options,
       },
-      javascript = { prettierd_options },
+      javascript = { prettier_options },
     },
   },
-  filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript" },
+  -- filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript" },
 }
 
 --------------------------------------------------------------------------------

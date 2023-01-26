@@ -112,6 +112,8 @@ return require("packer").startup({
         { "hrsh7th/nvim-cmp" },
         { "hrsh7th/vim-vsnip" },
         { "hrsh7th/vim-vsnip-integ" },
+-- Plug 'hrsh7th/cmp-path'  # TODO look at
+-- Plug 'hrsh7th/cmp-cmdline'
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
       },
