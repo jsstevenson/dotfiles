@@ -1,42 +1,42 @@
-local mapx = require("mapx")
+-- local mapx = require("mapx")
 
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
-mapx.noremap(";", ":")
-mapx.noremap(";;", ";") -- TODO fix
+vim.keymap.set("", ";", ":")
+vim.keymap.set("", ";;", ":")  -- TODO fix?
 
 -- map esc to clear
-mapx.noremap("<esc>", ":noh<cr>")
+vim.keymap.set("", "<esc>", ":noh<cr>")
 
 -- easy edit config files
-mapx.noremap("<leader>ev", ":edit $MYVIMRC<CR>", "silent")
-mapx.noremap("<leader>sv", ":luafile $MYVIMRC<CR>", "silent")
+vim.keymap.set("", "<leader>ev", ":edit $MYVIMRC<CR>", { silent = true })
+vim.keymap.set("", "<leader>sv", ":luafile $MYVIMRC<CR>", { silent = true })
 
 -- buffer movement
-mapx.nnoremap("<C-h>", ":bp<CR>", "silent")
-mapx.nnoremap("<C-l>", ":bn<CR>", "silent")
+vim.keymap.set("", "<C-h>", ":bp<CR>", { silent = true })
+vim.keymap.set("", "<C-l>", ":bn<CR>", { silent = true })
 
--- comment
-mapx.vnoremap("<C-_>", "gc", "silent")
+-- comment.nvim
+vim.keymap.set("v", "<C-_>", "gc", { silent = true })
 
 -- telescope
 local telescope = require("telescope.builtin")
-mapx.nnoremap("ff", function()
+vim.keymap.set("n", "ff", function()
   telescope.find_files()
-end, "silent")
-mapx.nnoremap("fg", function()
+end, { silent = true })
+vim.keymap.set("n", "fg", function()
   telescope.live_grep()
-end, "silent")
-mapx.nnoremap("gr", function()
+end, { silent = true })
+vim.keymap.set("n", "gr", function()
   telescope.lsp_references()
-end, "silent")
-mapx.nnoremap("fh", function()
+end, { silent = true })
+vim.keymap.set("n", "fh", function()
   telescope.help_tags()
-end, "silent")
+end, { silent = true })
 
--- terminal
-mapx.tnoremap("<Esc>", "<C-\\><C-n>")
-mapx.noremap("<C-S>", ":FloatermToggle<cr>")
-mapx.tnoremap("<C-S>", "<C-\\><C-n>:FloatermToggle<cr>")
+-- floaterm
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", "<C-S>", ":FloatermToggle<cr>")
+vim.keymap.set("t", "<C-S>", "<C-\\><C-n>:FloatermToggle<cr>")
 
 -- misc
-mapx.nnoremap("<C-o>", "<C-o>zz", "silent")
+vim.keymap.set("n", "<C-o>", "<C-o>zz", { silent = true })

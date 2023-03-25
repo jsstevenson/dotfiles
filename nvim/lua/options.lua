@@ -19,7 +19,7 @@ opt("o", "showmode", false) -- ????
 cmd("set signcolumn=yes:1") -- for lsp issues?
 
 opt("b", "expandtab", true)
-opt("b", "fileencoding", "utf-8")
+--opt("b", "fileencoding", "utf-8")
 opt("o", "wildmode", "longest,list")
 opt("b", "shiftwidth", 4)
 opt("b", "softtabstop", 4)

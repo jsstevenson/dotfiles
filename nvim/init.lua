@@ -9,12 +9,31 @@
 --   individual LSPs: js, tex
 --   key mapping updates
 --   set root_dir = lspconfig.util.root_pattern('.git') as global default for lsps
+
+--------------------------------------------------------------------------------
+-- bootstrap lazy.nvim
+--------------------------------------------------------------------------------
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
 --------------------------------------------------------------------------------
 -- utilities
 --------------------------------------------------------------------------------
 -- https://oroques.dev/notes/neovim-init
 
-require("packer_plugins")
+require("load_plugins")
+
 require("lsp")
 require("options")
 require("mappings")
