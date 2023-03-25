@@ -186,7 +186,11 @@ alias tmux='tmux -u'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
 # fzf
-export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'bat --style=numbers --color=always {} | head -500'"
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border"
+
+ff() {
+  fzf --preview 'bat --style=numbers --color=always {} | head -500'
+}
 
 fd() {
   local dir
