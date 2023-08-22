@@ -10,4 +10,3 @@ vim = require("vim.inspect")
 vim.lsp = require("vim.lsp")
 vim.treesitter = require("vim.treesitter")
 vim.highlight = require("vim.highlight")
-@mnarrell

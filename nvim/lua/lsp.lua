@@ -131,7 +131,7 @@ local options_html = {
 --------------------------------------------------------------------------------
 local options_julia = {
   on_attach = on_attach,
-  capabilities = capabilities_cmp
+  capabilities = capabilities_cmp,
 }
 
 --------------------------------------------------------------------------------
@@ -143,8 +143,8 @@ local options_pyright = {
   settings = {
     pyright = {
       exclude = {
-        "**/build"
-      }
+        "**/build",
+      },
     },
   },
 }
@@ -320,5 +320,5 @@ require("mason-lspconfig").setup_handlers({
   end,
   ["julials"] = function()
     lspconfig.julials.setup(options_julia)
-  end
+  end,
 })

@@ -2,7 +2,7 @@
 
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
 vim.keymap.set("", ";", ":")
-vim.keymap.set("", ";;", ":")  -- TODO fix?
+vim.keymap.set("", ";;", ":") -- TODO fix?
 
 -- map esc to clear
 vim.keymap.set("", "<esc>", ":noh<cr>")
