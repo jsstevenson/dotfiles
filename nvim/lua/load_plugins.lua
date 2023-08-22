@@ -1,22 +1,28 @@
 require("lazy").setup({
   -- theme
-  { "jsstevenson/tokyonight.nvim", branch = "new-colors"},
-  { 
+  {
+    "folke/tokyonight.nvim"
+  },
+  -- { 
+  --   "jsstevenson/tokyonight.nvim",
+  --   branch = "new-colors"
+  -- },
+  {
     "nvim-lualine/lualine.nvim", config = function()
       require("plugins.status_line")
     end,
   },
-	{
-		"akinsho/nvim-bufferline.lua",
-		dependencies = { { "kyazdani42/nvim-web-devicons" } },
-		config = function()
-			require("bufferline").setup({})
-		end
-	},
-	{
-		"mechatroner/rainbow_csv",
-		ft = { "csv", "tsv" }
-	},
+{
+	"akinsho/nvim-bufferline.lua",
+	dependencies = { { "kyazdani42/nvim-web-devicons" } },
+	config = function()
+		require("bufferline").setup({})
+	end
+},
+{
+	"mechatroner/rainbow_csv",
+	ft = { "csv", "tsv" }
+},
     {
       "voldikss/vim-floaterm",
       config = function()
@@ -31,17 +37,15 @@ require("lazy").setup({
     -- telescope
     {
       "nvim-telescope/telescope.nvim",
+      tag = '0.1.2',
       dependencies = {
-        { "nvim-lua/plenary.nvim" },
-        {
-          "nvim-telescope/telescope-fzf-native.nvim",
-          build = "make",
-        },
+        { "nvim-lua/plenary.nvim" }
       },
       config = function()
         require("plugins.telescope")
       end,
     },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
     ---- text objects & formatting
     ---- use 'wellle/targets.vim'

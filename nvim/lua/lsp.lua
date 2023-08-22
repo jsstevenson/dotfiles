@@ -127,6 +127,14 @@ local options_html = {
 }
 
 --------------------------------------------------------------------------------
+-- julia
+--------------------------------------------------------------------------------
+local options_julia = {
+  on_attach = on_attach,
+  capabilities = capabilities_cmp
+}
+
+--------------------------------------------------------------------------------
 -- python
 --------------------------------------------------------------------------------
 local options_pyright = {
@@ -310,4 +318,7 @@ require("mason-lspconfig").setup_handlers({
   ["efm"] = function()
     lspconfig.efm.setup(options_efm)
   end,
+  ["julials"] = function()
+    lspconfig.julials.setup(options_julia)
+  end
 })
