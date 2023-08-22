@@ -3,7 +3,7 @@ require("lazy").setup({
   {
     "folke/tokyonight.nvim"
   },
-  -- { 
+  -- {
   --   "jsstevenson/tokyonight.nvim",
   --   branch = "new-colors"
   -- },
@@ -23,12 +23,13 @@ require("lazy").setup({
 	"mechatroner/rainbow_csv",
 	ft = { "csv", "tsv" }
 },
-    {
-      "voldikss/vim-floaterm",
-      config = function()
-        require("plugins.floaterm")
-      end,
-    },
+  -- https://github.com/akinsho/toggleterm.nvim
+    -- {
+    --   "voldikss/vim-floaterm",
+    --   config = function()
+    --     require("plugins.floaterm")
+    --   end,
+    -- },
     {
       "rrethy/vim-hexokinase",
       build = "make hexokinase",
@@ -66,7 +67,7 @@ require("lazy").setup({
       end,
     },
 		{"tpope/vim-surround"},
-    ---- https://github.com/windwp/nvim-autopairs ?
+    -- https://github.com/windwp/nvim-autopairs ?
 		{"jiangmiao/auto-pairs"},
     {
       "jpalardy/vim-slime",
@@ -146,7 +147,7 @@ require("lazy").setup({
       end,
     },
     {
-      -- "~/code/nvim-tmux/",
+       -- "~/code/nvim-tmux/",
       "jsstevenson/nvim-tmux",
       ft = { "tmux" },
       requires = { "nvim-lua/plenary.nvim" },
