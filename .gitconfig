@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
-	name = James Stevenson
-	email = james.stevenson@nationwidechildrens.org
+    name = James Stevenson
+    email = james.stevenson@nationwidechildrens.org
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -11,7 +11,6 @@
 [submodule]
     recurse = true
 
-[alias]
 [alias]
     lg = lg1
     lg1 = lg1-specific --all
@@ -24,3 +23,25 @@
 
 [init]
     defaultBranch = main
+
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
