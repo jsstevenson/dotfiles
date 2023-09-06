@@ -28,10 +28,10 @@ if defined?(Rails)
 else
   outer_text = "irb"
 
-  if IRB.conf[:PROMPT].key? :RVM  # requires RVM
-    version = IRB.conf[:PROMPT][:RVM][:PROMPT_I].split(" ")[0]
-    middle_text = "v#{version}"
-  end
+  # if IRB.conf[:PROMPT].key? :RVM  # requires RVM
+  #   version = IRB.conf[:PROMPT][:RVM][:PROMPT_I].split(" ")[0]
+  #   middle_text = "v#{version}"
+  # end
 end
 
 outer_color = "\e[38;2;#{dark};48;2;#{outer_bg_color}m"
