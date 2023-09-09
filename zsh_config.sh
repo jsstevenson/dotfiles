@@ -146,7 +146,11 @@ export PS2="> "
 
 # bat
 export BAT_THEME="tokyonight-storm"
-
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"  # use for MAN
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
 ################################################################################
 # Commands and settings
 ################################################################################
@@ -157,13 +161,13 @@ export VISUAL=/usr/local/bin/nvim
 # readable PATH
 alias printpath="tr ':' '\n' <<< '$PATH'"
 
-# combined cd and show directory (exa)
+# combined cd and show directory (eza)
 function cd {
-    builtin cd "$@" && exa
+    builtin cd "$@" && eza
 }
 
 # colorize and append size measures
-alias ll='exa -l'
+alias ll='eza -l'
 
 # default tree args
 alias trc="tree -AC -I '__pycache__|*.egg-info|build|dynamodb_local|dist'"
