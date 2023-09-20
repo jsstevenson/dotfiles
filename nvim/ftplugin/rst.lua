@@ -1,4 +1,4 @@
 -- header shortcuts
-local mapx = require("mapx")
-mapx.nnoremap("<leader>=", "yypv$r=", "silent")
-mapx.nnoremap("<leader>-", "yypv$r-", "silent")
+vim.keymap.set("n", "<leader>=", "yypv$r=", { silent = true })
+vim.keymap.set("n", "<leader>-", "yypv$r-", { silent = true })
+vim.keymap.set("n", "<leader>+", "yypv$r+", { silent = true })
