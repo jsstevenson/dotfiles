@@ -1,5 +1,3 @@
--- local mapx = require("mapx")
-
 -- https://vim.fandom.com/wiki/Map_semicolon_to_colon
 vim.keymap.set("", ";", ":")
 vim.keymap.set("", ";;", ":") -- TODO fix?

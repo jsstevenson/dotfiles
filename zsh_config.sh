@@ -146,7 +146,11 @@ export PS2="> "
 
 # bat
 export BAT_THEME="tokyonight-storm"
-
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"  # use for MAN
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
 ################################################################################
 # Commands and settings
 ################################################################################
