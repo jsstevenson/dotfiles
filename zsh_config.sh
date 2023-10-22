@@ -35,11 +35,11 @@ get_env_name() {
     elif [[ -n "$VIRTUAL_ENV" ]]; then
         GREEN=$'%{\e[38;2;158;206;106m%}'
         echo "$GREEN\U2699 ${VIRTUAL_ENV##*/}"
-    elif [[ -n "$rvm_ruby_string" ]]; then
-        # red = "247;118;142"
-        RED=$'%{\e[38;2;247;118;142m%}'
-        RUBY_VER="${rvm_ruby_string##*/}"
-        echo "$RED\U2699 ${RUBY_VER:5}"
+    # elif [[ -n "$rvm_ruby_string" ]]; then
+    #     # red = "247;118;142"
+    #     RED=$'%{\e[38;2;247;118;142m%}'
+    #     RUBY_VER="${rvm_ruby_string##*/}"
+    #     echo "$RED\U2699 ${RUBY_VER:5}"
     fi
 }
 
@@ -209,3 +209,9 @@ fh() {
 
 # procs alias
 alias prc='procs'
+
+# cleanup docker
+cleandock() {
+  docker rm -vf $(docker ps -aq)
+  docker rmi -f $(docker images -aq)
+}

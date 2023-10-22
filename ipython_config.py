@@ -426,13 +426,6 @@ c.TerminalInteractiveShell.highlighting_style_overrides = {
 #  in orange: printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
 c.TerminalInteractiveShell.true_color = True
 
-c.TerminalInteractiveShell.shortcuts = [
-    {
-        "command": "IPython:auto_suggest.accept",
-        "new_keys": ["right"]
-    }
-]
-
 #------------------------------------------------------------------------------
 # HistoryAccessor(HistoryAccessorBase) configuration
 #------------------------------------------------------------------------------

@@ -283,9 +283,10 @@ local options_efm = {
         prettier_options,
       },
       javascript = { prettier_options },
+      graphql = { prettier_options },
     },
   },
-  -- filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript" },
+  -- filetypes = { "lua", "python", "yaml", "html", "css", "json", "javascript", "graphql" },
 }
 
 --------------------------------------------------------------------------------
