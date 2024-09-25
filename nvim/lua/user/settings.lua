@@ -16,7 +16,7 @@ opt("w", "cc", "80,88")
 opt("w", "cursorline", true)
 opt("o", "syntax", "disable") -- theoretically treesitter covers this better
 opt("o", "showmode", false) -- ????
-cmd("set signcolumn=yes:1") -- for lsp issues?
+cmd("set signcolumn=yes:1") -- for lsp issues?  TODO return to this
 
 opt("b", "expandtab", true)
 --opt("b", "fileencoding", "utf-8")
@@ -42,7 +42,6 @@ local disabled_built_ins = {
   "spellfile_plugin",
   "tutor",
 }
-
 for _, plugin in pairs(disabled_built_ins) do
   vim.g["loaded_" .. plugin] = 1
 end
