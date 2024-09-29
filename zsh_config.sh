@@ -155,8 +155,8 @@ help() {
 # Commands and settings
 ################################################################################
 
-export EDITOR=/usr/local/bin/nvim
-export VISUAL=/usr/local/bin/nvim
+export EDITOR=/opt/homebrew/bin/nvim
+export VISUAL=/opt/homebrew/bin/nvim
 
 # readable PATH
 alias printpath="tr ':' '\n' <<< '$PATH'"
