@@ -1,7 +1,7 @@
 .gitconfig
 *.log
 .gitignore
-packer_compiled.lua
-nvim/plugin/*
 .DS_Store
 .zshrc
+nvim/lazy-lock.json
+
