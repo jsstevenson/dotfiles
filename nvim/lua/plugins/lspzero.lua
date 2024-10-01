@@ -49,6 +49,8 @@ function Plugin.config()
     vim.g.lsp_zero_ui_float_border = "single"
   end)
 
+  require("lspconfig.ui.windows").default_options.border = "single"
+
   -- setup MUST go mason -> conform -> mason-conform
   require("plugins.lsp.mason")
   require("plugins.lsp.conform")
