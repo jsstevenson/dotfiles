@@ -46,7 +46,7 @@ function Plugin.config()
 
   -- setup MUST go mason -> conform -> mason-conform
   require("plugins.lsp.mason")
-  require("plugins.lsp.conform")
+  require("plugins.lsp.format")
 
   vim.keymap.set("n", "<Leader>f", function()
     require("conform").format({ async = true, lsp_fallback = true })
