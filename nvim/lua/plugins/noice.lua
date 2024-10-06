@@ -29,6 +29,22 @@ Plugin.config = function()
         },
         opts = { skip = true },
       },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "lines yanked",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "lines written",
+        },
+        opts = { skip = true },
+      },
     },
   })
 end
