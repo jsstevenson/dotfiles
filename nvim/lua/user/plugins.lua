@@ -31,7 +31,10 @@ end
 
 lazy.path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 lazy.opts = {
-  change_detection = { enabled = false}
+  change_detection = { enabled = false },
+  ui = {
+    border = "single",
+  },
 }
 
 lazy.setup({ { import = "plugins" } })
