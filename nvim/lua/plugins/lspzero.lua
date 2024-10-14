@@ -30,7 +30,7 @@ end
 
 function Plugin.config()
   local lsp_zero = require("lsp-zero")
-  lsp_zero.ui({ float_border = "single" })
+  lsp_zero.ui({ float_border = 0 })
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities() -- TODO use for other lang servers
   require("inc_rename").setup({ preview_empty_name = true })
 
