@@ -41,6 +41,30 @@ Plugin.config = function()
         filter = {
           event = "msg_show",
           kind = "",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "more line",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "fewer line",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
           find = "lines written",
         },
         opts = { skip = true },
