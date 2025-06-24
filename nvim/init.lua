@@ -6,7 +6,7 @@ end
 load("user.settings")
 load("user.commands")
 load("user.mappings")
-require("user.plugins")
+require("config.lazy")
 
 -- must be after plugin config
 pcall(vim.cmd.colorscheme, "tokyonight")

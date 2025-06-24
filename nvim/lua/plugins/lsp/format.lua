@@ -9,6 +9,7 @@ require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua", lsp_format = "never" },
     rust = { "rustfmt", lsp_format = "never" },
+    json = { "biome", lsp_format = "never" }
   },
 })
 -- must be after require("conform")
