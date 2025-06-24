@@ -26,6 +26,14 @@ function Plugin.config()
   local previewers = require("telescope.previewers")
   local actions = require("telescope.actions")
   telescope.setup({
+    -- pickers = {
+    --   live_grep = {
+    --     additional_args = function(opts)
+    --       return {"--hidden"}
+    --     end
+    --   }
+    --
+    -- },
     defaults = {
       file_previewer = previewers.vim_buffer_cat.new,
       grep_previewer = previewers.vim_buffer_vimgrep.new,

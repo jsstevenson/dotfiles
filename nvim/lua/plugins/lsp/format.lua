@@ -1,5 +1,4 @@
 -- TODO
--- * biome for js
 -- * something else for html, css, yaml
 -- * some way to rely on local ruff/whatever install if available instead of mason-provided
 require("conform").setup({
@@ -10,6 +9,7 @@ require("conform").setup({
     lua = { "stylua", lsp_format = "never" },
     rust = { "rustfmt", lsp_format = "never" },
     json = { "biome" },
+    javascript = { "biome" },
   },
 })
 -- must be after require("conform")
