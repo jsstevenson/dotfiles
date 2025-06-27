@@ -8,15 +8,16 @@ local function opt(scope, key, value)
   end
 end
 
-opt("o", "termguicolors", true)
+vim.o.termguicolors = true
 opt("w", "number", true)
 opt("w", "relativenumber", true)
 opt("o", "showmatch", true)
 opt("w", "cc", "80,88")
 opt("w", "cursorline", true)
-opt("o", "syntax", "disable") -- theoretically treesitter covers this better
-opt("o", "showmode", false) -- ????
+vim.o.syntax = "disable" -- covered by treesitter
+vim.o.showmode = false
 cmd("set signcolumn=yes:1") -- for lsp issues?  TODO return to this
+vim.o.winborder = "single"
 
 opt("b", "expandtab", true)
 --opt("b", "fileencoding", "utf-8")
@@ -24,11 +25,11 @@ opt("o", "wildmode", "longest,list")
 opt("b", "shiftwidth", 4)
 opt("b", "softtabstop", 4)
 
-opt("o", "visualbell", true)
-opt("o", "clipboard", "unnamedplus")
-opt("o", "ignorecase", true)
-opt("o", "hlsearch", true)
-opt("o", "scrolloff", 2)
+vim.o.visualbell = true
+vim.o.clipboard = "unnamedplus"
+vim.o.ignorecase = true
+vim.o.hlsearch = true
+vim.o.scrolloff = 2
 opt("o", "inccommand", "nosplit")
 
 -- disable unused stuff

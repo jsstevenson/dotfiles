@@ -13,6 +13,7 @@ local Plugins = {
   { "kylechui/nvim-surround", opts = {} },
   { "lewis6991/gitsigns.nvim", opts = {} },
   { "rhysd/conflict-marker.vim" },
+
 }
 
 return Plugins
