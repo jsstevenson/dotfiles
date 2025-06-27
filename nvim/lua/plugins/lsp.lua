@@ -26,16 +26,22 @@ function Plugin.init()
 end
 
 function Plugin.config()
-  require("plugins.lsp.mason")
+  require("mason").setup({
+    ui = {
+      border = "single",
+    },
+  })
+  require("mason-lspconfig").setup({
+    ensure_installed = { "pyright", "rust_analyzer", "lua_ls", "ruff", "biome", "ruby_lsp" },
+    handlers = {
+      function(server_name)
+        require("lspconfig")[server_name].setup({})
+      end,
+    },
+  })
+
   require("inc_rename").setup({ preview_empty_name = true })
 
---   -- setup MUST go mason -> conform -> mason-conform
---   require("plugins.lsp.mason")
---   require("plugins.lsp.format")
---
---   vim.keymap.set("n", "<Leader>f", function()
---     require("conform").format({ async = true, lsp_fallback = true })
---   end)
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     group = vim.api.nvim_create_augroup("lsp.config", {}),
