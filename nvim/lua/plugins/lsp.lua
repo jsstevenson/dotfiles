@@ -62,27 +62,28 @@ function Plugin.config()
       vim.keymap.set("n", "<leader>r", function()
         return ":IncRename " .. vim.fn.expand("<cword>")
       end, { expr = true })
-    end})
+    end
+  })
 
-    vim.lsp.config("harper_ls", {
-      settings = {
-        ["harper-ls"] = {
-          linters = {
-            SpellCheck = true,
-            SpelledNumbers = false,
-            AnA = false,
-            SentenceCapitalization = false,
-            UnclosedQuotes = false,
-            WrongQuotes = false,
-            LongSentences = false,
-            RepeatedWords = false,
-            Spaces = false,
-            Matcher = false,
-            CorrectNumberSuffix = true
-          }
+  vim.lsp.config("harper_ls", {
+    settings = {
+      ["harper-ls"] = {
+        linters = {
+          SpellCheck = true,
+          SpelledNumbers = false,
+          AnA = false,
+          SentenceCapitalization = false,
+          UnclosedQuotes = false,
+          WrongQuotes = false,
+          LongSentences = false,
+          RepeatedWords = false,
+          Spaces = false,
+          Matcher = false,
+          CorrectNumberSuffix = true
         }
       }
-    })
+    }
+  })
 end
 
 return Plugin
