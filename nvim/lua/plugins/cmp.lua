@@ -6,11 +6,11 @@ local Plugin = {
 }
 
 Plugin.opts = {
-  sources = { default = { "lsp", "path", "buffer" } } ,
+  sources = { default = { "lsp", "path", "buffer" } },
 }
-Plugin.opts_extend = {"sources.default"}
+Plugin.opts_extend = { "sources.default" }
 Plugin.dependencies = {
-  { "windwp/nvim-autopairs"}
+  { "windwp/nvim-autopairs" }
 }
 
 return Plugin

@@ -14,13 +14,13 @@ opt("w", "relativenumber", true)
 opt("o", "showmatch", true)
 opt("w", "cc", "80,88")
 opt("w", "cursorline", true)
-vim.o.syntax = "disable" -- covered by treesitter
+vim.o.syntax = "disable"    -- covered by treesitter
 vim.o.showmode = false
 cmd("set signcolumn=yes:1") -- for lsp issues?  TODO return to this
 vim.o.winborder = "single"
 
 opt("b", "expandtab", true)
---opt("b", "fileencoding", "utf-8")
+-- opt("b", "fileencoding", "utf-8")
 opt("o", "wildmode", "longest,list")
 opt("b", "shiftwidth", 4)
 opt("b", "softtabstop", 4)
