@@ -1,9 +1,9 @@
 -- TODO
 -- * figure out format
-local Plugin = {"neovim/nvim-lspconfig"}
+local Plugin = { "neovim/nvim-lspconfig" }
 
 Plugin.dependencies = {
-  { "mason-org/mason.nvim", opts = {} },
+  { "mason-org/mason.nvim",           opts = {} },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "smjonas/inc-rename.nvim" },
 }
@@ -32,12 +32,12 @@ function Plugin.config()
     },
   })
   require("mason-lspconfig").setup({
-    ensure_installed = { "pyright", "rust_analyzer", "lua_ls", "ruff", "biome", "ruby_lsp" },
-    handlers = {
-      function(server_name)
-        require("lspconfig")[server_name].setup({})
-      end,
-    },
+    ensure_installed = { "pyright", "rust_analyzer", "lua_ls", "ruff", "biome", "ruby_lsp", "harper_ls" },
+    -- handlers = {
+    --   function(server_name)
+    --     require("lspconfig")[server_name].setup({})
+    --   end,
+    -- },
   })
 
   require("inc_rename").setup({ preview_empty_name = true })
@@ -56,15 +56,33 @@ function Plugin.config()
       vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
       vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
       if client:supports_method("textDocument/formatting") then
-        vim.keymap.set({'n', 'x'}, '<leader>f', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set({ 'n', 'x' }, '<leader>f', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
       end
       -- vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
       vim.keymap.set("n", "<leader>r", function()
         return ":IncRename " .. vim.fn.expand("<cword>")
       end, { expr = true })
+    end})
 
-    end
-  })
+    vim.lsp.config("harper_ls", {
+      settings = {
+        ["harper-ls"] = {
+          linters = {
+            SpellCheck = true,
+            SpelledNumbers = false,
+            AnA = false,
+            SentenceCapitalization = false,
+            UnclosedQuotes = false,
+            WrongQuotes = false,
+            LongSentences = false,
+            RepeatedWords = false,
+            Spaces = false,
+            Matcher = false,
+            CorrectNumberSuffix = true
+          }
+        }
+      }
+    })
 end
 
 return Plugin
