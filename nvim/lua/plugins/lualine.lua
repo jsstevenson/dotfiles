@@ -23,11 +23,11 @@ function Plugin.config()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { {"branch", use_mode_colors = false } },
+      lualine_b = { { "branch", use_mode_colors = false } },
       lualine_c = { environment_name },
       lualine_x = { "encoding" },
       lualine_y = { "filetype" },
-      lualine_z = { {"filename", color = {}} },
+      lualine_z = { { "filename", color = {} } },
     },
   })
 end

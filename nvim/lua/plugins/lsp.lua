@@ -1,9 +1,10 @@
 -- TODO
 -- * figure out format
+-- * reload LSP command
 local Plugin = { "neovim/nvim-lspconfig" }
 
 Plugin.dependencies = {
-  { "mason-org/mason.nvim",           opts = {} },
+  { "mason-org/mason.nvim", opts = {} },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "smjonas/inc-rename.nvim" },
 }

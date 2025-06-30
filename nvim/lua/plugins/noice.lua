@@ -1,4 +1,4 @@
-local Plugin = { "folke/noice.nvim"}
+local Plugin = { "folke/noice.nvim" }
 Plugin.dependencies = {
   "rcarriga/nvim-notify",
   "MunifTanjim/nui.nvim",
