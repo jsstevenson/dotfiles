@@ -33,12 +33,7 @@ function Plugin.config()
     },
   })
   require("mason-lspconfig").setup({
-    ensure_installed = { "pyright", "rust_analyzer", "lua_ls", "ruff", "biome", "ruby_lsp", "harper_ls" },
-    -- handlers = {
-    --   function(server_name)
-    --     require("lspconfig")[server_name].setup({})
-    --   end,
-    -- },
+    ensure_installed = { "pyright", "rust_analyzer", "lua_ls", "ruff", "biome", "ruby_lsp" },
   })
 
   require("inc_rename").setup({ preview_empty_name = true })
@@ -64,26 +59,6 @@ function Plugin.config()
         return ":IncRename " .. vim.fn.expand("<cword>")
       end, { expr = true })
     end
-  })
-
-  vim.lsp.config("harper_ls", {
-    settings = {
-      ["harper-ls"] = {
-        linters = {
-          SpellCheck = true,
-          SpelledNumbers = false,
-          AnA = false,
-          SentenceCapitalization = false,
-          UnclosedQuotes = false,
-          WrongQuotes = false,
-          LongSentences = false,
-          RepeatedWords = false,
-          Spaces = false,
-          Matcher = false,
-          CorrectNumberSuffix = true
-        }
-      }
-    }
   })
 end
 
