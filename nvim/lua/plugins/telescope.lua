@@ -15,7 +15,7 @@ function Plugin.init()
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { silent = true })
   -- vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>')
   -- vim.keymap.set('n', '<leader><space>', '<cmd>Telescope buffers<cr>')
-  vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
+  vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
   -- vim.keymap.set('n', 'fh', '<cmd>Telescope help_tags')
 end
 
