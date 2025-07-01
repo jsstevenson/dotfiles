@@ -10,7 +10,7 @@ Plugin.opts = {
 }
 Plugin.opts_extend = { "sources.default" }
 Plugin.dependencies = {
-  { "windwp/nvim-autopairs" }
+  { "windwp/nvim-autopairs" },
 }
 
 return Plugin
