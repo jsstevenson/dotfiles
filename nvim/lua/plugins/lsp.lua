@@ -69,9 +69,7 @@ function Plugin.config()
       vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
       vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
       vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-      vim.keymap.set("n", "<leader>r", function()
-        return ":IncRename " .. vim.fn.expand("<cword>")
-      end, { expr = true })
+      vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
     end,
   })
 end
