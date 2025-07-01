@@ -9,7 +9,7 @@ Plugin.dependencies = {
   { "mason-org/mason.nvim", opts = {}, cmd = { "Mason" } },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "stevearc/conform.nvim", opts = {} },
-  { "smjonas/inc-rename.nvim" },
+  -- { "smjonas/inc-rename.nvim" }, -- not working?
   { "stevearc/conform.nvim" },
   { "zapling/mason-conform.nvim" },
 }
@@ -55,7 +55,7 @@ function Plugin.config()
     },
   })
 
-  require("inc_rename").setup({ preview_empty_name = true })
+  -- require("inc_rename").setup({ preview_empty_name = true })
 
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
