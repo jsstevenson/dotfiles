@@ -9,7 +9,7 @@ Plugin.dependencies = {
   { "mason-org/mason.nvim", opts = {}, cmd = { "Mason" } },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "stevearc/conform.nvim", opts = {} },
-  { "smjonas/inc-rename.nvim" }, -- not working?
+  { "smjonas/inc-rename.nvim" },
   { "stevearc/conform.nvim" },
   { "zapling/mason-conform.nvim" },
 }
