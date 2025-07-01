@@ -9,7 +9,7 @@ Plugin.dependencies = {
   { "mason-org/mason.nvim", opts = {}, cmd = { "Mason" } },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "stevearc/conform.nvim", opts = {} },
-  -- { "smjonas/inc-rename.nvim" }, -- not working?
+  { "smjonas/inc-rename.nvim" }, -- not working?
   { "stevearc/conform.nvim" },
   { "zapling/mason-conform.nvim" },
 }
@@ -55,7 +55,7 @@ function Plugin.config()
     },
   })
 
-  -- require("inc_rename").setup({ preview_empty_name = true })
+  require("inc_rename").setup({ preview_empty_name = true })
 
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
@@ -69,7 +69,9 @@ function Plugin.config()
       vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
       vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
       vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-      vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+      vim.keymap.set("n", "<leader>r", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
     end,
   })
 end
