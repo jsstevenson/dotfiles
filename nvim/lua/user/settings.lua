@@ -32,6 +32,10 @@ vim.o.hlsearch = true
 vim.o.scrolloff = 2
 opt("o", "inccommand", "nosplit")
 
+-- spelling
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
+
 -- disable unused stuff
 local disabled_built_ins = {
   "netrwFileHandlers",
