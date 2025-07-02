@@ -36,6 +36,19 @@ opt("o", "inccommand", "nosplit")
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
 
+vim.api.nvim_create_user_command("MkSpellFT", function()
+  local spellfiles = vim.opt_local.spellfile:get()
+  if not spellfiles or #spellfiles == 0 then
+    print("No spellfile set for this buffer")
+    return
+  end
+
+  for _, spellfile in ipairs(spellfiles) do
+    vim.cmd("mkspell! " .. spellfile)
+    print("Compiled spellfile: " .. spellfile)
+  end
+end, {})
+
 -- disable unused stuff
 local disabled_built_ins = {
   "netrwFileHandlers",
