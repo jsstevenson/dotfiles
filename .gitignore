@@ -4,4 +4,4 @@
 .DS_Store
 .zshrc
 nvim/lazy-lock.json
-
+*.add.spl
