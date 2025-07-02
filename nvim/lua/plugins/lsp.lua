@@ -1,15 +1,14 @@
 -- TODO
--- * figure out autoimport
 -- * reload LSP command
 -- * figure out snippets
--- * would be nice to see if there's a way to identify configs being used
+-- * would be nice to see if there's a way to identify config file and/or env binary being used
 local Plugin = { "neovim/nvim-lspconfig" }
 
 Plugin.dependencies = {
   { "mason-org/mason.nvim", opts = {}, cmd = { "Mason" } },
   { "mason-org/mason-lspconfig.nvim", opts = {} },
   { "stevearc/conform.nvim", opts = {} },
-  -- { "smjonas/inc-rename.nvim" }, -- not working?
+  { "smjonas/inc-rename.nvim" },
   { "stevearc/conform.nvim" },
   { "zapling/mason-conform.nvim" },
 }
@@ -55,7 +54,7 @@ function Plugin.config()
     },
   })
 
-  -- require("inc_rename").setup({ preview_empty_name = true })
+  require("inc_rename").setup({ preview_empty_name = true })
 
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
