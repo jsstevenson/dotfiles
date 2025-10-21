@@ -22,12 +22,14 @@
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
     arc = archive -v -o archive.zip --format=zip HEAD
+    gp = push origin HEAD
+    gpo = push -u origin HEAD
 
 [init]
     defaultBranch = main
 
 [credential]
-	helper = 
+	helper =
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
@@ -47,3 +49,5 @@
 
 [diff]
     colorMoved = default
+[credential "https://git-codecommit.us-east-2.amazonaws.com"]
+	provider = generic
