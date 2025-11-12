@@ -12,6 +12,12 @@ conform.setup({
     rust = { "rustfmt", lsp_format = "never" },
     json = { "biome", lsp_format = "never" },
     python = { "ruff_format", lsp_format = "never" },
+    typescriptreact = { "biome", lsp_format = "never" },
+  },
+  formatters = {
+    biome = {
+      append_args = { "--format-with-errors", "true" },
+    },
   },
 })
 vim.keymap.set("n", "<Leader>f", function()
