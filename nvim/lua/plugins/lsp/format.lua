@@ -12,6 +12,7 @@ conform.setup({
     rust = { "rustfmt", lsp_format = "never" },
     json = { "biome", lsp_format = "never" },
     python = { "ruff_format", lsp_format = "never" },
+    javascript = { "biome", lsp_format = "never" },
     typescriptreact = { "biome", lsp_format = "never" },
   },
   formatters = {

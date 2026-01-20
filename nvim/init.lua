@@ -9,4 +9,4 @@ load("user.mappings")
 require("config.lazy")
 
 -- must be after plugin config
-pcall(vim.cmd.colorscheme, "tokyonight")
+pcall(vim.cmd.colorscheme, "tokyonight-storm")
