@@ -27,6 +27,7 @@ function Plugin.config()
   local actions = require("telescope.actions")
   telescope.setup({
     defaults = {
+      layout_strategy = "vertical",
       file_previewer = previewers.vim_buffer_cat.new,
       grep_previewer = previewers.vim_buffer_vimgrep.new,
       mappings = {
@@ -36,14 +37,21 @@ function Plugin.config()
           ["<esc>"] = actions.close,
         },
       },
-      layout_strategy = "vertical",
+
+      file_ignore_patterns = {
+        "node_modules",
+        "site-packages",
+        "build",
+        "dist",
+        ".venv",
+      },
     },
-    file_ignore_patterns = {
-      "node_modules",
-      "site-packages",
-      "build",
-      "dist",
-      ".venv",
+    pickers = {
+      live_grep = {
+        additional_args = function()
+          return { "--hidden", "--glob", "!.git/*" }
+        end,
+      },
     },
   })
 end
