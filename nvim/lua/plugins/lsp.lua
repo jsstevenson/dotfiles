@@ -32,6 +32,7 @@ end
 
 function Plugin.config()
   require("mason").setup({
+    PATH = "append", -- not currently working -- maybe an issue with all these mason plugins?
     ui = {
       border = "single",
     },
