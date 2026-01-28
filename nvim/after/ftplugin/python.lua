@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
 
 -- add underlining command for Numpy-style docstrings
 vim.keymap.set("n", "<leader>p", function()
-  require("user.underline").prompt_and_underline()
+  require("user.functions").prompt_and_underline()
 end, { buffer = true, silent = true, desc = "Underline header (prompt char)" })
 
 -- python-specific spellfile
